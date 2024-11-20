@@ -2,7 +2,7 @@
 
 ```mermaid
 sequenceDiagram
-    title Creating a new note
+    title Create a new note
 
     box Client-side
         actor U as user
