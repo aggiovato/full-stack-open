@@ -1,19 +1,21 @@
 const Part = (props) => {
+  const { part } = props;
   return (
     <>
       <p>
-        {props.part} {props.exercises}
+        {part.name} {part.exercises}
       </p>
     </>
   );
 };
 
 const Content = (props) => {
+  const { part1, part2, part3 } = props;
   return (
     <>
-      <Part part={props.part1} exercises={props.exercises1} />
-      <Part part={props.part2} exercises={props.exercises2} />
-      <Part part={props.part3} exercises={props.exercises3} />
+      <Part part={part1} />
+      <Part part={part2} />
+      <Part part={part3} />
     </>
   );
 };
