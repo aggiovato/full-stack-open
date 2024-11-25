@@ -1,4 +1,4 @@
-const Button = ({ text, onClick }) => <button onClick={onClick}>{text}</button>;
+import Button from "./Button";
 
 const Feedback = ({ onFeedback }) => {
   // onFeedback is a reference to the function passed as a prop so it prints the handleFeedback definition

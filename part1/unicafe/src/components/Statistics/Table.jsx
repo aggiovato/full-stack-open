@@ -1,24 +1,6 @@
-import { all, average, positive } from "../utils/helpers";
+import StatisticLine from "./StatisticLine";
 
-const StatisticLine = ({ text, value }) => (
-  <tr>
-    <td
-      style={{
-        paddingRight: "20px",
-        fontWeight: "bold",
-      }}
-    >
-      {text}
-    </td>
-    {/* If the value is a percentage*/}
-    {/* we display it as a span with a % sign */}
-    {text === "Positive" ? (
-      <td align="right">{value} %</td>
-    ) : (
-      <td align="right">{value}</td>
-    )}
-  </tr>
-);
+import { all, average, positive } from "../../utils/helpers";
 
 const Table = ({ stats }) => {
   const { good, neutral, bad } = stats;
@@ -49,13 +31,4 @@ const Table = ({ stats }) => {
   );
 };
 
-const Statistics = ({ stats }) => {
-  return (
-    <>
-      <h1>Statistics</h1>
-      <Table stats={stats} />
-    </>
-  );
-};
-
-export default Statistics;
+export default Table;
