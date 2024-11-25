@@ -1,5 +1,7 @@
 # Anecdotes
 
+![Anecdotes app preview](./src/assets/anecdotes_preview.png)
+
 This is a simple project that displays a random anecdote. This project is part of the Full Stack Open course and covers exercises 1.12 to 1.15.
 
 ## Getting Started

@@ -1,5 +1,7 @@
 # Courses
 
+![Courses app preview](./src/assets/courses_preview.png)
+
 This is a simple project that displays a list of courses. This project is part of the Full Stack Open course and covers exercises 1.1 to 1.5.
 
 ## Getting Started

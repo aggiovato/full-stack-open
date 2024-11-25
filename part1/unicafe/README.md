@@ -1,5 +1,7 @@
 # Unicafe
 
+![Unicafe app preview](./src/assets/unicafe_preview.png)
+
 This is a simple feedback system that allows users to provide feedback on a product. This project is part of the Full Stack Open course and covers exercises 1.6 to 1.11.
 
 ## Getting Started
