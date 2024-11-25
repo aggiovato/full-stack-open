@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import Feedback from "./components/Feedback";
 import Statistics from "./components/Statistics";
 
@@ -13,7 +12,6 @@ const App = () => {
 
   // Handle feedback from pressing buttons
   const handleFeedback = (type) => () => {
-    console.log(type);
     setStats((prevStats) => ({
       ...prevStats,
       [type]: prevStats[type] + 1,
