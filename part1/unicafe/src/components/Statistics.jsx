@@ -5,13 +5,14 @@ const Statistics = ({ stats }) => {
   return (
     <>
       <h1>Statistics</h1>
-      <p>Good: {good}</p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <p>All: {all(good, neutral, bad)}</p>
-      {/* toFixed(2) rounds to 2 decimal places */}
-      <p>Average: {average(good, neutral, bad).toFixed(2)}</p>
-      <p>Positive: {positive(good, neutral, bad).toFixed(2)} %</p>
+      <ul>
+        <li>Good: {good}</li>
+        <li>Neutral: {neutral}</li>
+        <li>Bad: {bad}</li>
+        <li>All: {all(good, neutral, bad)}</li>
+        <li>Average: {average(good, neutral, bad).toFixed(2)}</li>
+        <li>Positive: {positive(good, neutral, bad).toFixed(2)} %</li>
+      </ul>
     </>
   );
 };
