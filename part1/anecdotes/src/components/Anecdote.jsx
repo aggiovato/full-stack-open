@@ -1,13 +1,21 @@
 import styled from "styled-components";
 
-const Anecdote = ({ random, votes }) => {
+const Anecdote = ({ random, votes, isMostVoted }) => {
   return (
     <>
       <CardContainer>
-        <Card>
-          <Description>{random}</Description>
-          <Votes>{`votes: ${votes}`}</Votes>
-        </Card>
+        {isMostVoted ? (
+          <GoldenCard>
+            <Title>Most voted anecdote</Title>
+            <GoldenDescription>{random}</GoldenDescription>
+            <GoldenVotes>{votes}</GoldenVotes>
+          </GoldenCard>
+        ) : (
+          <Card>
+            <Description>{random}</Description>
+            <Votes>{`votes: ${votes}`}</Votes>
+          </Card>
+        )}
       </CardContainer>
     </>
   );
@@ -45,9 +53,55 @@ const Card = styled.div`
   }
 `;
 
+const GoldenCard = styled(Card)`
+  margin-top: 25px;
+  background-color: #fffbea;
+  border: 2px solid #ffd700;
+  box-shadow: 0 4px 6px rgba(255, 215, 0, 0.5);
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border: 3px solid rgba(255, 223, 0, 0.8);
+    border-radius: 15px;
+    z-index: -1;
+  }
+
+  &:hover {
+    transform: none;
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.7);
+  }
+`;
+
+const Title = styled.p`
+  position: absolute;
+  top: -70px;
+  left: -10px;
+  background-color: #d1b419;
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 10px 16px;
+  border-radius: 50px;
+  box-shadow: 0 2px 4px rgba(255, 215, 0, 0.5);
+  text-align: center;
+`;
+
 const Description = styled.p`
   font-size: 1rem;
   color: #666;
+`;
+
+const GoldenDescription = styled(Description)`
+  color: #b8860b;
+  background-color: #fff5d7;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(255, 215, 0, 0.5);
+  margin: 10px 0;
 `;
 
 const Votes = styled.p`
@@ -62,4 +116,13 @@ const Votes = styled.p`
   border-radius: 50px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   text-align: center;
+`;
+
+const GoldenVotes = styled(Votes)`
+  top: -35px;
+  right: -27px;
+  transform: rotate(13deg);
+  background-color: #d1b419;
+  padding: 10px 16px;
+  box-shadow: 0 2px 4px rgba(255, 215, 0, 0.5);
 `;

@@ -3,7 +3,7 @@ import Anecdote from "./components/Anecdote";
 import Button from "./components/Button";
 
 import { anecdotes } from "./utils/data";
-import { randomize } from "./utils/helpers";
+import { randomize, getMostVotedKey } from "./utils/helpers";
 import styled from "styled-components";
 
 const App = () => {
@@ -18,6 +18,8 @@ const App = () => {
     6: 0,
     7: 0, // The number of votes for each anecdote
   });
+
+  const mostVotedKey = getMostVotedKey(votes);
 
   // Handle clicking Next anecdote button
   const handleNext = () => {
@@ -38,13 +40,22 @@ const App = () => {
 
   return (
     <>
-      <Header>A random anecdote</Header>
+      <Header1>Anecdote of the day</Header1>
+
       <ButtonsContainer>
         <Button variant={"red"} onClick={handleVote} text="Vote" />
         <Button variant={"green"} onClick={handleNext} text="Next anecdote" />
       </ButtonsContainer>
 
       <Anecdote random={anecdotes[selected]} votes={votes[selected]} />
+
+      {!(votes[mostVotedKey] === 0) && (
+        <Anecdote
+          random={anecdotes[mostVotedKey]}
+          votes={votes[mostVotedKey]}
+          isMostVoted
+        />
+      )}
     </>
   );
 };
@@ -56,12 +67,12 @@ export default App;
  * STYLED COMPONENTS
  *
  */
-const Header = styled.h1`
+const Header1 = styled.h1`
   text-align: center;
   margin-bottom: 30px;
   margin-left: 20px;
   margin-right: 20px;
-  font-size: 2rem;
+  font-size: 1.7rem;
   font-weight: bold;
   color: #333;
   background-color: #f4f4f4;
