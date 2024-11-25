@@ -1,8 +1,25 @@
-# React + Vite
+# Courses
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple project that displays a list of courses. This project is part of the Full Stack Open course and covers exercises 1.1 to 1.5.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
+
+- Node.js
+- NPM
+
+### Installation
+
+1. Clone the repository
+2. Navigate to the project directory
+3. Install the dependencies by running `npm install`
+4. Start the development server by running `npm start`
+
+## Usage
+
+The application is a simple React application that displays a list of courses.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
