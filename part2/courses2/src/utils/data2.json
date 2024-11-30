@@ -58,6 +58,22 @@
   },
   {
     "id": 3,
+    "course_name": "Node.js",
+    "parts": [
+      {
+        "name": "Routing",
+        "exercises": 3,
+        "id": 1
+      },
+      {
+        "name": "Middlewares",
+        "exercises": 7,
+        "id": 2
+      }
+    ]
+  },
+  {
+    "id": 4,
     "course_name": "Data Science with Python",
     "parts": [
       {
@@ -83,7 +99,7 @@
     ]
   },
   {
-    "id": 4,
+    "id": 5,
     "course_name": "Mobile App Development with React Native",
     "parts": [
       {
