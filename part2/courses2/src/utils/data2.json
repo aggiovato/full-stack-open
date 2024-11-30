@@ -1,0 +1,111 @@
+[
+  {
+    "id": 1,
+    "course_name": "Half Stack application development",
+    "parts": [
+      {
+        "name": "Fundamentals of React",
+        "exercises": 10,
+        "id": 1
+      },
+      {
+        "name": "Using props to pass data",
+        "exercises": 7,
+        "id": 2
+      },
+      {
+        "name": "State of a component",
+        "exercises": 14,
+        "id": 3
+      },
+      {
+        "name": "Redux for state management",
+        "exercises": 11,
+        "id": 4
+      },
+      {
+        "name": "React Router",
+        "exercises": 8,
+        "id": 5
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "course_name": "Full Stack application development",
+    "parts": [
+      {
+        "name": "Node.js Basics",
+        "exercises": 12,
+        "id": 1
+      },
+      {
+        "name": "Express.js Framework",
+        "exercises": 10,
+        "id": 2
+      },
+      {
+        "name": "Database with MongoDB",
+        "exercises": 15,
+        "id": 3
+      },
+      {
+        "name": "Authentication and Authorization",
+        "exercises": 9,
+        "id": 4
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "course_name": "Data Science with Python",
+    "parts": [
+      {
+        "name": "Python Basics",
+        "exercises": 8,
+        "id": 1
+      },
+      {
+        "name": "Data Manipulation with Pandas",
+        "exercises": 14,
+        "id": 2
+      },
+      {
+        "name": "Data Visualization with Matplotlib",
+        "exercises": 12,
+        "id": 3
+      },
+      {
+        "name": "Machine Learning Basics",
+        "exercises": 16,
+        "id": 4
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "course_name": "Mobile App Development with React Native",
+    "parts": [
+      {
+        "name": "Introduction to React Native",
+        "exercises": 9,
+        "id": 1
+      },
+      {
+        "name": "Building UI Components",
+        "exercises": 11,
+        "id": 2
+      },
+      {
+        "name": "State Management with Context API",
+        "exercises": 10,
+        "id": 3
+      },
+      {
+        "name": "Deploying to App Stores",
+        "exercises": 7,
+        "id": 4
+      }
+    ]
+  }
+]
