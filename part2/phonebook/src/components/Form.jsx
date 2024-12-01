@@ -49,7 +49,7 @@ const Form = ({ list, handleList }) => {
   return (
     <>
       <FormContainer>
-        <FormTitle>Phonebook</FormTitle>
+        <FormTitle>New contact</FormTitle>
         <form onSubmit={handleSubmit}>
           <FormInput
             id="name"

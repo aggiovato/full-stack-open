@@ -7,5 +7,5 @@ export const isAdded = (list, person) => {
 };
 
 export const isValidPhone = (phone) => {
-  return /^\+?[\d]+([-. ]?[\d]+)*$/.test(phone);
+  return /^\+?[\d]{1,13}([-. ]?[\d]{1,13})*$/.test(phone);
 };

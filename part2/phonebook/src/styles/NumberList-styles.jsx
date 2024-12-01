@@ -13,7 +13,11 @@ export const ListContainer = styled.div`
   justify-content: center;
   padding: 20px;
   margin: 20px auto;
-  width: 300px;
+  width: 450px;
+
+  @media (max-width: 480px) {
+    width: 350px;
+  }
 `;
 
 export const ListTitle = styled.h2`
@@ -48,16 +52,22 @@ export const NumberText = styled.p`
   font-size: 1rem;
   font-weight: bold;
   color: #444;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 `;
 
 export const StyFaPhone = styled(FaPhone)`
-  margin-left: 5px;
+  margin-left: 3px;
   color: #444;
+  padding: 2px;
   transition: transform 0.4s ease-in-out, rotate 0.4s ease-in-out;
   transform: translateY(2px);
+  transform: translateX(-2px);
 
   &:hover {
-    transform: rotate(15deg) scale(1.2);
+    transform: rotate(10deg) scale(1.15);
   }
 `;
 
