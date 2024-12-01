@@ -20,6 +20,10 @@ export const ListTitle = styled.h2`
   margin-top: 0;
   font-size: 1.8rem;
   text-align: center;
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const Number = styled.div`

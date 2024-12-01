@@ -5,18 +5,23 @@ import {
   FormInput,
   FormButton,
 } from "../styles/Form-styles.jsx";
+import { isAdded } from "../utils/helpers.js";
 
 const Form = ({ list, handleList }) => {
-  const [newName, setNewName] = useState("");
+  const [newName, setNewName] = useState(""); // State to store the new name
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent the default form submission
 
-    // Add new person to the list if not empty
-    newName && handleList(list.concat({ name: newName }));
+    const trimmed_name = newName.trim(); // Remove spaces from the beginning and end of the string
+    const is_added = isAdded(list, trimmed_name); // Check if the name is already in the list
+    trimmed_name && !is_added
+      ? handleList(list.concat({ name: trimmed_name }))
+      : is_added
+      ? alert(`${trimmed_name} is already added to phonebook`)
+      : null;
 
-    // Reset the form
-    setNewName("");
+    setNewName(""); // Reset the form
   };
 
   return (

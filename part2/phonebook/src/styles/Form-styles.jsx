@@ -41,7 +41,7 @@ export const FormTitle = styled.h2`
   text-align: center;
 
   @media (max-width: 480px) {
-    font-size: 1.5rem; /* Reduce el tamaño de fuente */
+    font-size: 1.5rem;
   }
 `;
 
