@@ -5,7 +5,9 @@ import NumberList from "./components/NumberList.jsx";
 import { useState } from "react";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", phone: "040-1234567" },
+  ]);
 
   return (
     <div>

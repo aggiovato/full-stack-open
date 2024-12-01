@@ -1,11 +1,12 @@
-import { GoDot } from "react-icons/go";
 import {
   ListContainer,
   ListTitle,
   Number,
   NumberText,
-  StyFaPlus,
+  StyFaPhone,
+  StyIoPerson,
 } from "../styles/NumberList-styles.jsx";
+
 const NumberList = ({ list }) => {
   return (
     <>
@@ -13,11 +14,13 @@ const NumberList = ({ list }) => {
         <ListTitle>Numbers</ListTitle>
         {list.map((person) => {
           return (
-            <Number key={person.name}>
+            <Number key={person.name + person.phone}>
               <NumberText>
-                <GoDot /> {person.name}
+                <StyIoPerson /> {person.name}
               </NumberText>
-              <StyFaPlus />
+              <NumberText>
+                {person.phone} <StyFaPhone />
+              </NumberText>
             </Number>
           );
         })}

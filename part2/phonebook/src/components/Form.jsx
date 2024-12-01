@@ -5,23 +5,45 @@ import {
   FormInput,
   FormButton,
 } from "../styles/Form-styles.jsx";
-import { isAdded } from "../utils/helpers.js";
+import { isAdded, isValidPhone } from "../utils/helpers.js";
 
 const Form = ({ list, handleList }) => {
-  const [newName, setNewName] = useState(""); // State to store the new name
+  const [newPerson, setNewPerson] = useState({ name: "", phone: "" });
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault();
 
-    const trimmed_name = newName.trim(); // Remove spaces from the beginning and end of the string
-    const is_added = isAdded(list, trimmed_name); // Check if the name is already in the list
-    trimmed_name && !is_added
-      ? handleList(list.concat({ name: trimmed_name }))
+    if (!isValidPhone(newPerson.phone)) {
+      alert(`The phone number ${newPerson.phone} is not valid`);
+      setNewPerson((prevPerson) => ({ ...prevPerson, phone: "" }));
+      return;
+    }
+
+    let trimmed_person = {
+      ...newPerson,
+      name: newPerson.name.trim(),
+      phone: newPerson.phone.trim(),
+    };
+
+    const is_added = isAdded(list, trimmed_person);
+
+    trimmed_person.name && trimmed_person.phone && !is_added
+      ? handleList(list.concat(trimmed_person))
       : is_added
-      ? alert(`${trimmed_name} is already added to phonebook`)
+      ? alert(
+          `${trimmed_person.name} with phone number ${trimmed_person.phone} is already added to phonebook`
+        )
       : null;
 
-    setNewName(""); // Reset the form
+    setNewPerson({ name: "", phone: "" });
+  };
+
+  const handleNameChange = (event) => {
+    setNewPerson({ ...newPerson, name: event.target.value });
+  };
+
+  const handlePhoneChange = (event) => {
+    setNewPerson({ ...newPerson, phone: event.target.value });
   };
 
   return (
@@ -29,18 +51,22 @@ const Form = ({ list, handleList }) => {
       <FormContainer>
         <FormTitle>Phonebook</FormTitle>
         <form onSubmit={handleSubmit}>
-          <div>
-            <FormInput
-              id="name"
-              type="text"
-              placeholder="Write your name"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-            />
-          </div>
-          <div>
-            <FormButton type="submit">Add</FormButton>
-          </div>
+          <FormInput
+            id="name"
+            type="text"
+            placeholder="Name"
+            value={newPerson.name}
+            onChange={handleNameChange}
+          />
+          <FormInput
+            id="phone"
+            type="tel"
+            placeholder="Phone number"
+            value={newPerson.phone}
+            onChange={handlePhoneChange}
+          />
+
+          <FormButton type="submit">Add</FormButton>
         </form>
       </FormContainer>
     </>

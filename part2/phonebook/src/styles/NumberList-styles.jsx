@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { FaPlus } from "react-icons/fa";
+import { FaPhone } from "react-icons/fa";
+import { IoPerson } from "react-icons/io5";
 
 /**
  *
@@ -49,12 +50,24 @@ export const NumberText = styled.p`
   color: #444;
 `;
 
-export const StyFaPlus = styled(FaPlus)`
-  margin-left: 10px;
+export const StyFaPhone = styled(FaPhone)`
+  margin-left: 5px;
   color: #444;
   transition: transform 0.4s ease-in-out, rotate 0.4s ease-in-out;
+  transform: translateY(2px);
 
   &:hover {
     transform: rotate(15deg) scale(1.2);
+  }
+`;
+
+export const StyIoPerson = styled(IoPerson)`
+  margin-right: 5px;
+  color: #444;
+  transition: transform 0.4s ease-in-out, rotate 0.4s ease-in-out;
+  transform: translateY(2px);
+
+  &:hover {
+    transform: rotate(-15deg) scale(1.2);
   }
 `;
