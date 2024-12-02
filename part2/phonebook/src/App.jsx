@@ -8,7 +8,7 @@ import NumberList from "@components/NumberList.jsx";
 
 const SERVER_URL = "http://localhost:3001/contacts";
 const SERVER_URL_CLOUDFLARED =
-  "https://moldova-frontpage-permanent-finland.trycloudflare.com/contacts";
+  " https://cave-rocket-considered-tutorials.trycloudflare.com/contacts";
 // Temporary deployed server on Cloudflare
 /**
  * To use this service you need to install (on windows):
@@ -27,7 +27,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get(SERVER_URL_CLOUDFLARED)
+      .get(SERVER_URL)
       .then((response) => {
         setContacts(response.data);
         // console.log(response.data);
