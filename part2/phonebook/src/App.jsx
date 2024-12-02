@@ -1,33 +1,29 @@
-// import styled from "styled-components";
-import { createGlobalStyle } from "styled-components";
-import Filter from "./components/Filter.jsx";
-import Form from "./components/Form.jsx";
-import NumberList from "./components/NumberList.jsx";
-
 import { useState } from "react";
+import { createGlobalStyle } from "styled-components";
+
+import Filter from "@components/Filter.jsx";
+import Form from "@components/Form.jsx";
+import NumberList from "@components/NumberList.jsx";
+
+import contactData from "@data";
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", phone: "040-123456", id: 1 },
-    { name: "Ada Lovelace", phone: "39-44-5323523", id: 2 },
-    { name: "Dan Abramov", phone: "12-43-234345", id: 3 },
-    { name: "Mary Poppendieck", phone: "39-23-6423122", id: 4 },
-  ]);
+  const [contacts, setContacts] = useState(contactData);
 
-  const [filteredPersons, setFilteredPersons] = useState(persons);
+  const [filteredContacts, setFilteredContacts] = useState(contacts);
 
-  const handleListUpdate = (newPersons) => {
-    setPersons(newPersons);
-    setFilteredPersons(newPersons);
+  const handleListUpdate = (newContacts) => {
+    setContacts(newContacts);
+    setFilteredContacts(newContacts);
   };
 
   const handleFilter = (searchQuery) => {
     if (!searchQuery) {
-      setFilteredPersons(persons);
+      setFilteredContacts(contacts);
     } else {
-      setFilteredPersons(
-        persons.filter((person) =>
-          person.name.toLowerCase().includes(searchQuery.toLowerCase())
+      setFilteredContacts(
+        contacts.filter((contact) =>
+          contact.name.toLowerCase().includes(searchQuery.toLowerCase().trim())
         )
       );
     }
@@ -38,8 +34,8 @@ const App = () => {
       <GlobalStyle />
       <Filter handleFilter={handleFilter} />
 
-      <Form list={persons} handleList={handleListUpdate} />
-      <NumberList list={filteredPersons} />
+      <Form list={contacts} handleList={handleListUpdate} />
+      <NumberList list={filteredContacts} />
     </div>
   );
 };

@@ -4,7 +4,7 @@ import {
   FilterInput,
   StyIoSearch,
   FilterLine,
-} from "../styles/Filter-styles.jsx";
+} from "@styles/Filter.styles.jsx";
 
 const Filter = ({ handleFilter }) => {
   const handleFilterChange = (event) => {

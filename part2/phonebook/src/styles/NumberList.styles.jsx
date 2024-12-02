@@ -15,7 +15,7 @@ export const ListContainer = styled.div`
   margin: 20px auto;
   width: 450px;
 
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     width: 350px;
   }
 `;
@@ -26,12 +26,12 @@ export const ListTitle = styled.h2`
   font-size: 1.8rem;
   text-align: center;
 
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     font-size: 1.5rem;
   }
 `;
 
-export const Number = styled.div`
+export const Number = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,6 +44,12 @@ export const Number = styled.div`
 
   &:hover {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(1px);
+    background-color: #d6d6d6;
+    border: 1px solid #ccc;
   }
 `;
 

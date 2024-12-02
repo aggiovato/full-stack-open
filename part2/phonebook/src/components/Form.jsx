@@ -1,28 +1,31 @@
 import { useState } from "react";
+
 import {
   FormContainer,
   FormTitle,
   FormInput,
   FormButton,
-} from "../styles/Form-styles.jsx";
-import { isAdded, isValidPhone } from "../utils/helpers.js";
+} from "@styles/Form.styles.jsx";
+
+import { isAdded, isValidPhone } from "@helpers";
 
 const Form = ({ list, handleList }) => {
-  const [newPerson, setNewPerson] = useState({ name: "", phone: "" });
+  const [newContact, setNewContact] = useState({ name: "", phone: "" });
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!isValidPhone(newPerson.phone)) {
-      alert(`The phone number ${newPerson.phone} is not valid`);
-      setNewPerson((prevPerson) => ({ ...prevPerson, phone: "" }));
+    if (!isValidPhone(newContact.phone)) {
+      alert(`The phone number ${newContact.phone} is not valid`);
+      setNewContact((prevPerson) => ({ ...prevPerson, phone: "" }));
       return;
     }
 
     let trimmed_person = {
-      ...newPerson,
-      name: newPerson.name.trim(),
-      phone: newPerson.phone.trim(),
+      ...newContact,
+      name: newContact.name.trim(),
+      phone: newContact.phone.trim(),
+      id: list.length + 1,
     };
 
     const is_added = isAdded(list, trimmed_person);
@@ -35,15 +38,15 @@ const Form = ({ list, handleList }) => {
         )
       : null;
 
-    setNewPerson({ name: "", phone: "" });
+    setNewContact({ name: "", phone: "" });
   };
 
   const handleNameChange = (event) => {
-    setNewPerson({ ...newPerson, name: event.target.value });
+    setNewContact({ ...newContact, name: event.target.value });
   };
 
   const handlePhoneChange = (event) => {
-    setNewPerson({ ...newPerson, phone: event.target.value });
+    setNewContact({ ...newContact, phone: event.target.value });
   };
 
   return (
@@ -55,14 +58,14 @@ const Form = ({ list, handleList }) => {
             id="name"
             type="text"
             placeholder="Name"
-            value={newPerson.name}
+            value={newContact.name}
             onChange={handleNameChange}
           />
           <FormInput
             id="phone"
             type="tel"
             placeholder="Phone number"
-            value={newPerson.phone}
+            value={newContact.phone}
             onChange={handlePhoneChange}
           />
 

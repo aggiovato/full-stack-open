@@ -17,11 +17,27 @@ export default [
         sourceType: "module",
       },
     },
-    settings: { react: { version: "18.3" } },
+    settings: {
+      react: { version: "18.3" },
+      "import/resolver": {
+        alias: {
+          map: [
+            ["@components", "./src/components"],
+            ["@styles", "./src/styles"],
+            ["@utils", "./src/utils"],
+            ["@assets", "./src/assets"],
+            ["@helpers", "./src/utils/helpers.js"],
+            ["@data", "./src/utils/data.json"],
+          ],
+          extensions: [".js", ".jsx", ".ts", ".tsx"],
+        },
+      },
+    },
     plugins: {
       react,
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
+      import: require("eslint-plugin-import"),
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -34,6 +50,7 @@ export default [
         "warn",
         { allowConstantExport: true },
       ],
+      "import/no-unresolved": "error",
     },
   },
 ];
