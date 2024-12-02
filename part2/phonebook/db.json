@@ -1,0 +1,19 @@
+{
+  "contacts": [
+    { "name": "Arto Hellas", "phone": "040-123456", "id": 1 },
+    { "name": "Ada Lovelace", "phone": "39-44-5323523", "id": 2 },
+    { "name": "Dan Abramov", "phone": "12-43-234345", "id": 3 },
+    { "name": "Mary Poppendieck", "phone": "39-23-6423122", "id": 4 },
+    { "name": "Grace Hopper", "phone": "21-43-123456", "id": 5 },
+    { "name": "James Gosling", "phone": "39-76-8234567", "id": 6 },
+    { "name": "Linus Torvalds", "phone": "32-19-7635462", "id": 7 },
+    { "name": "Margaret Hamilton", "phone": "44-23-6423122", "id": 8 },
+    { "name": "Guido van Rossum", "phone": "12-87-9234561", "id": 9 },
+    { "name": "Tim Berners-Lee", "phone": "39-56-7324512", "id": 10 },
+    { "name": "Dennis Ritchie", "phone": "21-43-987654", "id": 11 },
+    { "name": "Barbara Liskov", "phone": "39-23-9988776", "id": 12 },
+    { "name": "Bjarne Stroustrup", "phone": "12-34-4567890", "id": 13 },
+    { "name": "John Backus", "phone": "45-87-1234567", "id": 14 },
+    { "name": "Edsger Dijkstra", "phone": "11-22-3344556", "id": 15 }
+  ]
+}

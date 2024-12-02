@@ -1,15 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
+import axios from "axios";
 
 import Filter from "@components/Filter.jsx";
 import Form from "@components/Form.jsx";
 import NumberList from "@components/NumberList.jsx";
 
-import contactData from "@data";
+const SERVER_URL = "http://localhost:3001/contacts";
+const SERVER_URL_CLOUDFLARED =
+  "https://moldova-frontpage-permanent-finland.trycloudflare.com/contacts";
+// Temporary deployed server on Cloudflare
+/**
+ * To use this service you need to install (on windows):
+ *
+ * winget install -e --id Cloudflare.cloudflared
+ *
+ * and then run:
+ *
+ * cloudflared tunnel --url <YOUR_SERVER_URL>
+ *
+ */
 
 const App = () => {
-  const [contacts, setContacts] = useState(contactData);
+  const [contacts, setContacts] = useState([]);
   const [filteredContacts, setFilteredContacts] = useState(contacts);
+
+  useEffect(() => {
+    axios
+      .get(SERVER_URL_CLOUDFLARED)
+      .then((response) => {
+        setContacts(response.data);
+        // console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    setFilteredContacts(contacts);
+  }, [contacts]);
 
   const handleListUpdate = (newContacts) => {
     setContacts(newContacts);
