@@ -63,7 +63,7 @@ const App = () => {
       <GlobalStyle />
       <Filter handleFilter={handleFilter} />
       <Form list={contacts} handleList={handleListUpdate} />
-      <NumberList list={filteredContacts} />
+      <NumberList list={filteredContacts || []} />
     </div>
   );
 };

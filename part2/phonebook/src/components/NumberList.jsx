@@ -23,6 +23,11 @@ const NumberList = ({ list }) => {
     setActiveContact(contact);
   };
 
+  if (!Array.isArray(list)) {
+    console.error("Invalid prop 'list': expected an array, got:", list);
+    return <p>No contacts available.</p>;
+  }
+
   return (
     <>
       <ContactDialog

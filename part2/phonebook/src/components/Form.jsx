@@ -8,6 +8,9 @@ import {
 } from "@styles/Form.styles.jsx";
 
 import { isAdded, isValidPhone } from "@helpers";
+import axios from "axios";
+
+const SERVER_URL = "http://localhost:3001/contacts";
 
 const Form = ({ list, handleList }) => {
   const [newContact, setNewContact] = useState({ name: "", phone: "" });
@@ -25,13 +28,25 @@ const Form = ({ list, handleList }) => {
       ...newContact,
       name: newContact.name.trim(),
       phone: newContact.phone.trim(),
-      id: list.length + 1,
+      // id: list.length + 1,
+      // no need to add id, it will be added by the server
     };
+
+    // Once created the contact, it will be posted to the server
+    // and the list will be updated
 
     const is_added = isAdded(list, trimmed_person);
 
     trimmed_person.name && trimmed_person.phone && !is_added
-      ? handleList(list.concat(trimmed_person))
+      ? axios
+          .post(SERVER_URL, trimmed_person)
+          .then((res) => res.data)
+          .then((data) => {
+            handleList(list.concat(data));
+          })
+          .catch((error) => {
+            console.log(error);
+          })
       : is_added
       ? alert(
           `${trimmed_person.name} with phone number ${trimmed_person.phone} is already added to phonebook`
