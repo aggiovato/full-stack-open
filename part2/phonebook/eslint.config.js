@@ -28,6 +28,7 @@ export default [
             ["@assets", "./src/assets"],
             ["@helpers", "./src/utils/helpers.js"],
             ["@data", "./src/utils/data.json"],
+            ["@services", "./src/services"],
           ],
           extensions: [".js", ".jsx", ".ts", ".tsx"],
         },

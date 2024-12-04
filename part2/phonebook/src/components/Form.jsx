@@ -7,10 +7,9 @@ import {
   FormButton,
 } from "@styles/Form.styles.jsx";
 
-import { isAdded, isValidPhone } from "@helpers";
-import axios from "axios";
+import isValidContact from "@helpers";
 
-const SERVER_URL = "http://localhost:3001/contacts";
+import { addContact } from "@services/contacts";
 
 const Form = ({ list, handleList }) => {
   const [newContact, setNewContact] = useState({ name: "", phone: "" });
@@ -18,42 +17,22 @@ const Form = ({ list, handleList }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!isValidPhone(newContact.phone)) {
-      alert(`The phone number ${newContact.phone} is not valid`);
-      setNewContact((prevPerson) => ({ ...prevPerson, phone: "" }));
-      return;
+    try {
+      const trimmed_contact = {
+        ...newContact,
+        name: newContact.name.trim(),
+        phone: newContact.phone.trim(),
+      }; // id is not needed, it will be added by the server
+      if (isValidContact(list, trimmed_contact)) {
+        addContact(trimmed_contact)
+          .then((data) => handleList(list.concat(data)))
+          .catch((error) => console.log(error));
+      }
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setNewContact({ name: "", phone: "" });
     }
-
-    let trimmed_person = {
-      ...newContact,
-      name: newContact.name.trim(),
-      phone: newContact.phone.trim(),
-      // id: list.length + 1,
-      // no need to add id, it will be added by the server
-    };
-
-    // Once created the contact, it will be posted to the server
-    // and the list will be updated
-
-    const is_added = isAdded(list, trimmed_person);
-
-    trimmed_person.name && trimmed_person.phone && !is_added
-      ? axios
-          .post(SERVER_URL, trimmed_person)
-          .then((res) => res.data)
-          .then((data) => {
-            handleList(list.concat(data));
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-      : is_added
-      ? alert(
-          `${trimmed_person.name} with phone number ${trimmed_person.phone} is already added to phonebook`
-        )
-      : null;
-
-    setNewContact({ name: "", phone: "" });
   };
 
   const handleNameChange = (event) => {

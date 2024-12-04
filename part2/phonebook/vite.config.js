@@ -14,6 +14,7 @@ export default defineConfig({
       "@assets": path.resolve(__dirname, "./src/assets"),
       "@helpers": path.resolve(__dirname, "./src/utils/helpers.js"),
       "@data": path.resolve(__dirname, "./src/utils/data.json"),
+      "@services": path.resolve(__dirname, "./src/services"),
     },
   },
 });

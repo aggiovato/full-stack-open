@@ -1,45 +1,25 @@
 import { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
-import axios from "axios";
 
 import Filter from "@components/Filter.jsx";
 import Form from "@components/Form.jsx";
 import NumberList from "@components/NumberList.jsx";
 
-const SERVER_URL = "http://localhost:3001/contacts";
-const SERVER_URL_CLOUDFLARED =
-  " https://cave-rocket-considered-tutorials.trycloudflare.com/contacts";
-// Temporary deployed server on Cloudflare
-/**
- * To use this service you need to install (on windows):
- *
- * winget install -e --id Cloudflare.cloudflared
- *
- * and then run:
- *
- * cloudflared tunnel --url <YOUR_SERVER_URL>
- *
- */
+import { getAllContacts } from "@services/contacts";
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
   const [filteredContacts, setFilteredContacts] = useState(contacts);
 
   useEffect(() => {
-    axios
-      .get(SERVER_URL)
-      .then((response) => {
-        setContacts(response.data);
-        // console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    getAllContacts()
+      .then((data) => setContacts(data))
+      .catch((error) => console.log(error));
+  }, []); // loads the contacts from the server
 
   useEffect(() => {
     setFilteredContacts(contacts);
-  }, [contacts]);
+  }, [contacts]); // updates the filtered contacts when the contacts change
 
   const handleListUpdate = (newContacts) => {
     setContacts(newContacts);
