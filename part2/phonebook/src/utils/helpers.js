@@ -1,9 +1,7 @@
 // Helpers
 
-const isAddedContact = (list, contact) => {
-  return list.some(
-    (item) => item.name === contact.name && item.phone === contact.phone
-  );
+export const isAddedContact = (list, name) => {
+  return list.some((item) => item.name === name);
 }; // checks if the contact is already added, doesn't allow duplicates
 
 const validatePhone = (phone) => {
@@ -21,16 +19,7 @@ const validateName = (name) => {
   }
 };
 
-const isValidContact = (list, contact) => {
+export const isValidContact = (list, contact) => {
   validateName(contact.name);
   validatePhone(contact.phone);
-  if (isAddedContact(list, contact)) {
-    throw new Error(
-      `Contact ${contact.name} with phone ${contact.phone} already exists`
-    );
-  }
-
-  return true;
 }; // checks if the contact is valid (not empty and not already added)
-
-export default isValidContact;

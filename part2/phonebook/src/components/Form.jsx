@@ -7,9 +7,8 @@ import {
   FormButton,
 } from "@styles/Form.styles.jsx";
 
-import isValidContact from "@helpers";
-
-import { addContact } from "@services/contacts";
+import { isValidContact, isAddedContact } from "@helpers";
+import { addContact, updateContact } from "@services/contacts";
 
 const Form = ({ list, handleList }) => {
   const [newContact, setNewContact] = useState({ name: "", phone: "" });
@@ -23,7 +22,25 @@ const Form = ({ list, handleList }) => {
         name: newContact.name.trim(),
         phone: newContact.phone.trim(),
       }; // id is not needed, it will be added by the server
-      if (isValidContact(list, trimmed_contact)) {
+
+      if (isAddedContact(list, trimmed_contact.name)) {
+        const isPuttable = window.confirm(
+          `${trimmed_contact.name} is already added to phonebook, do you want to replace the old number with ${trimmed_contact.phone}?`
+        );
+        if (!isPuttable) return;
+        const trimmed_id = list.find(
+          (contact) => contact.name === trimmed_contact.name
+        ).id;
+        //console.log(trimmed_id);
+        updateContact(trimmed_contact, trimmed_id)
+          .then((data) =>
+            handleList(
+              list.map((contact) => (contact.id === data.id ? data : contact))
+            )
+          )
+          .catch((error) => console.log(error));
+      } else {
+        isValidContact(list, trimmed_contact);
         addContact(trimmed_contact)
           .then((data) => handleList(list.concat(data)))
           .catch((error) => console.log(error));
