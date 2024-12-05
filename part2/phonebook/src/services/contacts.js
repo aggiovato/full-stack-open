@@ -14,24 +14,27 @@ const BASE_URL = "http://localhost:3001/contacts";
  * cloudflared tunnel --url <YOUR_SERVER_URL>
  *
  */
-const BASE_URL_CLOUDFLARED = "...";
+const BASE_URL_CLOUDFLARED =
+  "https://vii-assembled-tiffany-cop.trycloudflare.com/contacts";
 
 // HTTP GET methode
 export const getAllContacts = () => {
-  return axios.get(BASE_URL).then((res) => res.data);
+  return axios.get(BASE_URL_CLOUDFLARED).then((res) => res.data);
 };
 
 // HTTP POST methode
 export const addContact = (contact) => {
-  return axios.post(BASE_URL, contact).then((res) => res.data);
+  return axios.post(BASE_URL_CLOUDFLARED, contact).then((res) => res.data);
 };
 
 // HTTP PUT methode
 export const updateContact = (contact, id) => {
-  return axios.put(`${BASE_URL}/${id}`, contact).then((res) => res.data);
+  return axios
+    .put(`${BASE_URL_CLOUDFLARED}/${id}`, contact)
+    .then((res) => res.data);
 };
 
 // HTTP DELETE methode
 export const deleteContact = (id) => {
-  return axios.delete(`${BASE_URL}/${id}`).then((res) => res.data);
+  return axios.delete(`${BASE_URL_CLOUDFLARED}/${id}`).then((res) => res.data);
 };

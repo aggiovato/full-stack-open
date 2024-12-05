@@ -38,7 +38,10 @@ const ContactDialog = forwardRef(
     }; // closes the dialog and resets the state
 
     const handleDelete = () => {
-      window.confirm(`Are you sure you want to delete ${contactDetails.name}?`);
+      const isDeletable = confirm(
+        "Are you sure you want to delete this contact?"
+      );
+      if (!isDeletable) return;
       deleteContact(contactDetails.id)
         .then((data) => {
           handleClosure(undefined);

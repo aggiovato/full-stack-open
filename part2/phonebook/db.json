@@ -1,11 +1,6 @@
 {
   "contacts": [
     {
-      "name": "Arto Hellas",
-      "phone": "040-123456",
-      "id": "1"
-    },
-    {
       "name": "Ada Lovelace",
       "phone": "39-44-5323523",
       "id": "2"
@@ -31,11 +26,6 @@
       "id": "6"
     },
     {
-      "name": "Linus Torvalds",
-      "phone": "32-19-7635462",
-      "id": "7"
-    },
-    {
       "name": "Margaret Hamilton",
       "phone": "44-23-6423122",
       "id": "8"
@@ -56,24 +46,9 @@
       "id": "12"
     },
     {
-      "name": "Bjarne Stroustrup",
-      "phone": "12-34-4567890",
-      "id": "13"
-    },
-    {
       "name": "John Backus",
       "phone": "45-87-1234567",
       "id": "14"
-    },
-    {
-      "name": "Edsger Dijkstra",
-      "phone": "11-22-3344556",
-      "id": "15"
-    },
-    {
-      "id": "8647",
-      "name": "Alejandro Lugo",
-      "phone": "+34623267022"
     }
   ]
 }

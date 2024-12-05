@@ -212,7 +212,8 @@ export const Button = styled.button`
   @media (max-width: 768px) {
     /* Mobile */
     font-size: 0.9rem;
-    padding: 10px 5px;
-    margin-bottom: 10px;
+    padding: 5px 8px;
+    width: 115px;
+    margin: 0 10px;
   }
 `;
