@@ -8,45 +8,73 @@ import {
   DialogContentLine,
   UserIcon,
   StyCloseIcon,
-  DialogButton,
+  DialogCloseButton,
+  ButtonsContainer,
+  Button,
 } from "@styles/ContactDialog.styles.jsx";
 
-const ContactDialog = forwardRef(({ contactDetails, handleClosure }, ref) => {
-  const [isLongDtails, setIsLongDtails] = useState(false);
+import { deleteContact } from "@services/contacts";
 
-  useEffect(() => {
-    if (contactDetails) {
-      setIsLongDtails(
-        contactDetails.name.length > 18 || contactDetails.phone.length > 18
-      );
-    } else {
+const ContactDialog = forwardRef(
+  ({ contactDetails, handleClosure, list }, ref) => {
+    const [isLongDtails, setIsLongDtails] = useState(false);
+
+    useEffect(() => {
+      if (contactDetails) {
+        setIsLongDtails(
+          contactDetails.name.length > 18 || contactDetails.phone.length > 18
+        );
+      } else {
+        setIsLongDtails(false);
+      }
+    }, [contactDetails]); // checks if the contactDetails are long enough to be displayed in the dialog
+
+    if (!contactDetails) return null;
+
+    const handleClose = () => {
+      ref.current?.close();
+      handleClosure(undefined);
       setIsLongDtails(false);
-    }
-  }, [contactDetails]);
+    }; // closes the dialog and resets the state
 
-  if (!contactDetails) return null;
+    const handleDelete = () => {
+      window.confirm(`Are you sure you want to delete ${contactDetails.name}?`);
+      deleteContact(contactDetails.id)
+        .then((data) => {
+          handleClosure(undefined);
+          setIsLongDtails(false);
+          list.map((contact) => {
+            if (contact.id === data.id) {
+              list.splice(list.indexOf(contact), 1);
+            }
+          });
+        })
+        .catch((error) => console.log(error));
+    }; // deletes the contact from the server and the local state
 
-  const handleClose = () => {
-    ref.current?.close();
-    handleClosure(undefined);
-    setIsLongDtails(false);
-  };
-  return (
-    <DialogContainer ref={ref}>
-      <DialogTitle>Contact Details</DialogTitle>
-      <DialogCard $isLongDtails={isLongDtails}>
-        <UserIcon />
-        <DialogContent>
-          <DialogContentLine>Name: {contactDetails.name}</DialogContentLine>
-          <DialogContentLine>Phone: {contactDetails.phone}</DialogContentLine>
-        </DialogContent>
-      </DialogCard>
-      <DialogButton onClick={handleClose}>
-        <StyCloseIcon />
-      </DialogButton>
-    </DialogContainer>
-  );
-});
+    return (
+      <DialogContainer ref={ref}>
+        <DialogTitle>Contact Details</DialogTitle>
+        <DialogCard $isLongDtails={isLongDtails}>
+          <UserIcon />
+          <DialogContent>
+            <DialogContentLine>Name: {contactDetails.name}</DialogContentLine>
+            <DialogContentLine>Phone: {contactDetails.phone}</DialogContentLine>
+          </DialogContent>
+        </DialogCard>
+        <DialogCloseButton onClick={handleClose}>
+          <StyCloseIcon />
+        </DialogCloseButton>
+        <ButtonsContainer>
+          <Button $variant="success">Edit</Button>
+          <Button $variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </ButtonsContainer>
+      </DialogContainer>
+    );
+  }
+);
 
 // Helps to identify the component as
 // it is created from a function like forwardRef

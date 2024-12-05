@@ -46,11 +46,6 @@
       "id": "9"
     },
     {
-      "name": "Tim Berners-Lee",
-      "phone": "39-56-7324512",
-      "id": "10"
-    },
-    {
       "name": "Dennis Ritchie",
       "phone": "21-43-987654",
       "id": "11"
@@ -76,63 +71,8 @@
       "id": "15"
     },
     {
-      "id": "1618",
+      "id": "8647",
       "name": "Alejandro Lugo",
-      "phone": "+34623267022"
-    },
-    {
-      "id": "4ef2",
-      "name": "wertghwrt",
-      "phone": "+34 688 37 39 43"
-    },
-    {
-      "id": "30eb",
-      "name": "Heber Alejandro Lugo Lugo",
-      "phone": "3567235683567834578456745784567"
-    },
-    {
-      "id": "3be3",
-      "name": "sffgjhdjffh",
-      "phone": "35672356835678345784567"
-    },
-    {
-      "id": "a896",
-      "name": "Alejandro",
-      "phone": "+34 688 37 39 43"
-    },
-    {
-      "id": "a55e",
-      "name": "Alejandro Lugo",
-      "phone": "+34 688 37 39 43"
-    },
-    {
-      "id": "b989",
-      "name": "sffgjhdjffh",
-      "phone": "+34623267022"
-    },
-    {
-      "id": "752a",
-      "name": "Hola mundo",
-      "phone": "+34623267022"
-    },
-    {
-      "id": "be3d",
-      "name": "Ronald",
-      "phone": "600123123"
-    },
-    {
-      "id": "595d",
-      "name": "Alejandro",
-      "phone": "3567235683567834578456745784567"
-    },
-    {
-      "id": "e58c",
-      "name": "wertghwrt",
-      "phone": "35672356835678345784567"
-    },
-    {
-      "id": "6334",
-      "name": "Alejandro",
       "phone": "+34623267022"
     }
   ]

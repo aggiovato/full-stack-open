@@ -34,6 +34,7 @@ const NumberList = ({ list }) => {
         ref={dialogRef}
         contactDetails={activeContact}
         handleClosure={setActiveContact}
+        list={list}
       />
       <ListContainer>
         <ListTitle>Numbers</ListTitle>

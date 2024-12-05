@@ -30,3 +30,8 @@ export const addContact = (contact) => {
 export const updateContact = (contact, id) => {
   return axios.put(`${BASE_URL}/${id}`, contact).then((res) => res.data);
 };
+
+// HTTP DELETE methode
+export const deleteContact = (id) => {
+  return axios.delete(`${BASE_URL}/${id}`).then((res) => res.data);
+};

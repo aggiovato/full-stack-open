@@ -7,6 +7,40 @@ import { FaUser } from "react-icons/fa";
  * Styled components
  *
  */
+
+const variants = {
+  primary: {
+    base: "#444",
+    hover: "#555",
+    active: "#222",
+  },
+  secondary: {
+    base: "#fff",
+    hover: "#ddd",
+    active: "#ccc",
+  },
+  danger: {
+    base: "#8A2C34",
+    hover: "#A8414E",
+    active: "#702429",
+  },
+  success: {
+    base: "#3A8A40",
+    hover: "#4F9A50",
+    active: "#2E6930",
+  },
+  warning: {
+    base: "#B8732A",
+    hover: "#D0893E",
+    active: "#8F5A20",
+  },
+  info: {
+    base: "#3A6D8C",
+    hover: "#4B819F",
+    active: "#2E4E68",
+  },
+};
+
 export const DialogContainer = styled.dialog`
   overflow: visible;
   display: flex;
@@ -112,7 +146,7 @@ export const StyCloseIcon = styled(IoCloseOutline)`
   }
 `;
 
-export const DialogButton = styled.button`
+export const DialogCloseButton = styled.button`
   position: absolute;
   display: flex;
   align-items: center;
@@ -136,6 +170,43 @@ export const DialogButton = styled.button`
   &:active {
     background-color: #222;
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    /* Mobile */
+    font-size: 0.9rem;
+    padding: 10px 5px;
+    margin-bottom: 10px;
+  }
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px 0;
+`;
+
+export const Button = styled.button`
+  padding: 8px 15px;
+  width: 150px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background-color: ${({ $variant = "primary" }) =>
+    variants[$variant]?.base || variants.primary.base};
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: ${({ $variant = "primary" }) =>
+      variants[$variant]?.hover || variants.primary.hover};
+  }
+
+  &:active {
+    background-color: ${({ $variant = "primary" }) =>
+      variants[$variant]?.active || variants.primary.active};
   }
 
   @media (max-width: 768px) {
