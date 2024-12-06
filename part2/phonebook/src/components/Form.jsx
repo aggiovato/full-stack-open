@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+
+import MessageDialog from "./MessageDialog";
 
 import {
   FormContainer,
@@ -7,42 +9,48 @@ import {
   FormButton,
 } from "@styles/Form.styles.jsx";
 
-import { isValidContact, isAddedContact } from "@helpers";
+import {
+  isValidContact,
+  isAddedContact,
+  getContactId,
+  getTrimmedContact,
+  updateContactList,
+} from "@helpers";
+
 import { addContact, updateContact } from "@services/contacts";
 
 const Form = ({ list, handleList }) => {
   const [newContact, setNewContact] = useState({ name: "", phone: "" });
+  const [message, setMessage] = useState("");
+  const messageRef = useRef(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     try {
-      const trimmed_contact = {
-        ...newContact,
-        name: newContact.name.trim(),
-        phone: newContact.phone.trim(),
-      }; // id is not needed, it will be added by the server
+      const trmContact = getTrimmedContact(newContact);
+      const { name: trmName, phone: trmPhone } = trmContact;
+      isValidContact(list, trmContact);
 
-      if (isAddedContact(list, trimmed_contact.name)) {
+      if (isAddedContact(list, trmName)) {
         const isPuttable = window.confirm(
-          `${trimmed_contact.name} is already added to phonebook, do you want to replace the old number with ${trimmed_contact.phone}?`
+          `${trmName} is already added to phonebook, do you want to replace the old number with ${trmPhone}?`
         );
         if (!isPuttable) return;
-        const trimmed_id = list.find(
-          (contact) => contact.name === trimmed_contact.name
-        ).id;
-        //console.log(trimmed_id);
-        updateContact(trimmed_contact, trimmed_id)
-          .then((data) =>
-            handleList(
-              list.map((contact) => (contact.id === data.id ? data : contact))
-            )
-          )
+        const trmId = getContactId(list, trmName);
+
+        updateContact(trmContact, trmId)
+          .then((data) => {
+            handleList(updateContactList(list, data));
+            setMessage(`Contact has been updated successfully`);
+          })
           .catch((error) => console.log(error));
       } else {
-        isValidContact(list, trimmed_contact);
-        addContact(trimmed_contact)
-          .then((data) => handleList(list.concat(data)))
+        addContact(trmContact)
+          .then((data) => {
+            handleList(list.concat(data));
+            setMessage(`New contact has been added successfully`);
+          })
           .catch((error) => console.log(error));
       }
     } catch (error) {
@@ -62,6 +70,12 @@ const Form = ({ list, handleList }) => {
 
   return (
     <>
+      <MessageDialog
+        ref={messageRef}
+        message={message}
+        handleMessage={setMessage}
+        duration={4000}
+      />
       <FormContainer>
         <FormTitle>New contact</FormTitle>
         <form onSubmit={handleSubmit}>

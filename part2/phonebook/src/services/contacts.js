@@ -3,7 +3,7 @@
 import axios from "axios";
 
 const BASE_URL = "http://localhost:3001/contacts";
-// Temporary deployed server on Cloudflare
+// Temporary deployed server on Cloudflare for testing purposes
 /**
  * To use this service you need to install (on windows):
  *
@@ -15,7 +15,7 @@ const BASE_URL = "http://localhost:3001/contacts";
  *
  */
 const BASE_URL_CLOUDFLARED =
-  "https://vii-assembled-tiffany-cop.trycloudflare.com/contacts";
+  "https://shed-xbox-prince-dose.trycloudflare.com/contacts";
 
 // HTTP GET methode
 export const getAllContacts = () => {

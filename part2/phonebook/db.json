@@ -2,18 +2,13 @@
   "contacts": [
     {
       "name": "Mary Poppendieck",
-      "phone": "39-23-6423122",
+      "phone": "+3556282780",
       "id": "4"
     },
     {
       "name": "Grace Hopper",
       "phone": "+34623267022",
       "id": "5"
-    },
-    {
-      "name": "James Gosling",
-      "phone": "39-76-8234567",
-      "id": "6"
     },
     {
       "name": "Margaret Hamilton",
@@ -27,7 +22,7 @@
     },
     {
       "name": "Dennis Ritchie",
-      "phone": "21-43-987654",
+      "phone": "+34623267022",
       "id": "11"
     },
     {
@@ -41,19 +36,24 @@
       "id": "14"
     },
     {
-      "id": "e22a",
       "name": "Ada Lovelace",
-      "phone": "+34623267022"
-    },
-    {
-      "id": "0168",
-      "name": "Alejandro",
-      "phone": "+34623267022"
+      "phone": "+33626487029",
+      "id": "e22a"
     },
     {
       "id": "2246",
       "name": "Arto Hellas",
       "phone": "040-123456"
+    },
+    {
+      "id": "e60f",
+      "name": "Alejandro Lugo",
+      "phone": "+34 68837943"
+    },
+    {
+      "id": "2701",
+      "name": "Ronald Aguilera",
+      "phone": "+3354908694"
     }
   ]
 }
