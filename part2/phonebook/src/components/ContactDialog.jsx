@@ -16,7 +16,7 @@ import {
 import { deleteContact } from "@services/contacts";
 
 const ContactDialog = forwardRef(
-  ({ contactDetails, handleClosure, list }, ref) => {
+  ({ contactDetails, handleClosure, handleDeleteCompletion, list }, ref) => {
     const [isLongDtails, setIsLongDtails] = useState(false);
 
     useEffect(() => {
@@ -42,39 +42,56 @@ const ContactDialog = forwardRef(
         "Are you sure you want to delete this contact?"
       );
       if (!isDeletable) return;
+
+      const updatedList = list.filter(
+        (contact) => contact.id !== contactDetails.id
+      );
+
       deleteContact(contactDetails.id)
-        .then((data) => {
-          handleClosure(undefined);
-          setIsLongDtails(false);
-          list.map((contact) => {
-            if (contact.id === data.id) {
-              list.splice(list.indexOf(contact), 1);
-            }
+        .then(() => {
+          handleDeleteCompletion(updatedList, {
+            type: "success",
+            message: `Contact has been deleted successfully`,
           });
+          handleClose();
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          handleDeleteCompletion(updatedList, {
+            type: "error",
+            message:
+              error.code === "ERR_BAD_REQUEST"
+                ? "Contact has already been deleted from the server"
+                : error.message,
+          });
+          handleClose();
+          console.log(error);
+        });
     }; // deletes the contact from the server and the local state
 
     return (
-      <DialogContainer ref={ref}>
-        <DialogTitle>Contact Details</DialogTitle>
-        <DialogCard $isLongDtails={isLongDtails}>
-          <UserIcon />
-          <DialogContent>
-            <DialogContentLine>Name: {contactDetails.name}</DialogContentLine>
-            <DialogContentLine>Phone: {contactDetails.phone}</DialogContentLine>
-          </DialogContent>
-        </DialogCard>
-        <DialogCloseButton onClick={handleClose}>
-          <StyCloseIcon />
-        </DialogCloseButton>
-        <ButtonsContainer>
-          <Button $variant="success">Edit</Button>
-          <Button $variant="danger" onClick={handleDelete}>
-            Delete
-          </Button>
-        </ButtonsContainer>
-      </DialogContainer>
+      <>
+        <DialogContainer ref={ref}>
+          <DialogTitle>Contact Details</DialogTitle>
+          <DialogCard $isLongDtails={isLongDtails}>
+            <UserIcon />
+            <DialogContent>
+              <DialogContentLine>Name: {contactDetails.name}</DialogContentLine>
+              <DialogContentLine>
+                Phone: {contactDetails.phone}
+              </DialogContentLine>
+            </DialogContent>
+          </DialogCard>
+          <DialogCloseButton onClick={handleClose}>
+            <StyCloseIcon />
+          </DialogCloseButton>
+          <ButtonsContainer>
+            <Button $variant="success">Edit</Button>
+            <Button $variant="danger" onClick={handleDelete}>
+              Delete
+            </Button>
+          </ButtonsContainer>
+        </DialogContainer>
+      </>
     );
   }
 );

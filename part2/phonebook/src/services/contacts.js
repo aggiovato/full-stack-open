@@ -15,7 +15,7 @@ const BASE_URL = "http://localhost:3001/contacts";
  *
  */
 const BASE_URL_CLOUDFLARED =
-  "https://shed-xbox-prince-dose.trycloudflare.com/contacts";
+  "https://protocols-alexandria-operational-holes.trycloudflare.com/contacts";
 
 // HTTP GET methode
 export const getAllContacts = () => {

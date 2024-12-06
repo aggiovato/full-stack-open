@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 
 import ContactDialog from "@components/ContactDialog.jsx";
+import MessageDialog from "@components/MessageDialog.jsx";
 
 import {
   ListContainer,
@@ -13,32 +14,47 @@ import {
 
 const NumberList = ({ list }) => {
   const dialogRef = useRef(null);
+  const messageRef = useRef(null);
   const [activeContact, setActiveContact] = useState(null);
+  const [message, setMessage] = useState(null);
+  const [contacts, setContacts] = useState(list);
 
   useEffect(() => {
     activeContact && dialogRef.current?.showModal();
   }, [activeContact]); // keeps watching for changes in activeContact, so it fixes the first render problem due to the async nature of useState
 
+  useEffect(() => {
+    setContacts(list);
+  }, [list]); // updates the contacts when the list changes
+
   const handleContact = (contact) => {
     setActiveContact(contact);
   };
 
-  if (!Array.isArray(list)) {
-    console.error("Invalid prop 'list': expected an array, got:", list);
-    return <p>No contacts available.</p>;
-  }
+  const handleDeleteCompletion = (updatedList, message) => {
+    setContacts(updatedList);
+    setMessage(message);
+  };
 
   return (
     <>
+      <MessageDialog
+        ref={messageRef}
+        message={message}
+        handleMessage={() => setMessage(null)}
+        duration={4000}
+      />
       <ContactDialog
         ref={dialogRef}
         contactDetails={activeContact}
         handleClosure={setActiveContact}
-        list={list}
+        handleDeleteCompletion={handleDeleteCompletion}
+        list={contacts}
       />
       <ListContainer>
         <ListTitle>Numbers</ListTitle>
-        {list.map((contact) => {
+        {contacts.map((contact) => {
+          if (!contact) return null;
           return (
             <Number key={contact.id} onClick={() => handleContact(contact)}>
               <NumberText>

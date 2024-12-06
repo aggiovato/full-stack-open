@@ -6,11 +6,6 @@
       "id": "4"
     },
     {
-      "name": "Grace Hopper",
-      "phone": "+34623267022",
-      "id": "5"
-    },
-    {
       "name": "Margaret Hamilton",
       "phone": "+34623267022",
       "id": "8"
@@ -36,11 +31,6 @@
       "id": "14"
     },
     {
-      "name": "Ada Lovelace",
-      "phone": "+33626487029",
-      "id": "e22a"
-    },
-    {
       "id": "2246",
       "name": "Arto Hellas",
       "phone": "040-123456"
@@ -49,11 +39,6 @@
       "id": "e60f",
       "name": "Alejandro Lugo",
       "phone": "+34 68837943"
-    },
-    {
-      "id": "2701",
-      "name": "Ronald Aguilera",
-      "phone": "+3354908694"
     }
   ]
 }

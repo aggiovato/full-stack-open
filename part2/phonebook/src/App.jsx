@@ -13,7 +13,9 @@ const App = () => {
 
   useEffect(() => {
     getAllContacts()
-      .then((data) => setContacts(data))
+      .then((data) => {
+        setContacts(data);
+      })
       .catch((error) => console.log(error));
   }, []); // loads the contacts from the server
 
@@ -43,7 +45,7 @@ const App = () => {
       <GlobalStyle />
       <Filter handleFilter={handleFilter} />
       <Form list={contacts} handleList={handleListUpdate} />
-      <NumberList list={filteredContacts || []} />
+      <NumberList list={filteredContacts} />
     </div>
   );
 };

@@ -8,25 +8,26 @@ import {
 const MessageDialog = forwardRef(
   ({ message, handleMessage, duration = 3000 }, ref) => {
     useEffect(() => {
+      if (!message || !ref.current) return;
       ref.current?.showModal();
       const timer = setTimeout(() => {
         ref.current?.close();
-        handleMessage("");
+        handleMessage();
       }, duration);
 
       return () => clearTimeout(timer);
-    }, [message, ref, duration]);
+    }, [message, ref, duration, handleMessage]);
 
     const handleClose = () => {
       ref.current?.close();
-      handleMessage("");
+      handleMessage();
     };
 
     return (
       message && (
-        <StyMessage ref={ref}>
+        <StyMessage ref={ref} $type={message?.type}>
           <StyDiv>
-            {message}
+            {message.message}
             <StyCloseIcon onClick={handleClose}>
               <CloseIcon />
             </StyCloseIcon>

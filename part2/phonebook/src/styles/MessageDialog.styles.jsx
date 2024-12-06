@@ -11,15 +11,19 @@ export const StyMessage = styled.dialog`
   left: 80%;
   margin-right: 20px;
   padding: 12px 20px;
-  background-color: #3a8a40;
+  background-color: ${({ $type }) =>
+    $type === "success" ? "#3A8A40" : "#8A2C34"};
   color: #fff;
   border: none;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   font-size: 1rem;
   z-index: 1000;
-  white-space: nowrap;
+  max-width: 90%;
+  word-wrap: break-word;
+  white-space: normal;
   animation: slideDown 0.3s ease-out;
+  width: 18%;
 
   &::backdrop {
     background: none;
@@ -36,10 +40,11 @@ export const StyMessage = styled.dialog`
     }
   }
 
-  @media (max-width: 768px) {
-    top: -85%;
-    left: 70%;
-    margin-right: 13px;
+  @media (max-width: 600px) {
+    top: -80%;
+    width: 60%;
+    right: 20px;
+    transform: none;
   }
 `;
 

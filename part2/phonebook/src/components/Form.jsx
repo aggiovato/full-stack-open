@@ -21,7 +21,7 @@ import { addContact, updateContact } from "@services/contacts";
 
 const Form = ({ list, handleList }) => {
   const [newContact, setNewContact] = useState({ name: "", phone: "" });
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(null);
   const messageRef = useRef(null);
 
   const handleSubmit = (event) => {
@@ -42,19 +42,41 @@ const Form = ({ list, handleList }) => {
         updateContact(trmContact, trmId)
           .then((data) => {
             handleList(updateContactList(list, data));
-            setMessage(`Contact has been updated successfully`);
+            setMessage({
+              type: "success",
+              message: `Contact has been updated successfully`,
+            });
           })
-          .catch((error) => console.log(error));
+          .catch((error) => {
+            error.code === "ERR_BAD_REQUEST"
+              ? setMessage({
+                  type: "error",
+                  message: `Contact has been deleted from the server`,
+                })
+              : setMessage({ type: "error", message: error.message });
+            console.log(error);
+          });
       } else {
         addContact(trmContact)
           .then((data) => {
             handleList(list.concat(data));
-            setMessage(`New contact has been added successfully`);
+            setMessage({
+              type: "success",
+              message: `New contact has been added successfully`,
+            });
           })
-          .catch((error) => console.log(error));
+          .catch((error) => {
+            error.code === "ERR_BAD_REQUEST"
+              ? setMessage({
+                  type: "error",
+                  message: `Contact has already been added`,
+                })
+              : setMessage({ type: "error", message: error.message });
+            console.log(error);
+          });
       }
     } catch (error) {
-      alert(error.message);
+      setMessage({ type: "error", message: error.message });
     } finally {
       setNewContact({ name: "", phone: "" });
     }
@@ -73,7 +95,7 @@ const Form = ({ list, handleList }) => {
       <MessageDialog
         ref={messageRef}
         message={message}
-        handleMessage={setMessage}
+        handleMessage={() => setMessage(null)}
         duration={4000}
       />
       <FormContainer>
