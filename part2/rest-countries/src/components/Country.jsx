@@ -1,5 +1,4 @@
 const Country = ({ country }) => {
-  console.log(country.flags.svg);
   return (
     <div>
       <h2>{country.name.common}</h2>
@@ -8,7 +7,7 @@ const Country = ({ country }) => {
         <strong>Capital:</strong> {country.capital}
       </p>
       <p>
-        <strong>Area:</strong> {country.area}km²
+        <strong>Area:</strong> {country.area} km²
       </p>
       <br />
       <p>
