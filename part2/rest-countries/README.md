@@ -2,11 +2,12 @@
 
 ![Rest Countries app preview](./src/assets/rest_countries_preview.png)
 
-This is a simple app that fetches data from the [restcountries](https://restcountries.com/) API and displays the information in a list. The app also includes a search feature to filter countries by name.
+This is a simple app that fetches data from the [restcountries](https://studies.cs.helsinki.fi/restcountries/) API and displays the information in a list. The app also includes a search feature to filter countries by name. It also fetches weather data for the capital of each country and displays it in a separate section -> [Weather Data](https://studies.cs.helsinki.fi/weather-data/).
 
 ## Features
 
 - Fetch and display country data from the restcountries API
+- Fetch and display weather data for the capital of each country
 - Search countries by name
 
 ## Getting Started
@@ -15,6 +16,7 @@ This is a simple app that fetches data from the [restcountries](https://restcoun
 
 - Node.js
 - npm
+- VITE_WEATHER_API_KEY (get it from [OpenWeatherMap](https://openweathermap.org/)) This is an environment variable that is used to fetch weather data from the OpenWeatherMap API.
 
 ### Installation
 
@@ -26,13 +28,19 @@ This is a simple app that fetches data from the [restcountries](https://restcoun
 npm install
 ```
 
-4. Start the development server
+4. Create a .env file in the root directory and add your VITE_WEATHER_API_KEY
+
+```
+VITE_WEATHER_API_KEY=YOUR_API_KEY
+```
+
+5. Start the development server
 
 ```bash
 npm run dev
 ```
 
-5. Open http://localhost:3000 in your browser
+6. Open http://localhost:3000 in your browser
 
 ## Contributing
 
@@ -53,5 +61,3 @@ This project is licensed under the MIT License. See the [LICENSE.md](LICENSE.md)
 
 - The app uses the [React](https://reactjs.org/) library for building user interfaces.
 - The app uses the [Axios](https://axios-http.com/) library for making HTTP requests.
-- The app uses the [styled-components](https://styled-components.com/) library for styling components.
-- The app uses the [React Icons](https://react-icons.github.io/react-icons/) library for icons.
