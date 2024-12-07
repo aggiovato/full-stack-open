@@ -2,7 +2,7 @@
 
 ![Rest Countries app preview](./src/assets/rest_countries_preview.png)
 
-This is a simple app that fetches data from the [restcountries](https://studies.cs.helsinki.fi/restcountries/) API and displays the information in a list. The app also includes a search feature to filter countries by name. It also fetches weather data for the capital of each country and displays it in a separate section -> [Weather Data](https://studies.cs.helsinki.fi/weather-data/).
+This is a simple app that fetches data from the [restcountries](https://studies.cs.helsinki.fi/restcountries/) API and displays the information in a list. The app also includes a search feature to filter countries by name. It also fetches weather data for the capital of each country and displays it in a separate section -> [Weather Data](https://samples.openweathermap.org/data/2.5/find?q=London&appid=b1b15e88fa797225412429c1c50c122a1r).
 
 ## Features
 
