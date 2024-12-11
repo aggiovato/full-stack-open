@@ -1,7 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+// EXTERNAL MODULES
+import { useState, useRef } from "react";
 
+// EXTERNAL COMPONENTS
 import MessageDialog from "./MessageDialog";
 
+// STYLES
 import {
   FormContainer,
   FormTitle,
@@ -9,6 +12,7 @@ import {
   FormButton,
 } from "@styles/Form.styles.jsx";
 
+// HELPERS
 import {
   isValidContact,
   isAddedContact,
@@ -17,28 +21,44 @@ import {
   updateContactList,
 } from "@helpers";
 
+// SERVICES
 import { addContact, updateContact } from "@services/contacts";
 
+/************************************************************************ */
+
+// COMPONENT
 const Form = ({ list, handleList }) => {
-  const [newContact, setNewContact] = useState({ name: "", phone: "" });
+  // STATES
+  const [newContact, setNewContact] = useState({ name: "", number: "" });
   const [message, setMessage] = useState(null);
   const messageRef = useRef(null);
 
+  // HANDLERS
   const handleSubmit = (event) => {
     event.preventDefault();
 
     try {
+      // DATA TRATEMENT
+      // trims the contact name and phone number
       const trmContact = getTrimmedContact(newContact);
-      const { name: trmName, phone: trmPhone } = trmContact;
-      isValidContact(list, trmContact);
+      const { name: trmName, number: trmPhone } = trmContact;
 
+      // checks if the contact is valid
+      // not empty, long enough and valid phone number
+
+      isValidContact(trmContact);
+
+      // checks if the contact is already added
       if (isAddedContact(list, trmName)) {
         const isPuttable = window.confirm(
           `${trmName} is already added to phonebook, do you want to replace the old number with ${trmPhone}?`
         );
+
         if (!isPuttable) return;
+
         const trmId = getContactId(list, trmName);
 
+        // PUT CONTACT /api/persons/:id
         updateContact(trmContact, trmId)
           .then((data) => {
             handleList(updateContactList(list, data));
@@ -48,15 +68,10 @@ const Form = ({ list, handleList }) => {
             });
           })
           .catch((error) => {
-            error.code === "ERR_BAD_REQUEST"
-              ? setMessage({
-                  type: "error",
-                  message: `Contact has been deleted from the server`,
-                })
-              : setMessage({ type: "error", message: error.message });
-            console.log(error);
+            setMessage({ type: "error", message: error.message });
           });
       } else {
+        // POST CONTACT /api/persons
         addContact(trmContact)
           .then((data) => {
             handleList(list.concat(data));
@@ -66,37 +81,34 @@ const Form = ({ list, handleList }) => {
             });
           })
           .catch((error) => {
-            error.code === "ERR_BAD_REQUEST"
-              ? setMessage({
-                  type: "error",
-                  message: `Contact has already been added`,
-                })
-              : setMessage({ type: "error", message: error.message });
-            console.log(error);
+            setMessage({ type: "error", message: error.message });
           });
       }
     } catch (error) {
+      // VALIDATION ERROR
       setMessage({ type: "error", message: error.message });
     } finally {
-      setNewContact({ name: "", phone: "" });
+      // RESETS THE FORM
+      setNewContact({ name: "", number: "" });
     }
-  };
+  }; // -> handles the form submission
 
   const handleNameChange = (event) => {
     setNewContact({ ...newContact, name: event.target.value });
-  };
+  }; // -> handles the name change
 
   const handlePhoneChange = (event) => {
-    setNewContact({ ...newContact, phone: event.target.value });
-  };
+    setNewContact({ ...newContact, number: event.target.value });
+  }; // -> handles the phone number change
 
+  /************************************************************************ */
   return (
     <>
       <MessageDialog
         ref={messageRef}
         message={message}
         handleMessage={() => setMessage(null)}
-        duration={4000}
+        duration={3000}
       />
       <FormContainer>
         <FormTitle>New contact</FormTitle>
@@ -109,10 +121,10 @@ const Form = ({ list, handleList }) => {
             onChange={handleNameChange}
           />
           <FormInput
-            id="phone"
+            id="number"
             type="tel"
             placeholder="Phone number"
-            value={newContact.phone}
+            value={newContact.number}
             onChange={handlePhoneChange}
           />
 

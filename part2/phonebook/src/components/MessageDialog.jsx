@@ -1,15 +1,24 @@
+// EXTERNAL MODULES
 import { forwardRef, useEffect } from "react";
+
+// STYLES
 import {
   StyMessage,
   StyDiv,
   StyCloseIcon,
 } from "@styles/MessageDialog.styles.jsx";
 
+/************************************************************************ */
+
+// COMPONENT
 const MessageDialog = forwardRef(
   ({ message, handleMessage, duration = 3000 }, ref) => {
+    // EFFECTS
     useEffect(() => {
       if (!message || !ref.current) return;
+
       ref.current?.showModal();
+
       const timer = setTimeout(() => {
         ref.current?.close();
         handleMessage();
@@ -17,11 +26,15 @@ const MessageDialog = forwardRef(
 
       return () => clearTimeout(timer);
     }, [message, ref, duration, handleMessage]);
+    // -> closes the dialog after the duration
 
+    // HANDLERS
     const handleClose = () => {
       ref.current?.close();
       handleMessage();
-    };
+    }; // -> closes the dialog and resets the state
+
+    /************************************************************************ */
 
     return (
       message && (
@@ -43,6 +56,7 @@ const MessageDialog = forwardRef(
 MessageDialog.displayName = "MessageDialog";
 export default MessageDialog;
 
+// SVG COMPONENT
 const CloseIcon = (props) => {
   return (
     <svg width={20} height={20} viewBox="0 0 20 20" {...props}>

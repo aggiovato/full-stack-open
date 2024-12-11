@@ -1,8 +1,11 @@
+// EXTERNAL MODULES
 import { useRef, useState, useEffect } from "react";
 
+// EXTERNAL COMPONENTS
 import ContactDialog from "@components/ContactDialog.jsx";
 import MessageDialog from "@components/MessageDialog.jsx";
 
+// STYLES
 import {
   ListContainer,
   ListTitle,
@@ -12,56 +15,63 @@ import {
   StyIoPerson,
 } from "@styles/NumberList.styles.jsx";
 
-const NumberList = ({ list }) => {
-  const dialogRef = useRef(null);
-  const messageRef = useRef(null);
+/************************************************************************ */
+
+// COMPONENT
+const NumberList = ({ list, handleList }) => {
+  // STATES
+  const dialogRef = useRef(null); // -> keeps track of the dialog
+  const messageRef = useRef(null); // -> keeps track of the pop-up message
+
   const [activeContact, setActiveContact] = useState(null);
   const [message, setMessage] = useState(null);
-  const [contacts, setContacts] = useState(list);
 
+  // EFFECTS
   useEffect(() => {
     activeContact && dialogRef.current?.showModal();
-  }, [activeContact]); // keeps watching for changes in activeContact, so it fixes the first render problem due to the async nature of useState
+  }, [activeContact]);
+  // -> keeps watching for changes in activeContact
+  // so it fixes the first render problem due to the async nature of useState
 
-  useEffect(() => {
-    setContacts(list);
-  }, [list]); // updates the contacts when the list changes
-
+  // HANDLERS
   const handleContact = (contact) => {
     setActiveContact(contact);
-  };
+  }; // -> handles the contact click
 
   const handleDeleteCompletion = (updatedList, message) => {
-    setContacts(updatedList);
+    handleList(updatedList);
     setMessage(message);
-  };
+  }; // -> handles the deletion completion
+
+  /************************************************************************ */
 
   return (
     <>
+      {/* pop-up message */}
       <MessageDialog
         ref={messageRef}
         message={message}
         handleMessage={() => setMessage(null)}
         duration={4000}
       />
+      {/* contact dialog */}
       <ContactDialog
         ref={dialogRef}
         contactDetails={activeContact}
         handleClosure={setActiveContact}
         handleDeleteCompletion={handleDeleteCompletion}
-        list={contacts}
       />
       <ListContainer>
         <ListTitle>Numbers</ListTitle>
-        {contacts.map((contact) => {
-          if (!contact) return null;
+        {list.map((li) => {
+          if (!li) return null;
           return (
-            <Number key={contact.id} onClick={() => handleContact(contact)}>
+            <Number key={li.id} onClick={() => handleContact(li)}>
               <NumberText>
-                <StyIoPerson /> {contact.name}
+                <StyIoPerson /> {li.name}
               </NumberText>
               <NumberText>
-                {contact.phone} <StyFaPhone />
+                {li.number} <StyFaPhone />
               </NumberText>
             </Number>
           );

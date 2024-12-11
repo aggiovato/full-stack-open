@@ -1,32 +1,40 @@
+// EXTERNAL MODULES
 import { useEffect, useState } from "react";
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, styled } from "styled-components";
 
+// EXTERNAL COMPONENTS
 import Filter from "@components/Filter.jsx";
 import Form from "@components/Form.jsx";
 import NumberList from "@components/NumberList.jsx";
 
+// SERVICES
 import { getAllContacts } from "@services/contacts";
 
 const App = () => {
+  // STATES
   const [contacts, setContacts] = useState([]);
   const [filteredContacts, setFilteredContacts] = useState(contacts);
 
+  // EFFECTS
   useEffect(() => {
     getAllContacts()
       .then((data) => {
         setContacts(data);
       })
       .catch((error) => console.log(error));
-  }, []); // loads the contacts from the server
+  }, []);
+  // -> loads the contacts from the server
 
   useEffect(() => {
     setFilteredContacts(contacts);
-  }, [contacts]); // updates the filtered contacts when the contacts change
+  }, [contacts]);
+  // -> updates the filtered contacts when the contacts change
 
+  // HANDLERS
   const handleListUpdate = (newContacts) => {
     setContacts(newContacts);
     setFilteredContacts(newContacts);
-  };
+  }; // -> updates the contacts list and the filtered contacts
 
   const handleFilter = (searchQuery) => {
     if (!searchQuery) {
@@ -38,14 +46,14 @@ const App = () => {
         )
       );
     }
-  };
+  }; // -> searches the query in the contacts list
 
   return (
     <div>
       <GlobalStyle />
       <Filter handleFilter={handleFilter} />
       <Form list={contacts} handleList={handleListUpdate} />
-      <NumberList list={filteredContacts} />
+      <NumberList list={filteredContacts} handleList={handleListUpdate} />
     </div>
   );
 };
@@ -63,5 +71,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: #f5f5f5;
     color: #444;
     box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;

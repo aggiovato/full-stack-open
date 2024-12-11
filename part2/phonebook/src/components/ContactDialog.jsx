@@ -1,5 +1,7 @@
+// EXTERNAL MODULES
 import { forwardRef, useEffect, useState } from "react";
 
+// STYLES
 import {
   DialogContainer,
   DialogTitle,
@@ -13,29 +15,42 @@ import {
   Button,
 } from "@styles/ContactDialog.styles.jsx";
 
-import { deleteContact } from "@services/contacts";
+// SERVICES
+import { deleteContact, getAllContacts } from "@services/contacts";
 
+/************************************************************************ */
+
+// COMPONENT
 const ContactDialog = forwardRef(
-  ({ contactDetails, handleClosure, handleDeleteCompletion, list }, ref) => {
+  ({ contactDetails, handleClosure, handleDeleteCompletion }, ref) => {
+    // STATES
     const [isLongDtails, setIsLongDtails] = useState(false);
+    // -> controls how the dialog is displayed
 
+    // EFFECTS
     useEffect(() => {
       if (contactDetails) {
         setIsLongDtails(
-          contactDetails.name.length > 18 || contactDetails.phone.length > 18
+          contactDetails.name.length > 18 || contactDetails.number.length > 18
         );
       } else {
         setIsLongDtails(false);
       }
-    }, [contactDetails]); // checks if the contactDetails are long enough to be displayed in the dialog
+    }, [contactDetails]);
+    // -> checks if the contactDetails are long enough to be displayed in the dialog
 
     if (!contactDetails) return null;
 
+    // HANDLERS
     const handleClose = () => {
       ref.current?.close();
       handleClosure(undefined);
       setIsLongDtails(false);
-    }; // closes the dialog and resets the state
+    }; // -> closes the dialog and resets the state
+
+    const handleEdit = () => {
+      // TODO: EDIT CONTACT
+    }; // -> opens the edit dialog
 
     const handleDelete = () => {
       const isDeletable = confirm(
@@ -43,30 +58,37 @@ const ContactDialog = forwardRef(
       );
       if (!isDeletable) return;
 
-      const updatedList = list.filter(
-        (contact) => contact.id !== contactDetails.id
-      );
-
       deleteContact(contactDetails.id)
         .then(() => {
-          handleDeleteCompletion(updatedList, {
-            type: "success",
-            message: `Contact has been deleted successfully`,
-          });
+          getAllContacts()
+            .then((data) => {
+              handleDeleteCompletion(data, {
+                type: "success",
+                message: `Contact has been deleted successfully`,
+              });
+            })
+            .catch((error) => console.error("Error fetching contacts", error));
+
           handleClose();
         })
         .catch((error) => {
-          handleDeleteCompletion(updatedList, {
-            type: "error",
-            message:
-              error.code === "ERR_BAD_REQUEST"
-                ? "Contact has already been deleted from the server"
-                : error.message,
+          getAllContacts().then((data) => {
+            error.code === "ERR_BAD_REQUEST"
+              ? handleDeleteCompletion(data, {
+                  type: "error",
+                  message: `Contact is no longer in the server`,
+                })
+              : handleDeleteCompletion(data, {
+                  type: "error",
+                  message: error.message,
+                });
           });
+
           handleClose();
-          console.log(error);
         });
-    }; // deletes the contact from the server and the local state
+    }; // -> deletes the contact from the server and the local state
+
+    /************************************************************************ */
 
     return (
       <>
@@ -77,7 +99,7 @@ const ContactDialog = forwardRef(
             <DialogContent>
               <DialogContentLine>Name: {contactDetails.name}</DialogContentLine>
               <DialogContentLine>
-                Phone: {contactDetails.phone}
+                Phone: {contactDetails.number}
               </DialogContentLine>
             </DialogContent>
           </DialogCard>
@@ -85,7 +107,9 @@ const ContactDialog = forwardRef(
             <StyCloseIcon />
           </DialogCloseButton>
           <ButtonsContainer>
-            <Button $variant="success">Edit</Button>
+            <Button $variant="success" onClick={handleEdit}>
+              Edit
+            </Button>
             <Button $variant="danger" onClick={handleDelete}>
               Delete
             </Button>

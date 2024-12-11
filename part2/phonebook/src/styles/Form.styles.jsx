@@ -37,6 +37,7 @@ export const FormContainer = styled.div`
 export const FormTitle = styled.h2`
   margin-bottom: 20px;
   margin-top: 0;
+  color: #5a5a5a;
   font-size: 1.8rem;
   text-align: center;
 
@@ -79,10 +80,10 @@ export const FormInput = styled.input`
 
 export const FormButton = styled.button`
   width: 100%;
-  padding: 10px;
+  padding: 12px 15px;
   margin-top: 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   background-color: #444;
   color: #fff;
   font-size: 1rem;

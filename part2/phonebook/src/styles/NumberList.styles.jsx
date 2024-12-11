@@ -25,6 +25,7 @@ export const ListTitle = styled.h2`
   margin-top: 0;
   font-size: 1.8rem;
   text-align: center;
+  color: #5a5a5a;
 
   @media (max-width: 768px) {
     font-size: 1.5rem;
@@ -56,7 +57,6 @@ export const Number = styled.button`
 export const NumberText = styled.p`
   margin: 0;
   font-size: 1rem;
-  font-weight: bold;
   color: #444;
   white-space: nowrap;
   overflow: hidden;

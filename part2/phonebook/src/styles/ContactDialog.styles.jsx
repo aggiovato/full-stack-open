@@ -84,10 +84,43 @@ export const DialogTitle = styled.div`
   font-size: 1.7rem;
   font-weight: 600;
   text-align: center;
-  color: #444;
+  color: #5a5a5a;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 30px;
+    left: 26.25%;
+    transform: rotate(-3deg);
+    background-color: #c2bfbf9a;
+    border-radius: 8px;
+    width: 210px;
+    height: 40px;
+    z-index: -1;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover::before {
+    transform: rotate(5deg);
+    z-index: -1;
+  }
 
   @media (max-width: 768px) {
     font-size: 1.5rem;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 28px;
+      left: 21.25%;
+      transform: rotate(-3deg);
+      background-color: #c2bfbf9a;
+      border-radius: 8px;
+      width: 180px;
+      height: 38px;
+      z-index: -1;
+      transition: transform 0.3s ease;
+    }
   }
 `;
 

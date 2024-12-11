@@ -1,3 +1,4 @@
+// STYLES
 import {
   FilterContainer,
   FilterTitle,
@@ -6,10 +7,16 @@ import {
   FilterLine,
 } from "@styles/Filter.styles.jsx";
 
+/************************************************************************ */
+
+// COMPONENT
 const Filter = ({ handleFilter }) => {
+  // HANDLERS
   const handleFilterChange = (event) => {
     handleFilter(event.target.value);
   };
+
+  /************************************************************************ */
 
   return (
     <>

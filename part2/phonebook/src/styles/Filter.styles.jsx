@@ -39,6 +39,7 @@ export const FilterContainer = styled.div`
 export const FilterTitle = styled.h2`
   margin-bottom: 10px;
   margin-top: 0;
+  color: #5a5a5a;
   font-size: 1.8rem;
   text-align: center;
 

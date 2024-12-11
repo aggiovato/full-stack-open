@@ -17,4 +17,16 @@ export default defineConfig({
       "@services": path.resolve(__dirname, "./src/services"),
     },
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+      },
+      "/info": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+      },
+    },
+  },
 });
