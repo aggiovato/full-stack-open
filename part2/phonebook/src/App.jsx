@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { createGlobalStyle, styled } from "styled-components";
 
 // EXTERNAL COMPONENTS
+import Navbar from "@components/Navbar.jsx";
 import Filter from "@components/Filter.jsx";
 import Form from "@components/Form.jsx";
 import NumberList from "@components/NumberList.jsx";
@@ -51,6 +52,7 @@ const App = () => {
   return (
     <div>
       <GlobalStyle />
+      <Navbar />
       <Filter handleFilter={handleFilter} />
       <Form list={contacts} handleList={handleListUpdate} />
       <NumberList list={filteredContacts} handleList={handleListUpdate} />

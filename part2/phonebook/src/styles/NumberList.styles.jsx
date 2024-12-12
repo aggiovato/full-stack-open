@@ -23,12 +23,12 @@ export const ListContainer = styled.div`
 export const ListTitle = styled.h2`
   margin-bottom: 20px;
   margin-top: 0;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   text-align: center;
   color: #5a5a5a;
 
   @media (max-width: 768px) {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 `;
 

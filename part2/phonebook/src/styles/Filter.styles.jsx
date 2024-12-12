@@ -52,14 +52,12 @@ export const FilterLine = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
 `;
 
 export const FilterInput = styled.input`
   width: 100%;
   box-sizing: border-box;
   padding: 10px 15px;
-  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px 0 0 5px;
   font-size: 1rem;

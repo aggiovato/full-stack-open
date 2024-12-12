@@ -21,7 +21,6 @@ const Filter = ({ handleFilter }) => {
   return (
     <>
       <FilterContainer>
-        <FilterTitle>Phonebook</FilterTitle>
         <FilterLine>
           <FilterInput
             type="text"
