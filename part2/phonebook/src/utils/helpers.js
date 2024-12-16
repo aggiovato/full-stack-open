@@ -15,55 +15,6 @@ export const isAddedContact = (list, name) => {
 /************************************************************************ */
 
 /**
- * This function checks if the contact phone number is valid:
- * required and follows the international format
- *
- * @param {String} phone
- * @returns {undefined}
- */
-const validatePhone = (phone) => {
-  const phone_regex =
-    /^\+?[0-9]{1,3}?[-. ]?\(?[0-9]{2,4}\)?[-. ]?[0-9]{3,4}[-. ]?[0-9]{3,4}$/;
-
-  if (!phone) throw new Error("Phone number is required");
-
-  if (!phone_regex.test(phone))
-    throw new Error(`Phone number ${phone} is invalid`);
-};
-
-/************************************************************************ */
-
-/**
- * This function checks if the contact name is valid:
- * required and between 3 and 30 characters
- *
- * @param {String} name
- * @returns {undefined}
- */
-const validateName = (name) => {
-  if (!name) throw new Error("Name is required");
-
-  if (name.trim().length < 3 || name.trim().length > 30) {
-    throw new Error("Name must be between 3 and 30 characters");
-  }
-};
-
-/************************************************************************ */
-
-/**
- * This function checks if the contact is valid:
- * valid name and phone number
- *
- * @param {Object} contact
- */
-export const isValidContact = (contact) => {
-  validateName(contact.name);
-  validatePhone(contact.number);
-};
-
-/************************************************************************ */
-
-/**
  * This function trims the contact name and phone number
  *
  * @param {Object} contact

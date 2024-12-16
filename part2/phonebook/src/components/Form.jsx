@@ -14,7 +14,6 @@ import {
 
 // HELPERS
 import {
-  isValidContact,
   isAddedContact,
   getContactId,
   getTrimmedContact,
@@ -37,60 +36,49 @@ const Form = ({ list, handleList }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    try {
-      // DATA TRATEMENT
-      // trims the contact name and phone number
-      const trmContact = getTrimmedContact(newContact);
-      const { name: trmName, number: trmPhone } = trmContact;
+    // DATA TRATEMENT
+    // trims the contact name and phone number
+    const trmContact = getTrimmedContact(newContact);
+    const { name: trmName, number: trmPhone } = trmContact;
 
-      // checks if the contact is valid
-      // not empty, long enough and valid phone number
+    // checks if the contact is already added
+    if (isAddedContact(list, trmName)) {
+      const isPuttable = window.confirm(
+        `${trmName} is already added to phonebook, do you want to replace the old number with ${trmPhone}?`
+      );
 
-      isValidContact(trmContact);
+      if (!isPuttable) return;
 
-      // checks if the contact is already added
-      if (isAddedContact(list, trmName)) {
-        const isPuttable = window.confirm(
-          `${trmName} is already added to phonebook, do you want to replace the old number with ${trmPhone}?`
-        );
+      const trmId = getContactId(list, trmName);
 
-        if (!isPuttable) return;
-
-        const trmId = getContactId(list, trmName);
-
-        // PUT CONTACT /api/persons/:id
-        updateContact(trmContact, trmId)
-          .then((data) => {
-            handleList(updateContactList(list, data));
-            setMessage({
-              type: "success",
-              message: `Contact has been updated successfully`,
-            });
-          })
-          .catch((error) => {
-            setMessage({ type: "error", message: error.message });
+      // PUT CONTACT /api/persons/:id
+      updateContact(trmContact, trmId)
+        .then((data) => {
+          handleList(updateContactList(list, data));
+          setMessage({
+            type: "success",
+            message: `Contact has been updated successfully`,
           });
-      } else {
-        // POST CONTACT /api/persons
-        addContact(trmContact)
-          .then((data) => {
-            handleList(list.concat(data));
-            setMessage({
-              type: "success",
-              message: `New contact has been added successfully`,
-            });
-          })
-          .catch((error) => {
-            setMessage({ type: "error", message: error.message });
+        })
+        .catch((error) => {
+          setMessage({ type: "error", message: error.response.data.error });
+        });
+    } else {
+      // POST CONTACT /api/persons
+      addContact(trmContact)
+        .then((data) => {
+          handleList(list.concat(data));
+          setMessage({
+            type: "success",
+            message: `New contact has been added successfully`,
           });
-      }
-    } catch (error) {
-      // VALIDATION ERROR
-      setMessage({ type: "error", message: error.message });
-    } finally {
-      // RESETS THE FORM
-      setNewContact({ name: "", number: "" });
+        })
+        .catch((error) => {
+          setMessage({ type: "error", message: error.response.data.error });
+        });
     }
+    // RESETS THE FORM
+    setNewContact({ name: "", number: "" });
   }; // -> handles the form submission
 
   const handleNameChange = (event) => {
