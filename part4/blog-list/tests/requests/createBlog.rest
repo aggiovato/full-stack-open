@@ -1,0 +1,31 @@
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "My first blog",
+  "author": "Aggiovato",
+  "url": "https://www.just-a-blog.com",
+  "likes": 10
+}
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "All about JS",
+  "author": "JavaScript",
+  "url": "https://js.about-us.com",
+  "likes": 500
+}
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "React vs Angular",
+  "url": "https://react.bestframeworkever.com",
+  "likes": 0
+}
