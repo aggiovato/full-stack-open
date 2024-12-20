@@ -1,9 +1,14 @@
-// IMPORT MODULES
+// EXTERNAL MODULES
 const { test, describe } = require("node:test");
 const assert = require("node:assert");
 
+// IMPORT MODULES
 const listHelper = require("../utils/list_helper");
 const blogs = require("../stores/blogStore");
+
+/******************************************************************************
+ * LIST OF TESTS
+ *****************************************************************************/
 
 // DUMMY FUNCTION TEST
 test("dummy returns one", () => {
@@ -60,6 +65,30 @@ describe("favorite blog", () => {
       title: "React patterns",
       author: "Michael Chan",
       likes: 7,
+    });
+  });
+});
+
+// MOST BLOGS TEST
+describe("most blogs", () => {
+  test("when list is empty, returns zero", () => {
+    const result = listHelper.mostBlogs(blogs.emptyList);
+    assert.strictEqual(result, 0);
+  });
+
+  test("when list has only one blog, returns that", () => {
+    const result = listHelper.mostBlogs(blogs.listWithOneBlog);
+    assert.deepStrictEqual(result, {
+      author: "Edsger W. Dijkstra",
+      blogs: 1,
+    });
+  });
+
+  test("when list has more than one blog, returns the one with the most blogs", () => {
+    const result = listHelper.mostBlogs(blogs.blogsWithRepeatedAuthors);
+    assert.deepStrictEqual(result, {
+      author: "John Doe",
+      blogs: 3,
     });
   });
 });
