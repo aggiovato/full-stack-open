@@ -71,9 +71,9 @@ describe("favorite blog", () => {
 
 // MOST BLOGS TEST
 describe("most blogs", () => {
-  test("when list is empty, returns zero", () => {
+  test("when list is empty, returns an empty object", () => {
     const result = listHelper.mostBlogs(blogs.emptyList);
-    assert.strictEqual(result, 0);
+    assert.deepStrictEqual(result, { author: "", blogs: 0 });
   });
 
   test("when list has only one blog, returns that", () => {
@@ -90,5 +90,26 @@ describe("most blogs", () => {
       author: "John Doe",
       blogs: 3,
     });
+  });
+});
+
+// MOST LIKES TEST
+describe("most likes", () => {
+  test("when list is empty, returns an empty object", () => {
+    const result = listHelper.mostLikes(blogs.emptyList);
+    assert.deepStrictEqual(result, { author: "", likes: 0 });
+  });
+
+  test("when list has only one blog, returns that", () => {
+    const result = listHelper.mostLikes(blogs.listWithOneBlog);
+    assert.deepStrictEqual(result, {
+      author: "Edsger W. Dijkstra",
+      likes: 5,
+    });
+  });
+
+  test("when list has more than one blog, returns the one with the most likes", () => {
+    const result = listHelper.mostLikes(blogs.blogsWithRepeatedAuthors);
+    assert.deepStrictEqual(result, { author: "Alice Johnson", likes: 48 });
   });
 });

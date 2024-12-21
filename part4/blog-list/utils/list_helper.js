@@ -24,35 +24,28 @@ const favoriteBlog = (blogs) => {
 };
 
 // returns the author with most blogs
-/*const mostBlogs = (blogs) => {
-  if (blogs.length === 0) return 0;
-
-  const counter = blogs.reduce((acc, blog) => {
-    acc[blog.author] = (acc[blog.author] || 0) + 1;
-    return acc;
-  }, {});
-
-  const most = Object.keys(counter).reduce(
-    (acc, author) => {
-      return counter[author] > acc.blogs
-        ? { author, blogs: counter[author] }
-        : acc;
-    },
-    { author: "", blogs: 0 }
-  );
-
-  return most;
-};*/
-
 const mostBlogs = (blogs) => {
-  if (_.isEmpty(blogs)) return 0;
   const counter = _.countBy(blogs, "author");
   const most = _.maxBy(_.keys(counter), (author) => counter[author]);
+  return _.isEmpty(blogs)
+    ? { author: "", blogs: 0 }
+    : {
+        author: most,
+        blogs: counter[most],
+      };
+};
 
-  return {
-    author: most,
-    blogs: counter[most],
-  };
+// returns the author with most likes
+const mostLikes = (blogs) => {
+  const groupedAuthors = _.groupBy(blogs, "author");
+  const authorLikes = _.map(groupedAuthors, (authorBlogs, author) => ({
+    author,
+    likes: _.reduce(authorBlogs, (acc, blog) => acc + blog.likes, 0),
+  }));
+
+  return _.isEmpty(blogs)
+    ? { author: "", likes: 0 }
+    : _.maxBy(authorLikes, "likes");
 };
 
 module.exports = {
@@ -60,4 +53,5 @@ module.exports = {
   totalLikes,
   favoriteBlog,
   mostBlogs,
+  mostLikes,
 };
