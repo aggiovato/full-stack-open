@@ -1,4 +1,5 @@
 // EXTERNAL MODULES
+require("express-async-errors");
 const express = require("express");
 
 // IMPORT MODULES

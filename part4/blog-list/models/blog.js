@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const config = require("../utils/config");
 const logger = require("../utils/logger");
 
-const uri = config.MONGODB_URL;
+const uri = config.MONGODB_URI;
 
 mongoose.set("strictQuery", true);
 
