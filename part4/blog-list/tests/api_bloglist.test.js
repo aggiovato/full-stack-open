@@ -44,6 +44,16 @@ describe("GET /api/blogs", () => {
 
     assert.strictEqual(blogs.length, helper.initialBlogs.length);
   });
+
+  test("unique identifier is 'id' and not '_id'", async () => {
+    const blogs = await helper.allBlogsDB();
+    assert.ok(blogs[0].id, "blogs must have a property 'id'");
+    assert.strictEqual(
+      blogs[0]._id,
+      undefined,
+      "property '_id' must not exist"
+    );
+  });
 });
 
 /******************************************************************************
