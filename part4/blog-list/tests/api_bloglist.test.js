@@ -84,6 +84,28 @@ describe("POST /api/blogs", () => {
     //checks the whole object
     assert.deepStrictEqual(blogs[blogs.length - 1], newBlog);
   });
+
+  test("the defalt value of likes is zero", async () => {
+    const newBlog = {
+      title: "Kubernetes for Beginners",
+      author: "Chris Wilson",
+      url: "https://example.com/kubernetes",
+    };
+
+    await api
+      .post("/api/blogs")
+      .send(newBlog)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+
+    const blogs = await helper.allBlogsDB();
+
+    // check the length of the array
+    assert.strictEqual(blogs.length, helper.initialBlogs.length + 1);
+
+    // checks the likes
+    assert.strictEqual(blogs[blogs.length - 1].likes, 0);
+  });
 });
 
 /******************************************************************************

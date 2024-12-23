@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const blog = new Blog(req.body);
+  const blog = new Blog({ ...req.body, likes: req.body.likes || 0 });
 
   const result = await blog.save();
   res.status(201).json(result);
