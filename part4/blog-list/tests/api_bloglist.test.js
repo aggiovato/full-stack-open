@@ -31,22 +31,32 @@ beforeEach(async () => {
  * LIST OF TESTS
  *****************************************************************************/
 describe("GET /api/blogs", () => {
-  test("blogs are returned as JSON", async () => {
+  test("blogs: returned as JSON", async () => {
     await api
       .get("/api/blogs")
       .expect(200)
       .expect("Content-Type", /application\/json/);
   });
 
-  test("all blogs are returned", async () => {
+  test("blogs: all blogs are returned", async () => {
     const res = await api.get("/api/blogs");
     const blogs = res.body;
 
     assert.strictEqual(blogs.length, helper.initialBlogs.length);
   });
 
-  test("unique identifier is 'id' and not '_id'", async () => {
+  test("blogs: a valid blog can be retrieved", async () => {
+    const blog = (await helper.allBlogsDB())[0];
+
+    const result = await api.get(`/api/blogs/${blog.id}`);
+    const blogFromDB = result.body;
+
+    assert.deepStrictEqual(blogFromDB, blog);
+  });
+
+  test("blogs: unique identifier is 'id'", async () => {
     const blogs = await helper.allBlogsDB();
+
     assert.ok(blogs[0].id, "blogs must have a property 'id'");
     assert.strictEqual(
       blogs[0]._id,
@@ -57,7 +67,7 @@ describe("GET /api/blogs", () => {
 });
 
 describe("POST /api/blogs", () => {
-  test("a valid blog can be added", async () => {
+  test("blogs: a valid blog can be added", async () => {
     const newBlog = {
       title: "Deploying with Docker",
       author: "Chris Wilson",
@@ -74,18 +84,12 @@ describe("POST /api/blogs", () => {
     newBlog.id = result.body.id;
     const blogs = await helper.allBlogsDB();
 
-    // check the length of the array
     assert.strictEqual(blogs.length, helper.initialBlogs.length + 1);
-
-    // checks the title
-    const titles = blogs.map((blog) => blog.title);
-    assert(titles.includes("Deploying with Docker"));
-
-    //checks the whole object
+    assert(blogs.map((blog) => blog.title).includes("Deploying with Docker"));
     assert.deepStrictEqual(blogs[blogs.length - 1], newBlog);
   });
 
-  test("the defalt value of likes is zero", async () => {
+  test("blogs: default value of likes is 0", async () => {
     const newBlog = {
       title: "Kubernetes for Beginners",
       author: "Chris Wilson",
@@ -100,14 +104,11 @@ describe("POST /api/blogs", () => {
 
     const blogs = await helper.allBlogsDB();
 
-    // check the length of the array
     assert.strictEqual(blogs.length, helper.initialBlogs.length + 1);
-
-    // checks the likes
     assert.strictEqual(blogs[blogs.length - 1].likes, 0);
   });
 
-  test("if there's no title or url, status code 400 is returned", async () => {
+  test("blogs: title and url are required, status code 400 if not", async () => {
     const newBlog = {
       author: "Chris Wilson",
     };
@@ -117,6 +118,33 @@ describe("POST /api/blogs", () => {
       .send(newBlog)
       .expect(400)
       .expect("Content-Type", /application\/json/);
+  });
+});
+
+describe("DELETE /api/blogs/:id", () => {
+  test("blogs: a valid blog can be deleted", async () => {
+    const newBlog = {
+      title: "Neural Networks Explained",
+      author: "Sophia Lee",
+      url: "https://example.com/neural-networks",
+      likes: 17,
+    };
+
+    await api
+      .post("/api/blogs")
+      .send(newBlog)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+    const blogs = await helper.allBlogsDB();
+    const blogToDelete = blogs[blogs.length - 1];
+
+    await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
+
+    const blogsAfterDelete = await helper.allBlogsDB();
+
+    assert.strictEqual(blogsAfterDelete.length, blogs.length - 1);
+    const titles = blogsAfterDelete.map((blog) => blog.title);
+    assert(!titles.includes(blogToDelete.title));
   });
 });
 

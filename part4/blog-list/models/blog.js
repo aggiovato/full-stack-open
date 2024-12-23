@@ -41,7 +41,7 @@ const blogSchema = new mongoose.Schema({
     },
     required: [true, "URL is required"],
   },
-  likes: Number,
+  likes: Number || 0,
 });
 
 blogSchema.set("toJSON", {

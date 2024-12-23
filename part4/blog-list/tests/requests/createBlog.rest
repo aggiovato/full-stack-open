@@ -3,10 +3,10 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "React patterns",
-  "author": "Michael Chan",
-  "url": "https://reactpatterns.com/",
-  "likes": 7
+  "title": "My first blog",
+  "author": "Aggiovato",
+  "url": "https://my-first-blog.com/",
+  "likes": 18
 }
 
 ###
