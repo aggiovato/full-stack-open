@@ -148,6 +148,30 @@ describe("DELETE /api/blogs/:id", () => {
   });
 });
 
+describe("PUT /api/blogs/:id", () => {
+  test("blogs: a valid blog can be modified", async () => {
+    const blog = (await helper.allBlogsDB())[0];
+    const updatedBlog = { ...blog, likes: blog.likes + 5 };
+
+    const response = await api
+      .put(`/api/blogs/${updatedBlog.id}`)
+      .send(updatedBlog)
+      .expect(202)
+      .expect("Content-Type", /application\/json/);
+
+    const blogsAfterUpdate = await helper.allBlogsDB();
+    const updatedBlogFromDB = blogsAfterUpdate.find(
+      (blog) => blog.id === updatedBlog.id
+    );
+
+    assert.strictEqual(response.body.likes, updatedBlog.likes);
+    assert.strictEqual(
+      blogsAfterUpdate.find((blog) => blog.id === updatedBlog.id).likes,
+      updatedBlog.likes
+    );
+  });
+});
+
 /******************************************************************************
  * AFTER ALL TESTS
  *****************************************************************************/
