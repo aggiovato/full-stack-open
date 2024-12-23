@@ -56,6 +56,36 @@ describe("GET /api/blogs", () => {
   });
 });
 
+describe("POST /api/blogs", () => {
+  test("a valid blog can be added", async () => {
+    const newBlog = {
+      title: "Deploying with Docker",
+      author: "Chris Wilson",
+      url: "https://example.com/docker-deploy",
+      likes: 16,
+    };
+
+    const result = await api
+      .post("/api/blogs")
+      .send(newBlog)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+
+    newBlog.id = result.body.id;
+    const blogs = await helper.allBlogsDB();
+
+    // check the length of the array
+    assert.strictEqual(blogs.length, helper.initialBlogs.length + 1);
+
+    // checks the title
+    const titles = blogs.map((blog) => blog.title);
+    assert(titles.includes("Deploying with Docker"));
+
+    //checks the whole object
+    assert.deepStrictEqual(blogs[blogs.length - 1], newBlog);
+  });
+});
+
 /******************************************************************************
  * AFTER ALL TESTS
  *****************************************************************************/
