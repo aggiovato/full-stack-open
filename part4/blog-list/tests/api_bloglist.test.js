@@ -106,6 +106,18 @@ describe("POST /api/blogs", () => {
     // checks the likes
     assert.strictEqual(blogs[blogs.length - 1].likes, 0);
   });
+
+  test("if there's no title or url, status code 400 is returned", async () => {
+    const newBlog = {
+      author: "Chris Wilson",
+    };
+
+    await api
+      .post("/api/blogs")
+      .send(newBlog)
+      .expect(400)
+      .expect("Content-Type", /application\/json/);
+  });
 });
 
 /******************************************************************************
