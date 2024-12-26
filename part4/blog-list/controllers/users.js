@@ -2,8 +2,12 @@
 const bcrypt = require("bcrypt");
 const router = require("express").Router();
 
+// HELPERS
+const { isValidPassword } = require("../utils/helpers");
+
 // MODELS
 const User = require("../models/user");
+const { error } = require("../utils/logger");
 
 // ROUTES
 
@@ -11,7 +15,7 @@ const User = require("../models/user");
 router.get("/", async (req, res) => {
   const users = await User.find({});
   if (users.length === 0) {
-    res.status(404).json({ message: "No users found" });
+    res.status(404).json({ error: "No users found" });
   } else {
     res.json(users);
   }
@@ -21,10 +25,17 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const { username, name, password } = req.body;
 
+  if (!isValidPassword(password)) {
+    return res.status(400).json({ error: "Invalid password" });
+  }
+
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
 
-  const user = new User({ username, name, passwordHash });
+  let user;
+  name
+    ? (user = new User({ username, name, passwordHash }))
+    : (user = new User({ username, passwordHash }));
 
   const result = await user.save();
   res.status(201).json(result);

@@ -30,7 +30,7 @@ beforeEach(async () => {
 /******************************************************************************
  * LIST OF TESTS
  *****************************************************************************/
-describe("GET /api/blogs", () => {
+describe("GET /api/blogs ----- Getting information about blogs", () => {
   test("blogs: returned as JSON", async () => {
     await api
       .get("/api/blogs")
@@ -66,7 +66,7 @@ describe("GET /api/blogs", () => {
   });
 });
 
-describe("POST /api/blogs", () => {
+describe("POST /api/blogs ----- Creating a new blog", () => {
   test("blogs: a valid blog can be added", async () => {
     const newBlog = {
       title: "Deploying with Docker",
@@ -121,7 +121,7 @@ describe("POST /api/blogs", () => {
   });
 });
 
-describe("DELETE /api/blogs/:id", () => {
+describe("DELETE /api/blogs/:id ----- Deleting an existing blog", () => {
   test("blogs: a valid blog can be deleted", async () => {
     const newBlog = {
       title: "Neural Networks Explained",
@@ -148,7 +148,7 @@ describe("DELETE /api/blogs/:id", () => {
   });
 });
 
-describe("PUT /api/blogs/:id", () => {
+describe("PUT /api/blogs/:id ----- Modifying an existing blog", () => {
   test("blogs: a valid blog can be modified", async () => {
     const blog = (await helper.allBlogsDB())[0];
     const updatedBlog = { ...blog, likes: blog.likes + 5 };

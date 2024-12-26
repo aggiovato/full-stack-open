@@ -21,9 +21,22 @@ mongoose
 
 // SCHEMA
 const userSchema = new mongoose.Schema({
-  username: String,
-  name: String,
-  passwordHash: String,
+  username: {
+    type: String,
+    required: [true, "Username is required"],
+    minlength: [3, "Username must be at least 3 characters"],
+    unique: true,
+  },
+  name: {
+    type: String,
+    default: function () {
+      return this.username;
+    },
+  },
+  passwordHash: {
+    type: String,
+    required: [true, "Password is required"],
+  },
 });
 
 userSchema.set("toJSON", {

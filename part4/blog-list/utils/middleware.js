@@ -9,6 +9,11 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "ValidationError") {
     const messages = Object.values(err.errors).map((error) => error.message);
     return res.status(400).json({ error: messages.join(", ") });
+  } else if (
+    err.name === "MongoServerError" &&
+    err.message.includes("E11000 duplicate key")
+  ) {
+    return res.status(400).json({ error: "Expected `username` to be unique" });
   }
 
   next(err);
