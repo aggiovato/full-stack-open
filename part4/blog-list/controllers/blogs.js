@@ -11,16 +11,6 @@ const User = require("../models/user");
 // const { randomizeUsers } = require("../utils/helpers");
 
 // ROUTES
-// get token
-const getTokenFrom = (req) => {
-  const auth = req.get("Authorization");
-  if (auth && auth.startsWith("Bearer ")) {
-    return auth.replace("Bearer ", "");
-  }
-  return null;
-};
-/******************************************************************************/
-
 // get all blogs
 router.get("/", async (req, res) => {
   const blogs = await Blog.find({}).populate("user", {
@@ -49,11 +39,8 @@ router.get("/:id", async (req, res) => {
 
 // create a new blog
 router.post("/", async (req, res) => {
-  //const userId = await randomizeUsers();
-  //const user = await User.findById(userId);
-
-  const decoded = jwt.verify(getTokenFrom(req), SECRET);
-  if (!decoded.id) {
+  const decoded = jwt.verify(req.token, SECRET);
+  if (!(decoded && decoded.id)) {
     return res.status(401).json({ error: "Invalid token" });
   }
 

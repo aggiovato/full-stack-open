@@ -6,13 +6,14 @@ const express = require("express");
 const blogRouter = require("./controllers/blogs");
 const userRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
-const { errorHandler, unknownEndpoint } = require("./utils/middleware");
+const middle = require("./utils/middleware");
 
 // CREATE APP
 const app = express();
 
 // MIDDLEWARES
 app.use(express.json());
+app.use(middle.tokenExtractor);
 
 app.set("json spaces", 2);
 
@@ -22,7 +23,7 @@ app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 
 // ERROR HANDLING
-app.use(errorHandler);
-app.use(unknownEndpoint);
+app.use(middle.errorHandler);
+app.use(middle.unknownEndpoint);
 
 module.exports = app;

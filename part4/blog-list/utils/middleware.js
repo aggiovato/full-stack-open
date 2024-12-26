@@ -1,6 +1,14 @@
 // IMPORT MODULES
 const logger = require("./logger");
 
+const tokenExtractor = (req, res, next) => {
+  const auth = req.get("Authorization");
+  if (auth && auth.startsWith("Bearer ")) {
+    req.token = auth.replace("Bearer ", "");
+  }
+  next();
+};
+
 const errorHandler = (err, req, res, next) => {
   logger.error(err.message);
 
@@ -26,6 +34,7 @@ const unknownEndpoint = (req, res) => {
 };
 
 module.exports = {
+  tokenExtractor,
   errorHandler,
   unknownEndpoint,
 };
