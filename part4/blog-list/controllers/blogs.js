@@ -1,14 +1,13 @@
 // EXTERNAL MODULES
-const jwt = require("jsonwebtoken");
 const router = require("express").Router();
 
 // IMPORT MODULES
+const middle = require("../utils/middleware");
 const { SECRET } = require("../utils/config");
 
 // MODELS
 const Blog = require("../models/blog");
 const User = require("../models/user");
-// const { randomizeUsers } = require("../utils/helpers");
 
 // ROUTES
 // get all blogs
@@ -38,12 +37,8 @@ router.get("/:id", async (req, res) => {
 });
 
 // create a new blog
-router.post("/", async (req, res) => {
-  const decoded = jwt.verify(req.token, SECRET);
-  if (!(decoded && decoded.id)) {
-    return res.status(401).json({ error: "Invalid token" });
-  }
-
+router.post("/", middle.tokenDecoder, async (req, res) => {
+  const decoded = req.user;
   const user = await User.findById(decoded.id);
 
   const blog = new Blog({
@@ -74,11 +69,20 @@ router.put("/:id", async (req, res) => {
 });
 
 // delete a blog
-router.delete("/:id", async (req, res) => {
-  const blog = await Blog.findByIdAndDelete(req.params.id);
+router.delete("/:id", middle.tokenDecoder, async (req, res) => {
+  const decoded = req.user;
+  const blog = await Blog.findById(req.params.id);
+
   if (!blog) {
-    res.status(404).json({ message: "Blog not found" });
+    return res.status(404).json({ message: "Blog not found" });
   }
+  if (blog.user.toString() !== decoded.id.toString()) {
+    return res
+      .status(401)
+      .json({ error: "Unauthorized operation for this user" });
+  }
+
+  await Blog.deleteOne({ _id: blog._id });
   res.status(204).json({ message: "Blog deleted" });
 });
 

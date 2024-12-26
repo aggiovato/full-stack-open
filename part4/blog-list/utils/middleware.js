@@ -1,11 +1,23 @@
 // IMPORT MODULES
+const jwt = require("jsonwebtoken");
 const logger = require("./logger");
+
+const { SECRET } = require("./config");
 
 const tokenExtractor = (req, res, next) => {
   const auth = req.get("Authorization");
   if (auth && auth.startsWith("Bearer ")) {
     req.token = auth.replace("Bearer ", "");
   }
+  next();
+};
+
+const tokenDecoder = (req, res, next) => {
+  const decoded = jwt.verify(req.token, SECRET);
+  if (!(decoded && decoded.id)) {
+    return res.status(401).json({ error: "Invalid token" });
+  }
+  req.user = decoded;
   next();
 };
 
@@ -35,6 +47,7 @@ const unknownEndpoint = (req, res) => {
 
 module.exports = {
   tokenExtractor,
+  tokenDecoder,
   errorHandler,
   unknownEndpoint,
 };
