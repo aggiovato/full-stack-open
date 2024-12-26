@@ -7,7 +7,6 @@ const { isValidPassword } = require("../utils/helpers");
 
 // MODELS
 const User = require("../models/user");
-const { error } = require("../utils/logger");
 
 // ROUTES
 
