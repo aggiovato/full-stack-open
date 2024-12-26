@@ -17,3 +17,21 @@ Content-Type: application/json
   "name": "Arto Hellas",
   "password": "hellas@-123"
 }
+
+### CREATE USER ----- Without name
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "antho",
+  "password": "Anotherpass8%"
+}
+
+### CREATE USER ----- Without password
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "hellas",
+  "name": "Arto Hellas",
+}

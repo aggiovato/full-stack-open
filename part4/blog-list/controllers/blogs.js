@@ -1,12 +1,25 @@
 // EXTERNAL MODULES
+const jwt = require("jsonwebtoken");
 const router = require("express").Router();
+
+// IMPORT MODULES
+const { SECRET } = require("../utils/config");
 
 // MODELS
 const Blog = require("../models/blog");
 const User = require("../models/user");
-const { randomizeUsers } = require("../utils/helpers");
+// const { randomizeUsers } = require("../utils/helpers");
 
 // ROUTES
+// get token
+const getTokenFrom = (req) => {
+  const auth = req.get("Authorization");
+  if (auth && auth.startsWith("Bearer ")) {
+    return auth.replace("Bearer ", "");
+  }
+  return null;
+};
+/******************************************************************************/
 
 // get all blogs
 router.get("/", async (req, res) => {
@@ -36,8 +49,16 @@ router.get("/:id", async (req, res) => {
 
 // create a new blog
 router.post("/", async (req, res) => {
-  const userId = await randomizeUsers();
-  const user = await User.findById(userId);
+  //const userId = await randomizeUsers();
+  //const user = await User.findById(userId);
+
+  const decoded = jwt.verify(getTokenFrom(req), SECRET);
+  if (!decoded.id) {
+    return res.status(401).json({ error: "Invalid token" });
+  }
+
+  const user = await User.findById(decoded.id);
+
   const blog = new Blog({
     ...req.body,
     likes: req.body.likes || 0,
