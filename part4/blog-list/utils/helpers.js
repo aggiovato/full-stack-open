@@ -1,4 +1,5 @@
 // HELPERS
+const User = require("../models/user");
 
 const isValidPassword = (password) => {
   const passwordRegex =
@@ -6,6 +7,13 @@ const isValidPassword = (password) => {
   return passwordRegex.test(password);
 };
 
+const randomizeUsers = async () => {
+  const users = await User.find({});
+  //const users_json = users.map((user) => user.toJSON());
+  return users[Math.floor(Math.random() * users.length)].id;
+};
+
 module.exports = {
   isValidPassword,
+  randomizeUsers,
 };

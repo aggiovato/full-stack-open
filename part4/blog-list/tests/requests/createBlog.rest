@@ -3,10 +3,10 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "My first blog",
-  "author": "Aggiovato",
-  "url": "https://my-first-blog.com/",
-  "likes": 18
+    "title": "Async/Await in JavaScript",
+    "author": "Jane Smith",
+    "url": "https://example.com/async-await",
+    "likes": 18
 }
 
 ###

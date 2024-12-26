@@ -42,6 +42,11 @@ const blogSchema = new mongoose.Schema({
     required: [true, "URL is required"],
   },
   likes: Number || 0,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: [true, "User is required"],
+  },
 });
 
 blogSchema.set("toJSON", {

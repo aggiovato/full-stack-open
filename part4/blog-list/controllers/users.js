@@ -13,7 +13,10 @@ const { error } = require("../utils/logger");
 
 // get all users
 router.get("/", async (req, res) => {
-  const users = await User.find({});
+  const users = await User.find({}).populate("blogs", {
+    title: 1,
+    url: 1,
+  });
   if (users.length === 0) {
     res.status(404).json({ error: "No users found" });
   } else {

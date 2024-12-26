@@ -3,12 +3,17 @@ const router = require("express").Router();
 
 // MODELS
 const Blog = require("../models/blog");
+const User = require("../models/user");
+const { randomizeUsers } = require("../utils/helpers");
 
 // ROUTES
 
 // get all blogs
 router.get("/", async (req, res) => {
-  const blogs = await Blog.find({});
+  const blogs = await Blog.find({}).populate("user", {
+    username: 1,
+    name: 1,
+  });
   if (blogs.length === 0) {
     res.status(404).json({ message: "No blogs found" });
   } else {
@@ -18,7 +23,10 @@ router.get("/", async (req, res) => {
 
 // get a specific blog
 router.get("/:id", async (req, res) => {
-  const blog = await Blog.findById(req.params.id);
+  const blog = await Blog.findById(req.params.id).populate("user", {
+    username: 1,
+    name: 1,
+  });
   if (!blog) {
     res.status(404).json({ message: "Blog not found" });
   } else {
@@ -28,10 +36,19 @@ router.get("/:id", async (req, res) => {
 
 // create a new blog
 router.post("/", async (req, res) => {
-  const blog = new Blog({ ...req.body, likes: req.body.likes || 0 });
+  const userId = await randomizeUsers();
+  const user = await User.findById(userId);
+  const blog = new Blog({
+    ...req.body,
+    likes: req.body.likes || 0,
+    user: user.id,
+  });
 
-  const result = await blog.save();
-  res.status(201).json(result);
+  const savedBlog = await blog.save();
+
+  user.blogs = user.blogs.concat(savedBlog._id);
+  await user.save();
+  res.status(201).json(savedBlog);
 });
 
 // modify a blog
