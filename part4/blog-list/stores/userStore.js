@@ -1,5 +1,10 @@
 // Store for users
 
+const root = {
+  username: "root",
+  password: "sekret",
+};
+
 const emptyUser = {
   username: "",
   name: "",
@@ -46,6 +51,7 @@ const repeatedUser = {
 };
 
 module.exports = {
+  root,
   emptyUser,
   validUser,
   userWithoutName,

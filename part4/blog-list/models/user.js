@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 // IMPORT MODULES
 const config = require("../utils/config");
 const logger = require("../utils/logger");
+const { capitalizeFirstLetter } = require("../utils/helpers");
 
 const uri = config.MONGODB_URI;
 
@@ -30,7 +31,7 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     default: function () {
-      return this.username;
+      return capitalizeFirstLetter(this.username);
     },
   },
   passwordHash: {

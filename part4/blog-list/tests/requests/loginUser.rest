@@ -1,0 +1,17 @@
+### LOGIN USER ----- VALID USER
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "hellas",
+  "password": "hellas@-123"
+}
+
+### LOGIN USER ----- INVALID USER
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "root",
+  "password": "wrong"
+}

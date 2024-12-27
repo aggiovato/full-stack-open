@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
     title: 1,
     url: 1,
   });
+
   if (users.length === 0) {
     res.status(404).json({ error: "No users found" });
   } else {

@@ -3,7 +3,6 @@ const router = require("express").Router();
 
 // IMPORT MODULES
 const middle = require("../utils/middleware");
-const { SECRET } = require("../utils/config");
 
 // MODELS
 const Blog = require("../models/blog");
@@ -16,6 +15,7 @@ router.get("/", async (req, res) => {
     username: 1,
     name: 1,
   });
+
   if (blogs.length === 0) {
     res.status(404).json({ message: "No blogs found" });
   } else {
@@ -38,8 +38,8 @@ router.get("/:id", async (req, res) => {
 
 // create a new blog
 router.post("/", middle.tokenDecoder, async (req, res) => {
-  const decoded = req.user;
-  const user = await User.findById(decoded.id);
+  const decodedUser = req.user;
+  const user = await User.findById(decodedUser.id);
 
   const blog = new Blog({
     ...req.body,
@@ -70,20 +70,20 @@ router.put("/:id", async (req, res) => {
 
 // delete a blog
 router.delete("/:id", middle.tokenDecoder, async (req, res) => {
-  const decoded = req.user;
+  const decodedUser = req.user;
   const blog = await Blog.findById(req.params.id);
 
   if (!blog) {
     return res.status(404).json({ message: "Blog not found" });
   }
-  if (blog.user.toString() !== decoded.id.toString()) {
+  if (blog.user.toString() !== decodedUser.id.toString()) {
     return res
       .status(401)
       .json({ error: "Unauthorized operation for this user" });
   }
 
   await Blog.deleteOne({ _id: blog._id });
-  res.status(204).json({ message: "Blog deleted" });
+  res.status(200).json({ message: "Blog deleted" });
 });
 
 module.exports = router;

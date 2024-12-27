@@ -1,4 +1,4 @@
-// API TESTER
+// API BLOGS TESTER
 
 // EXTERNAL MODULES
 const { beforeEach, test, describe, after } = require("node:test");
@@ -8,8 +8,13 @@ const supertest = require("supertest");
 
 // IMPORT MODULES
 const app = require("../app");
-const helper = require("./api_helper");
+const helper = require("./api_helpers");
+const bStore = require("../stores/blogStore");
+const { root, validUser } = require("../stores/userStore");
+
+// IMPORT MODELS
 const Blog = require("../models/blog");
+const User = require("../models/user");
 
 // CREATE API TESTER
 const api = supertest(app);
@@ -18,156 +23,322 @@ const api = supertest(app);
  * BEFORE EACH TEST
  *****************************************************************************/
 beforeEach(async () => {
-  // delete all previous blogs
   await Blog.deleteMany({});
+  await User.deleteMany({});
+
+  // insert root user
+  const userRoot = await helper.createUser(root);
 
   // insert initial blogs
-  const blogs = helper.initialBlogs.map((blog) => new Blog(blog));
+  const blogs = bStore.initialBlogs.map(
+    (blog) => new Blog({ ...blog, user: userRoot._id })
+  );
   const promises = blogs.map((blog) => blog.save());
   await Promise.all(promises);
 });
 
 /******************************************************************************
- * LIST OF TESTS
+ * TESTS FOR GET /api/blogs
  *****************************************************************************/
 describe("GET /api/blogs ----- Getting information about blogs", () => {
   test("blogs: returned as JSON", async () => {
+    //action
     await api
       .get("/api/blogs")
-      .expect(200)
+      .expect(200) // checks
       .expect("Content-Type", /application\/json/);
   });
 
-  test("blogs: all blogs are returned", async () => {
+  test("blogs: all of them are returned", async () => {
+    //action
     const res = await api.get("/api/blogs");
-    const blogs = res.body;
 
-    assert.strictEqual(blogs.length, helper.initialBlogs.length);
+    // checks
+    assert.strictEqual(res.body.length, bStore.initialBlogs.length);
   });
 
-  test("blogs: a valid blog can be retrieved", async () => {
+  test("blogs: valid one can be retrieved", async () => {
+    //pre
     const blog = (await helper.allBlogsDB())[0];
 
-    const result = await api.get(`/api/blogs/${blog.id}`);
-    const blogFromDB = result.body;
+    //action
+    const retrievedBlog = await api.get(`/api/blogs/${blog.id}`);
 
-    assert.deepStrictEqual(blogFromDB, blog);
+    // checks
+    assert.deepStrictEqual(retrievedBlog.body, blog);
   });
 
-  test("blogs: unique identifier is 'id'", async () => {
-    const blogs = await helper.allBlogsDB();
+  test("blogs: with unique identifier `id`", async () => {
+    // before
+    const blogsAtStart = await helper.allBlogsDB();
 
-    assert.ok(blogs[0].id, "blogs must have a property 'id'");
+    // checks
+    assert.ok(blogsAtStart[0].id, "blogs must have a property 'id'");
     assert.strictEqual(
-      blogs[0]._id,
+      blogsAtStart[0]._id,
       undefined,
       "property '_id' must not exist"
     );
   });
 });
 
+/******************************************************************************
+ * TESTS FOR POST /api/blogs
+ *****************************************************************************/
 describe("POST /api/blogs ----- Creating a new blog", () => {
-  test("blogs: a valid blog can be added", async () => {
-    const newBlog = {
+  test("blogs: valid one can be added", async () => {
+    // login root user
+    const { token } = await helper.loginUser(root, api);
+    assert.ok(token);
+
+    // before
+    const blogsAtStart = await helper.allBlogsDB();
+
+    // pre
+    const blog = {
       title: "Deploying with Docker",
       author: "Chris Wilson",
       url: "https://example.com/docker-deploy",
       likes: 16,
     };
 
-    const result = await api
+    // action
+    await api
       .post("/api/blogs")
-      .send(newBlog)
+      .set("Authorization", `Bearer ${token}`)
+      .send(blog)
       .expect(201)
       .expect("Content-Type", /application\/json/);
 
-    newBlog.id = result.body.id;
-    const blogs = await helper.allBlogsDB();
+    // after
+    const blogsAtEnd = await helper.allBlogsDB();
 
-    assert.strictEqual(blogs.length, helper.initialBlogs.length + 1);
-    assert(blogs.map((blog) => blog.title).includes("Deploying with Docker"));
-    assert.deepStrictEqual(blogs[blogs.length - 1], newBlog);
+    // checks
+    assert.strictEqual(blogsAtEnd.length, blogsAtStart.length + 1);
+    assert(
+      blogsAtEnd.map((blog) => blog.title).includes("Deploying with Docker")
+    );
   });
 
-  test("blogs: default value of likes is 0", async () => {
-    const newBlog = {
+  test("blogs: with default value `likes: 0`", async () => {
+    // login root user
+    const { token } = await helper.loginUser(root, api);
+    assert.ok(token);
+
+    // before
+    const blogsAtStart = await helper.allBlogsDB();
+
+    // pre
+    const blog = {
       title: "Kubernetes for Beginners",
       author: "Chris Wilson",
       url: "https://example.com/kubernetes",
     };
 
+    // action
     await api
       .post("/api/blogs")
-      .send(newBlog)
+      .set("Authorization", `Bearer ${token}`)
+      .send(blog)
       .expect(201)
       .expect("Content-Type", /application\/json/);
 
-    const blogs = await helper.allBlogsDB();
+    // after
+    const blogsAtEnd = await helper.allBlogsDB();
 
-    assert.strictEqual(blogs.length, helper.initialBlogs.length + 1);
-    assert.strictEqual(blogs[blogs.length - 1].likes, 0);
+    // checks
+    assert.strictEqual(blogsAtEnd.length, blogsAtStart.length + 1);
+    assert.strictEqual(blogsAtEnd[blogsAtEnd.length - 1].likes, 0);
   });
 
-  test("blogs: title and url are required, status code 400 if not", async () => {
-    const newBlog = {
+  test("blogs: with title and url required, failure 400", async () => {
+    // login root user
+    const { token } = await helper.loginUser(root, api);
+    assert.ok(token);
+
+    // before
+    const blogsAtStart = await helper.allBlogsDB();
+
+    // pre
+    const blog = {
       author: "Chris Wilson",
     };
 
-    await api
+    // action
+    const result = await api
       .post("/api/blogs")
-      .send(newBlog)
+      .set("Authorization", `Bearer ${token}`)
+      .send(blog)
       .expect(400)
       .expect("Content-Type", /application\/json/);
-  });
-});
 
-describe("DELETE /api/blogs/:id ----- Deleting an existing blog", () => {
-  test("blogs: a valid blog can be deleted", async () => {
-    const newBlog = {
-      title: "Neural Networks Explained",
-      author: "Sophia Lee",
-      url: "https://example.com/neural-networks",
-      likes: 17,
+    // after
+    const blogsAtEnd = await helper.allBlogsDB();
+
+    // checks
+    assert.strictEqual(blogsAtEnd.length, blogsAtStart.length);
+    assert(result.body.error.includes("Title is required"));
+  });
+
+  test("blogs: if token not provided, failure 401", async () => {
+    // pre
+    const blog = {
+      title: "Async/Await in JavaScript",
+      author: "Jane Smith",
+      url: "https://example.com/async-await",
+      likes: 18,
     };
 
-    await api
+    // action
+    const result = await api
       .post("/api/blogs")
-      .send(newBlog)
-      .expect(201)
+      .send(blog)
+      .expect(401)
       .expect("Content-Type", /application\/json/);
-    const blogs = await helper.allBlogsDB();
-    const blogToDelete = blogs[blogs.length - 1];
 
-    await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
+    // checks
+    assert(result.body.error.includes("Invalid token"));
+  });
 
-    const blogsAfterDelete = await helper.allBlogsDB();
+  test("blogs: if invalid token, failure 401", async () => {
+    // pre
+    const blog = {
+      title: "Async/Await in JavaScript",
+      author: "Jane Smith",
+      url: "https://example.com/async-await",
+      likes: 40,
+    };
 
-    assert.strictEqual(blogsAfterDelete.length, blogs.length - 1);
-    const titles = blogsAfterDelete.map((blog) => blog.title);
-    assert(!titles.includes(blogToDelete.title));
+    // action
+    const result = await api
+      .post("/api/blogs")
+      .set("Authorization", "Bearer invalidToken")
+      .send(blog)
+      .expect(401)
+      .expect("Content-Type", /application\/json/);
+
+    // checks
+    assert(result.body.error.includes("Invalid token"));
   });
 });
 
-describe("PUT /api/blogs/:id ----- Modifying an existing blog", () => {
-  test("blogs: a valid blog can be modified", async () => {
-    const blog = (await helper.allBlogsDB())[0];
-    const updatedBlog = { ...blog, likes: blog.likes + 5 };
+/******************************************************************************
+ * TESTS FOR DELETE /api/blogs/:id
+ *****************************************************************************/
+describe("DELETE /api/blogs/:id ----- Deleting an existing blog", () => {
+  test("blogs: valid one can be deleted", async () => {
+    // login root user
+    const { token } = await helper.loginUser(root, api);
+    assert.ok(token);
 
-    const response = await api
-      .put(`/api/blogs/${updatedBlog.id}`)
-      .send(updatedBlog)
+    // before
+    const blogsAtStart = await helper.allBlogsDB();
+
+    // action
+    const result = await api
+      .delete(`/api/blogs/${blogsAtStart[0].id}`)
+      .set("Authorization", `Bearer ${token}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+
+    // after
+    const blogsAtEnd = await helper.allBlogsDB();
+
+    // checks
+    assert.strictEqual(blogsAtEnd.length, blogsAtStart.length - 1);
+    const titles = blogsAtEnd.map((blog) => blog.title);
+    assert(!titles.includes(blogsAtStart[0].title));
+    assert(result.body.message.includes("Blog deleted"));
+  });
+
+  test("blogs: if invalid token, failure 401", async () => {
+    // before
+    const blogsAtStart = await helper.allBlogsDB();
+
+    // action
+    const result = await api
+      .delete(`/api/blogs/${blogsAtStart[0].id}`)
+      .set("Authorization", "Bearer invalidToken")
+      .expect(401)
+      .expect("Content-Type", /application\/json/);
+
+    // after
+    const blogsAtEnd = await helper.allBlogsDB();
+
+    // checks
+    assert(result.body.error.includes("Invalid token"));
+    assert.strictEqual(blogsAtEnd.length, blogsAtStart.length);
+  });
+
+  test("blogs: if token not provided, failure 401", async () => {
+    // before
+    const blogsAtStart = await helper.allBlogsDB();
+
+    // action
+    const result = await api
+      .delete(`/api/blogs/${blogsAtStart[0].id}`)
+      .expect(401)
+      .expect("Content-Type", /application\/json/);
+
+    // after
+    const blogsAtEnd = await helper.allBlogsDB();
+
+    // checks
+    assert(result.body.error.includes("Invalid token"));
+    assert.strictEqual(blogsAtEnd.length, blogsAtStart.length);
+  });
+
+  test("blogs: if unauthorized user, failure 401", async () => {
+    // create a new user
+    await helper.createUser(validUser);
+
+    // login new user
+    const { token: invalidUserToken } = await helper.loginUser(validUser, api);
+    assert.ok(invalidUserToken);
+
+    // before
+    const blogsAtStart = await helper.allBlogsDB();
+
+    // action
+    const result = await api
+      .delete(`/api/blogs/${blogsAtStart[0].id}`)
+      .set("Authorization", `Bearer ${invalidUserToken}`)
+      .expect(401)
+      .expect("Content-Type", /application\/json/);
+
+    // after
+    const blogsAtEnd = await helper.allBlogsDB();
+
+    // checks
+    assert(result.body.error.includes("Unauthorized operation for this user"));
+    assert.strictEqual(blogsAtEnd.length, blogsAtStart.length);
+  });
+});
+
+/******************************************************************************
+ * TESTS FOR PUT /api/blogs/:id
+ *****************************************************************************/
+describe("PUT /api/blogs/:id ----- Modifying an existing blog", () => {
+  test("blogs: valid one can be modified", async () => {
+    // pre
+    const blog = (await helper.allBlogsDB())[0];
+    const updateBlog = { ...blog, likes: blog.likes + 5 };
+
+    // action
+    const result = await api
+      .put(`/api/blogs/${blog.id}`)
+      .send({ likes: updateBlog.likes })
       .expect(202)
       .expect("Content-Type", /application\/json/);
 
-    const blogsAfterUpdate = await helper.allBlogsDB();
-    const updatedBlogFromDB = blogsAfterUpdate.find(
-      (blog) => blog.id === updatedBlog.id
-    );
+    // after
+    const blogsAtEnd = await helper.allBlogsDB();
 
-    assert.strictEqual(response.body.likes, updatedBlog.likes);
+    // checks
+    assert.strictEqual(result.body.likes, updateBlog.likes);
     assert.strictEqual(
-      blogsAfterUpdate.find((blog) => blog.id === updatedBlog.id).likes,
-      updatedBlog.likes
+      blogsAtEnd.find((blog) => blog.id === updateBlog.id).likes,
+      updateBlog.likes
     );
   });
 });

@@ -1,0 +1,23 @@
+### CREATE BLOG WITH TOKEN
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlbGxhcyIsImlkIjoiNjc2YzljNDU0NGEwNGMzMGUxNDE4NjFkIiwiaWF0IjoxNzM1MjQwNTk4fQ.w56tvVFoAt9DlTqKUvO3WU7-oc9TS7VasnsJpNxaTxk
+
+{
+    "title": "Another blog to check token",
+    "author": "Myself",
+    "url": "https://token-auth.com",
+    "likes": 20
+}
+
+### CREATE BLOG WITH TOKEN ---- invalid token
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFnZ2lvdmF0byIsImlkIjoiNjc2Yzk0OTk0NGE
+
+{
+    "title": "Invalid token",
+    "author": "Arto Hellas",
+    "url": "https://invalid-token.com",
+    "likes": 0
+}
