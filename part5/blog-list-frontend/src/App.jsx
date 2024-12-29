@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import LoginForm from "./components/LoginForm";
 import LogInfo from "./components/LogInfo";
 import BlogForm from "./components/BlogForm";
@@ -16,6 +17,8 @@ const basicStyle = {
   },
   button: {
     marginLeft: "8px",
+    marginTop: "5px",
+    marginBottom: "5px",
     padding: "6px 15px",
     borderRadius: "8px",
   },
@@ -24,6 +27,7 @@ const basicStyle = {
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -44,16 +48,29 @@ const App = () => {
 
   const updateBlogs = (newBlog) => {
     setBlogs(blogs.concat(newBlog));
+    setShowForm(false);
   };
 
   return user ? (
     <>
-      <LogInfo user={user} style={basicStyle} />
-      <BlogForm handleUpdateBlogs={updateBlogs} style={basicStyle} />
-      <BlogList blogs={blogs} />
+      <LogInfo user={user} styles={basicStyle} />
+      {showForm ? (
+        <>
+          <BlogForm
+            handleUpdateBlogs={updateBlogs}
+            handleVisibility={() => setShowForm(!showForm)}
+            styles={basicStyle}
+          />
+        </>
+      ) : (
+        <button onClick={() => setShowForm(true)} style={basicStyle.button}>
+          Add Blog
+        </button>
+      )}
+      <BlogList blogs={blogs} isVisible={showForm} />
     </>
   ) : (
-    <LoginForm handleUser={setUser} style={basicStyle} />
+    <LoginForm handleUser={setUser} styles={basicStyle} />
   );
 };
 

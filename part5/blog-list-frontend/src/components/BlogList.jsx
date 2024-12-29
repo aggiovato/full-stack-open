@@ -1,8 +1,8 @@
 import Blog from "./Blog";
 
-const BlogList = ({ blogs }) => {
+const BlogList = ({ blogs, isVisible }) => {
   return (
-    <div>
+    <div style={{ display: isVisible ? "none" : "" }}>
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
       ))}

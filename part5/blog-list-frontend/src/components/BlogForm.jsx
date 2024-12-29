@@ -4,7 +4,7 @@ import Message from "./Message";
 
 import blogService from "../services/blogs";
 
-const BlogForm = ({ handleUpdateBlogs, style }) => {
+const BlogForm = ({ handleUpdateBlogs, handleVisibility, styles }) => {
   const [blogData, setBlogData] = useState({ title: "", author: "", url: "" });
   const [message, setMessage] = useState({
     display: false,
@@ -49,7 +49,7 @@ const BlogForm = ({ handleUpdateBlogs, style }) => {
           <input
             type="text"
             name="title"
-            style={style.input}
+            style={styles.input}
             value={blogData.title}
             onChange={handleInputChange}
           ></input>
@@ -59,7 +59,7 @@ const BlogForm = ({ handleUpdateBlogs, style }) => {
           <input
             type="text"
             name="author"
-            style={style.input}
+            style={styles.input}
             value={blogData.author}
             onChange={handleInputChange}
           ></input>
@@ -69,14 +69,23 @@ const BlogForm = ({ handleUpdateBlogs, style }) => {
           <input
             type="url"
             name="url"
-            style={style.input}
+            style={styles.input}
             value={blogData.url}
             onChange={handleInputChange}
           ></input>
         </div>
-        <button type="submit" style={style.button}>
-          Create
-        </button>
+        <div style={{ display: "flex" }}>
+          <button type="submit" style={styles.button}>
+            Create
+          </button>
+          <button
+            type="button"
+            onClick={handleVisibility}
+            style={styles.button}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </>
   );

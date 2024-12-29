@@ -5,7 +5,7 @@ import Message from "./Message";
 import loginService from "../services/login";
 import blogService from "../services/blogs";
 
-const LoginForm = ({ handleUser, style }) => {
+const LoginForm = ({ handleUser, styles }) => {
   const [loginData, setLoginData] = useState({ username: "", password: "" });
   const [message, setMessage] = useState({
     display: false,
@@ -48,7 +48,7 @@ const LoginForm = ({ handleUser, style }) => {
           name="username"
           value={loginData.username}
           onChange={handleInputChange}
-          style={style.input}
+          style={styles.input}
         />
       </div>
       <div>
@@ -58,10 +58,10 @@ const LoginForm = ({ handleUser, style }) => {
           name="password"
           value={loginData.password}
           onChange={handleInputChange}
-          style={style.input}
+          style={styles.input}
         />
       </div>
-      <button type="submit" style={style.button}>
+      <button type="submit" style={styles.button}>
         Login
       </button>
     </form>

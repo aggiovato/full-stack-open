@@ -1,4 +1,4 @@
-const LogInfo = ({ user, style }) => {
+const LogInfo = ({ user, styles }) => {
   const handleLogout = () => {
     window.localStorage.removeItem("loggedUser");
     window.location.reload();
@@ -7,7 +7,7 @@ const LogInfo = ({ user, style }) => {
     <>
       <h2>Blogs</h2>
       <h3>{user.name} logged in</h3>
-      <button onClick={handleLogout} style={style.button}>
+      <button onClick={handleLogout} style={styles.button}>
         Logout
       </button>
     </>
