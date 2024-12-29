@@ -9,6 +9,7 @@ const LoginForm = ({ handleUser }) => {
     e.preventDefault();
     try {
       const user = await loginService.login({ username, password });
+      window.localStorage.setItem("loggedUser", JSON.stringify(user));
       handleUser(user);
       setUsername("");
       setPassword("");
