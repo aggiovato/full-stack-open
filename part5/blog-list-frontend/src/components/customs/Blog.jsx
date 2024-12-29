@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import blogService from "../../services/blogs";
+
 import {
   BlogContainer,
   BlogTitle,
@@ -10,8 +12,13 @@ import {
 
 const Blog = ({ blog }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [likes, setLikes] = useState(blog.likes);
 
   const handleDetails = () => setShowDetails(!showDetails);
+  const handleLikes = async () => {
+    const retrievedBlog = await blogService.like(blog.id, { likes: likes + 1 });
+    setLikes(retrievedBlog.likes);
+  };
 
   return (
     <BlogContainer>
@@ -27,7 +34,7 @@ const Blog = ({ blog }) => {
             <a href={blog.url}>{blog.url}</a>
           </div>
           <div>
-            likes: {blog.likes} <button>like</button>
+            likes: {likes} <button onClick={handleLikes}>like</button>
           </div>
           {blog.author}
         </>

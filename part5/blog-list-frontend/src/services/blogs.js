@@ -11,7 +11,7 @@ const getAll = async () => {
   return res.data;
 };
 
-const create = async (blog) => {
+const create = async (newBlog) => {
   if (!token) {
     throw new Error("No token");
   }
@@ -20,8 +20,13 @@ const create = async (blog) => {
       Authorization: token,
     },
   };
-  const res = await axios.post(baseUrl, blog, config);
+  const res = await axios.post(baseUrl, newBlog, config);
   return res.data;
 };
 
-export default { getAll, create, setToken };
+const like = async (blogId, updatedBlog) => {
+  const res = await axios.put(`${baseUrl}/${blogId}`, updatedBlog);
+  return res.data;
+};
+
+export default { getAll, create, like, setToken };
