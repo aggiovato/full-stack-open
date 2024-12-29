@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import Message from "./Message";
+import Message from "./customs/Message";
+import InputPanel from "./customs/InputPanel";
 
 import blogService from "../services/blogs";
 
@@ -17,11 +18,6 @@ const BlogForm = ({ handleUpdateBlogs, handleVisibility, styles }) => {
     try {
       const newBlog = await blogService.create(blogData);
       handleUpdateBlogs(newBlog);
-      setMessage({
-        display: true,
-        text: `Created blog "${newBlog.title}"`,
-        type: "success",
-      });
     } catch (error) {
       setMessage({
         display: true,
@@ -44,36 +40,11 @@ const BlogForm = ({ handleUpdateBlogs, handleVisibility, styles }) => {
       <Message message={message} handleMessage={setMessage} />
       <h2>Create new</h2>
       <form onSubmit={handleBlogCreation}>
-        <div>
-          title:
-          <input
-            type="text"
-            name="title"
-            style={styles.input}
-            value={blogData.title}
-            onChange={handleInputChange}
-          ></input>
-        </div>
-        <div>
-          author:
-          <input
-            type="text"
-            name="author"
-            style={styles.input}
-            value={blogData.author}
-            onChange={handleInputChange}
-          ></input>
-        </div>
-        <div>
-          url:
-          <input
-            type="url"
-            name="url"
-            style={styles.input}
-            value={blogData.url}
-            onChange={handleInputChange}
-          ></input>
-        </div>
+        <InputPanel
+          data={blogData}
+          eventHandler={handleInputChange}
+          styles={styles.input}
+        />
         <div style={{ display: "flex" }}>
           <button type="submit" style={styles.button}>
             Create

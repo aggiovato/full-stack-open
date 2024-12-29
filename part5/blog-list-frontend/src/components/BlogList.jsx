@@ -1,4 +1,4 @@
-import Blog from "./Blog";
+import Blog from "./customs/Blog";
 
 const BlogList = ({ blogs, isVisible }) => {
   return (

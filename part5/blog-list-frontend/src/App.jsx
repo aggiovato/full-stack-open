@@ -58,7 +58,7 @@ const App = () => {
         <>
           <BlogForm
             handleUpdateBlogs={updateBlogs}
-            handleVisibility={() => setShowForm(!showForm)}
+            handleVisibility={() => setShowForm(false)}
             styles={basicStyle}
           />
         </>

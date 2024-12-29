@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import Message from "./Message";
+import Message from "./customs/Message";
+import InputPanel from "./customs/InputPanel";
 
 import loginService from "../services/login";
 import blogService from "../services/blogs";
@@ -41,26 +42,11 @@ const LoginForm = ({ handleUser, styles }) => {
     <form onSubmit={handleLogin}>
       <h2>Login to Application</h2>
       <Message message={message} handleMessage={setMessage} />
-      <div>
-        username
-        <input
-          type="text"
-          name="username"
-          value={loginData.username}
-          onChange={handleInputChange}
-          style={styles.input}
-        />
-      </div>
-      <div>
-        password
-        <input
-          type="password"
-          name="password"
-          value={loginData.password}
-          onChange={handleInputChange}
-          style={styles.input}
-        />
-      </div>
+      <InputPanel
+        data={loginData}
+        eventHandler={handleInputChange}
+        styles={styles.input}
+      />
       <button type="submit" style={styles.button}>
         Login
       </button>
