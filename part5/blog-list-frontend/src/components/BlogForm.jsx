@@ -1,31 +1,47 @@
 import { useState } from "react";
 
+import Message from "./Message";
+
 import blogService from "../services/blogs";
 
 const BlogForm = ({ handleUpdateBlogs, style }) => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [url, setUrl] = useState("");
+  const [blogData, setBlogData] = useState({ title: "", author: "", url: "" });
+  const [message, setMessage] = useState({
+    display: false,
+    text: "",
+    type: "error",
+  });
 
   const handleBlogCreation = async (e) => {
     e.preventDefault();
     try {
-      const blog = { title, author, url };
-      const newBlog = await blogService.create(blog);
+      const newBlog = await blogService.create(blogData);
       handleUpdateBlogs(newBlog);
-      clearForm();
+      setMessage({
+        display: true,
+        text: `Created blog "${newBlog.title}"`,
+        type: "success",
+      });
     } catch (error) {
-      console.log(error);
+      setMessage({
+        display: true,
+        text: error.response.data.error,
+        type: "error",
+      });
+    } finally {
+      clearForm();
     }
   };
 
-  const clearForm = () => {
-    setTitle("");
-    setAuthor("");
-    setUrl("");
+  const handleInputChange = (e) => {
+    setBlogData({ ...blogData, [e.target.name]: e.target.value });
   };
+
+  const clearForm = () => setBlogData({ title: "", author: "", url: "" });
+
   return (
     <>
+      <Message message={message} handleMessage={setMessage} />
       <h2>Create new</h2>
       <form onSubmit={handleBlogCreation}>
         <div>
@@ -34,8 +50,8 @@ const BlogForm = ({ handleUpdateBlogs, style }) => {
             type="text"
             name="title"
             style={style.input}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={blogData.title}
+            onChange={handleInputChange}
           ></input>
         </div>
         <div>
@@ -44,8 +60,8 @@ const BlogForm = ({ handleUpdateBlogs, style }) => {
             type="text"
             name="author"
             style={style.input}
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            value={blogData.author}
+            onChange={handleInputChange}
           ></input>
         </div>
         <div>
@@ -54,8 +70,8 @@ const BlogForm = ({ handleUpdateBlogs, style }) => {
             type="url"
             name="url"
             style={style.input}
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            value={blogData.url}
+            onChange={handleInputChange}
           ></input>
         </div>
         <button type="submit" style={style.button}>

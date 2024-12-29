@@ -6,7 +6,7 @@ import BlogList from "./components/BlogList";
 
 import blogService from "./services/blogs";
 
-const basicInputButtonStyle = {
+const basicStyle = {
   input: {
     marginBottom: "10px",
     marginLeft: "8px",
@@ -26,8 +26,11 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const returnedBlogs = blogService.getAll();
-    returnedBlogs.then((blogs) => setBlogs(blogs));
+    const fetchBlogs = async () => {
+      const returnedBlogs = await blogService.getAll();
+      setBlogs(returnedBlogs);
+    };
+    fetchBlogs();
   }, []);
 
   useEffect(() => {
@@ -43,21 +46,14 @@ const App = () => {
     setBlogs(blogs.concat(newBlog));
   };
 
-  return (
+  return user ? (
     <>
-      {user ? (
-        <>
-          <LogInfo user={user} style={basicInputButtonStyle} />
-          <BlogForm
-            handleUpdateBlogs={updateBlogs}
-            style={basicInputButtonStyle}
-          />
-          <BlogList blogs={blogs} />
-        </>
-      ) : (
-        <LoginForm handleUser={setUser} style={basicInputButtonStyle} />
-      )}
+      <LogInfo user={user} style={basicStyle} />
+      <BlogForm handleUpdateBlogs={updateBlogs} style={basicStyle} />
+      <BlogList blogs={blogs} />
     </>
+  ) : (
+    <LoginForm handleUser={setUser} style={basicStyle} />
   );
 };
 
