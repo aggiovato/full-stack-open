@@ -1,7 +1,9 @@
 import { useState } from "react";
-import loginService from "../services/login";
 
-const LoginForm = ({ handleUser }) => {
+import loginService from "../services/login";
+import blogService from "../services/blogs";
+
+const LoginForm = ({ handleUser, style }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -10,13 +12,17 @@ const LoginForm = ({ handleUser }) => {
     try {
       const user = await loginService.login({ username, password });
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
+      blogService.setToken(user.token);
       handleUser(user);
-      setUsername("");
-      setPassword("");
-      console.log(user);
+      clearForm();
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const clearForm = () => {
+    setUsername("");
+    setPassword("");
   };
 
   return (
@@ -29,6 +35,7 @@ const LoginForm = ({ handleUser }) => {
           name="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          style={style.input}
         />
       </div>
       <div>
@@ -38,9 +45,12 @@ const LoginForm = ({ handleUser }) => {
           name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          style={style.input}
         />
       </div>
-      <button type="submit">Login</button>
+      <button type="submit" style={style.button}>
+        Login
+      </button>
     </form>
   );
 };
