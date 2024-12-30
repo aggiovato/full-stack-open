@@ -4,49 +4,58 @@ import blogService from "../../services/blogs";
 
 import {
   BlogContainer,
-  BlogTitle,
-  ShowHideButton,
+  StyButton,
   ViewIcon,
   HideIcon,
+  LikeIcon,
 } from "../../styles/Blog.styles";
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, onUpdate }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [likes, setLikes] = useState(blog.likes);
 
   const handleDetails = () => setShowDetails(!showDetails);
   const handleLikes = async () => {
-    const retrievedBlog = await blogService.like(blog.id, { likes: likes + 1 });
-    setLikes(retrievedBlog.likes);
+    const updatedBlog = await blogService.like(blog.id, { likes: likes + 1 });
+    setLikes(updatedBlog.likes);
+    onUpdate(updatedBlog);
   };
 
   return (
     <BlogContainer>
       {showDetails ? (
         <>
-          <BlogTitle>
+          <div className="title">
             {blog.title}{" "}
-            <ShowHideButton onClick={handleDetails}>
+            <StyButton onClick={handleDetails}>
               <HideIcon />
-            </ShowHideButton>
-          </BlogTitle>
-          <div>
-            <a href={blog.url}>{blog.url}</a>
+            </StyButton>
+            <span className="view-hide">hide</span>
           </div>
           <div>
-            likes: {likes} <button onClick={handleLikes}>like</button>
+            <a className="url" href={blog.url}>
+              {blog.url}
+            </a>
           </div>
-          {blog.author}
+          <div className="likes">
+            <StyButton onClick={handleLikes}>
+              <LikeIcon />
+            </StyButton>
+            <span>{likes} likes</span>
+          </div>
+          <span className="author">{blog.author}</span>
         </>
       ) : (
         <div>
-          <BlogTitle>
+          <div className="title">
             {blog.title}{" "}
-            <ShowHideButton onClick={handleDetails}>
+            <StyButton onClick={handleDetails}>
               <ViewIcon />
-            </ShowHideButton>
-          </BlogTitle>
-          by {blog.author}
+            </StyButton>
+            <span className="view-hide">view</span>
+          </div>
+          <span className="small">by </span>
+          <span className="author small">{blog.author}</span>
         </div>
       )}
     </BlogContainer>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createGlobalStyle } from "styled-components";
 
 import LoginForm from "./components/LoginForm";
 import LogInfo from "./components/LogInfo";
@@ -14,6 +15,7 @@ const basicStyle = {
     border: "1px solid #444",
     padding: "5px",
     borderRadius: "5px",
+    fontFamily: "inherit",
   },
   button: {
     marginLeft: "8px",
@@ -21,6 +23,7 @@ const basicStyle = {
     marginBottom: "5px",
     padding: "6px 15px",
     borderRadius: "8px",
+    fontFamily: "inherit",
   },
 };
 
@@ -53,6 +56,7 @@ const App = () => {
 
   return user ? (
     <>
+      <GlobalStyle />
       <LogInfo user={user} styles={basicStyle} />
       {showForm ? (
         <>
@@ -70,8 +74,24 @@ const App = () => {
       <BlogList blogs={blogs} isVisible={showForm} />
     </>
   ) : (
-    <LoginForm handleUser={setUser} styles={basicStyle} />
+    <>
+      <GlobalStyle />
+      <LoginForm handleUser={setUser} styles={basicStyle} />
+    </>
   );
 };
 
 export default App;
+
+/**
+ * Global styles
+ */
+const GlobalStyle = createGlobalStyle`
+  body {
+  font-family: 'Nunito', sans-serif;
+    color: #444;
+    box-sizing: border-box;
+    margin-left: 20px;
+    max-width: 800px;
+  }
+`;
