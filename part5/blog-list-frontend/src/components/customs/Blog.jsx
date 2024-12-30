@@ -10,14 +10,14 @@ import {
   LikeIcon,
 } from "../../styles/Blog.styles";
 
-const Blog = ({ blog, onUpdate }) => {
+const Blog = ({ blog, onUpdate, onRemove }) => {
   const [showDetails, setShowDetails] = useState(false);
-  const [likes, setLikes] = useState(blog.likes);
 
   const handleDetails = () => setShowDetails(!showDetails);
   const handleLikes = async () => {
-    const updatedBlog = await blogService.like(blog.id, { likes: likes + 1 });
-    setLikes(updatedBlog.likes);
+    const updatedBlog = await blogService.like(blog.id, {
+      likes: blog.likes + 1,
+    });
     onUpdate(updatedBlog);
   };
 
@@ -41,9 +41,14 @@ const Blog = ({ blog, onUpdate }) => {
             <StyButton onClick={handleLikes}>
               <LikeIcon />
             </StyButton>
-            <span>{likes} likes</span>
+            <span>{blog.likes} likes</span>
           </div>
           <span className="author">{blog.author}</span>
+          {blog.isOwner && (
+            <button className="btn" onClick={() => onRemove(blog.id)}>
+              Remove
+            </button>
+          )}
         </>
       ) : (
         <div>

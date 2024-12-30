@@ -105,6 +105,27 @@ export const BlogContainer = styled.div`
     align-items: center;
     gap: 5px;
   }
+
+  .btn {
+    padding: 6px 15px;
+    border: 2px solid #f95454;
+    background-color: #f95454;
+    color: #fff;
+    border-radius: 8px;
+    margin: 0;
+    max-width: 110px;
+
+    &:hover {
+      background-color: #c74343;
+      border: 2px solid #c74343;
+      cursor: pointer;
+    }
+
+    &:active {
+      background-color: #9f3535;
+      border: 2px solid #9f3535;
+    }
+  }
 `;
 
 export const StyButton = styled.button`
