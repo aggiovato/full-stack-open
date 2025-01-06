@@ -1,16 +1,25 @@
-const LogInfo = ({ user, styles }) => {
+import {
+  Header,
+  Title,
+  UserInfo,
+  UserName,
+  LogoutButton,
+} from "../styles/Loginfo.styles";
+
+const LogInfo = ({ user }) => {
   const handleLogout = () => {
     window.localStorage.removeItem("loggedUser");
     window.location.reload();
   };
+
   return (
-    <>
-      <h2>Blogs</h2>
-      <h3>{user.name} logged in</h3>
-      <button onClick={handleLogout} style={styles.button}>
-        Logout
-      </button>
-    </>
+    <Header>
+      <Title>Blogs</Title>
+      <UserInfo>
+        <UserName>{user.name} logged in</UserName>
+        <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+      </UserInfo>
+    </Header>
   );
 };
 

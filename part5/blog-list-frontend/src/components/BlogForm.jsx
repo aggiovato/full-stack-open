@@ -5,7 +5,7 @@ import InputPanel from "./customs/InputPanel";
 
 import blogService from "../services/blogs";
 
-const BlogForm = ({ handleUpdateBlogs, handleVisibility, styles }) => {
+const BlogForm = ({ handleUpdateBlogs, handleVisibility }) => {
   const [blogData, setBlogData] = useState({ title: "", author: "", url: "" });
   const [message, setMessage] = useState({
     display: false,
@@ -40,20 +40,10 @@ const BlogForm = ({ handleUpdateBlogs, handleVisibility, styles }) => {
       <Message message={message} handleMessage={setMessage} />
       <h2>Create new</h2>
       <form onSubmit={handleBlogCreation}>
-        <InputPanel
-          data={blogData}
-          eventHandler={handleInputChange}
-          styles={styles.input}
-        />
+        <InputPanel data={blogData} eventHandler={handleInputChange} />
         <div style={{ display: "flex" }}>
-          <button type="submit" style={styles.button}>
-            Create
-          </button>
-          <button
-            type="button"
-            onClick={handleVisibility}
-            style={styles.button}
-          >
+          <button type="submit">Create</button>
+          <button type="button" onClick={handleVisibility}>
             Cancel
           </button>
         </div>

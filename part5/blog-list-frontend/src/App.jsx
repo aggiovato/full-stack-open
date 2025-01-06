@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
+import GlobalStyle from "./styles/Global.styles";
 
 import LoginForm from "./components/LoginForm";
 import LogInfo from "./components/LogInfo";
@@ -8,24 +9,12 @@ import BlogList from "./components/BlogList";
 
 import blogService from "./services/blogs";
 
-const basicStyle = {
-  input: {
-    marginBottom: "10px",
-    marginLeft: "8px",
-    border: "1px solid #444",
-    padding: "5px",
-    borderRadius: "5px",
-    fontFamily: "inherit",
-  },
-  button: {
-    marginLeft: "8px",
-    marginTop: "5px",
-    marginBottom: "5px",
-    padding: "6px 15px",
-    borderRadius: "8px",
-    fontFamily: "inherit",
-  },
-};
+const MainContent = styled.main`
+  padding-top: 80px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -54,44 +43,29 @@ const App = () => {
     setShowForm(false);
   };
 
-  return user ? (
+  return (
     <>
       <GlobalStyle />
-      <LogInfo user={user} styles={basicStyle} />
-      {showForm ? (
+      {user ? (
         <>
-          <BlogForm
-            handleUpdateBlogs={updateBlogs}
-            handleVisibility={() => setShowForm(false)}
-            styles={basicStyle}
-          />
+          <LogInfo user={user} />
+          <MainContent>
+            {showForm ? (
+              <BlogForm
+                handleUpdateBlogs={updateBlogs}
+                handleVisibility={() => setShowForm(false)}
+              />
+            ) : (
+              <button onClick={() => setShowForm(true)}>Add Blog</button>
+            )}
+            <BlogList blogs={blogs} isVisible={showForm} />
+          </MainContent>
         </>
       ) : (
-        <button onClick={() => setShowForm(true)} style={basicStyle.button}>
-          Add Blog
-        </button>
+        <LoginForm handleUser={setUser} />
       )}
-      <BlogList blogs={blogs} isVisible={showForm} />
-    </>
-  ) : (
-    <>
-      <GlobalStyle />
-      <LoginForm handleUser={setUser} styles={basicStyle} />
     </>
   );
 };
 
 export default App;
-
-/**
- * Global styles
- */
-const GlobalStyle = createGlobalStyle`
-  body {
-  font-family: 'Nunito', sans-serif;
-    color: #444;
-    box-sizing: border-box;
-    margin-left: 20px;
-    max-width: 800px;
-  }
-`;

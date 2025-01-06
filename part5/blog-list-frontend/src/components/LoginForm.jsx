@@ -1,32 +1,38 @@
 import { useState } from "react";
 
-import Message from "./customs/Message";
-import InputPanel from "./customs/InputPanel";
+import LinesAnimation from "./LinesAnimation";
 
 import loginService from "../services/login";
 import blogService from "../services/blogs";
 
-const LoginForm = ({ handleUser, styles }) => {
+import { useToast } from "../hooks/useToast";
+
+import {
+  LoginFormContainer,
+  FormWrapper,
+  FormHeading,
+  StyledForm,
+  StyledInput,
+  StyledButton,
+} from "../styles/LoginForm.styles";
+
+const LoginForm = ({ handleUser }) => {
   const [loginData, setLoginData] = useState({ username: "", password: "" });
-  const [message, setMessage] = useState({
-    display: false,
-    text: "",
-    type: "error",
-  });
+
+  const { addToast } = useToast();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
       const user = await loginService.login(loginData);
       window.localStorage.setItem("loggedUser", JSON.stringify(user));
       blogService.setToken(user.token);
       handleUser(user);
+
+      addToast("Logged in successfully", "success");
     } catch (error) {
-      setMessage({
-        display: true,
-        text: error.response.data.error,
-        type: "error",
-      });
+      addToast(error.response.data.error, "error");
     } finally {
       clearForm();
     }
@@ -39,18 +45,29 @@ const LoginForm = ({ handleUser, styles }) => {
   const clearForm = () => setLoginData({ username: "", password: "" });
 
   return (
-    <form onSubmit={handleLogin}>
-      <h2>Login to Application</h2>
-      <Message message={message} handleMessage={setMessage} />
-      <InputPanel
-        data={loginData}
-        eventHandler={handleInputChange}
-        styles={styles.input}
-      />
-      <button type="submit" style={styles.button}>
-        Login
-      </button>
-    </form>
+    <LoginFormContainer>
+      <FormWrapper>
+        <FormHeading>Log-in</FormHeading>
+        <StyledForm onSubmit={handleLogin}>
+          <StyledInput
+            type="text"
+            name="username"
+            value={loginData.username}
+            placeholder="Username"
+            onChange={handleInputChange}
+          />
+          <StyledInput
+            type="password"
+            name="password"
+            value={loginData.password}
+            placeholder="Password"
+            onChange={handleInputChange}
+          />
+          <StyledButton type="submit">Login</StyledButton>
+        </StyledForm>
+      </FormWrapper>
+      <LinesAnimation />
+    </LoginFormContainer>
   );
 };
 
