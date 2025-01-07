@@ -1,54 +1,39 @@
-import { useState } from "react";
+import { CButton, CInputsMapper } from "./customs";
 
-import Message from "./customs/Message";
-import InputPanel from "./customs/InputPanel";
+import { useBlogForm } from "@hooks/useBlogForm";
+import { useToast } from "@hooks/useToast";
 
-import blogService from "../services/blogs";
+import {
+  BlogFormContainer,
+  FormHeading,
+  StyledForm,
+  ButtonContainer,
+} from "@styles/BlogForm.styles";
 
 const BlogForm = ({ handleUpdateBlogs, handleVisibility }) => {
-  const [blogData, setBlogData] = useState({ title: "", author: "", url: "" });
-  const [message, setMessage] = useState({
-    display: false,
-    text: "",
-    type: "error",
-  });
-
-  const handleBlogCreation = async (e) => {
-    e.preventDefault();
-    try {
-      const newBlog = await blogService.create(blogData);
-      handleUpdateBlogs(newBlog);
-    } catch (error) {
-      setMessage({
-        display: true,
-        text: error.response.data.error,
-        type: "error",
-      });
-    } finally {
-      clearForm();
-    }
-  };
-
-  const handleInputChange = (e) => {
-    setBlogData({ ...blogData, [e.target.name]: e.target.value });
-  };
-
-  const clearForm = () => setBlogData({ title: "", author: "", url: "" });
+  const { blogData, handleBlogCreation, handleInputChange } =
+    useBlogForm(handleUpdateBlogs);
+  const { addToast } = useToast();
 
   return (
-    <>
-      <Message message={message} handleMessage={setMessage} />
-      <h2>Create new</h2>
-      <form onSubmit={handleBlogCreation}>
-        <InputPanel data={blogData} eventHandler={handleInputChange} />
-        <div style={{ display: "flex" }}>
-          <button type="submit">Create</button>
-          <button type="button" onClick={handleVisibility}>
+    <BlogFormContainer>
+      <FormHeading>Create a new Blog</FormHeading>
+      <StyledForm onSubmit={(e) => handleBlogCreation(e, addToast)}>
+        <CInputsMapper
+          mapper={blogData}
+          type="label"
+          eventHandlers={handleInputChange}
+        />
+        <ButtonContainer>
+          <CButton type="button" btnType="danger" onClick={handleVisibility}>
             Cancel
-          </button>
-        </div>
-      </form>
-    </>
+          </CButton>
+          <CButton type="submit" btnType="primary">
+            Create
+          </CButton>
+        </ButtonContainer>
+      </StyledForm>
+    </BlogFormContainer>
   );
 };
 

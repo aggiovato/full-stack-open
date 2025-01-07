@@ -26,18 +26,8 @@
   },
   {
     "line1": "https://",
-    "line2": "blog-about",
-    "line3": "-tech.com"
-  },
-  {
-    "line1": "https://",
     "line2": "byte-blog",
     "line3": ".info"
-  },
-  {
-    "line1": "https://",
-    "line2": "blogging",
-    "line3": "-hub.org"
   },
   {
     "line1": "https://",
@@ -128,5 +118,10 @@
     "line1": "Build",
     "line2": "Your",
     "line3": "Future"
+  },
+  {
+    "line1": "Hello",
+    "line2": "World",
+    "line3": "! 👋"
   }
 ]

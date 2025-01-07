@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-import Blog from "./customs/Blog";
+import Blog from "@customs/Blog";
 
-import blogService from "../services/blogs";
+import blogService from "@services/blogs";
 
 const BlogList = ({ blogs, isVisible }) => {
   const customUser = JSON.parse(window.localStorage.getItem("loggedUser"));

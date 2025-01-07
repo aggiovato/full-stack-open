@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import GlobalStyle from "./styles/Global.styles";
+import GlobalStyle from "@styles/Global.styles";
 
-import LoginForm from "./components/LoginForm";
-import LogInfo from "./components/LogInfo";
-import BlogForm from "./components/BlogForm";
-import BlogList from "./components/BlogList";
+import { LoginForm, LogInfo, BlogForm, BlogList } from "@components";
 
-import blogService from "./services/blogs";
+import blogService from "@services/blogs";
 
 const MainContent = styled.main`
   padding-top: 80px;

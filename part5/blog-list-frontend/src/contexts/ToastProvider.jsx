@@ -4,7 +4,7 @@ import {
   ToastContainer,
   ToastMessage,
   CloseButton,
-} from "../styles/ToastProvider.styles";
+} from "@styles/ToastProvider.styles";
 
 // Context for global toast messages
 const ToastContext = createContext(null);
@@ -34,8 +34,8 @@ export const ToastProvider = ({ children }) => {
       <ToastContainer>
         {toasts.map((toast) => (
           <ToastMessage key={toast.id} type={toast.type}>
-            <span>{toast.message}</span>
             <CloseButton onClick={() => removeToast(toast.id)}>×</CloseButton>
+            <span>{toast.message}</span>
           </ToastMessage>
         ))}
       </ToastContainer>

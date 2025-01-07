@@ -58,32 +58,6 @@ export const StyledForm = styled.form`
   gap: 20px; /* Más espacio entre inputs */
 `;
 
-export const StyledInput = styled.input`
-  padding: 10px;
-  border: 1px solid #46b9c3;
-  border-radius: 5px;
-  font-family: inherit;
-  font-size: 15px;
-  background-color: #07536b; /* Fondo del input */
-  color: white;
-  width: 100%; /* Asegura que ocupa el ancho total del contenedor */
-
-  &::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  &:focus {
-    outline: none;
-    border-color: #1f9da9;
-    box-shadow: 0 0 5px rgba(31, 157, 169, 0.5);
-  }
-
-  @media (max-width: 480px) {
-    font-size: 13px;
-    padding: 10px;
-  }
-`;
-
 export const StyledButton = styled.button`
   padding: 12px;
   background-color: #1f7a8c;
@@ -93,7 +67,7 @@ export const StyledButton = styled.button`
   font-size: 16px;
   font-family: inherit;
   cursor: pointer;
-  width: 100%; /* Misma anchura que los inputs */
+  width: 100%;
   transition: background-color 0.3s;
 
   &:hover {
@@ -194,34 +168,34 @@ export const StyledDecoration = styled.div`
 
   .bar-container:nth-child(1) .line {
     width: 80px;
-    background-color: #1f7a8c; /* Color oscuro */
+    background-color: #1f7a8c;
     animation-delay: 0s;
   }
 
   .bar-container:nth-child(1) .text {
-    color: #d5f8fd; /* Color claro para texto */
+    color: #d5f8fd;
     animation-delay: 0s;
   }
 
   .bar-container:nth-child(2) .line {
     width: 120px;
-    background-color: #46b9c3; /* Color medio */
+    background-color: #46b9c3;
     animation-delay: 0.5s;
   }
 
   .bar-container:nth-child(2) .text {
-    color: #ffffff; /* Color claro */
+    color: #ffffff;
     animation-delay: 0.5s;
   }
 
   .bar-container:nth-child(3) .line {
     width: 75px;
-    background-color: #d5f8fd; /* Color claro */
+    background-color: #d5f8fd;
     animation-delay: 1s;
   }
 
   .bar-container:nth-child(3) .text {
-    color: #1f7a8c; /* Color oscuro para texto */
+    color: #1f7a8c;
     animation-delay: 1s;
   }
 `;

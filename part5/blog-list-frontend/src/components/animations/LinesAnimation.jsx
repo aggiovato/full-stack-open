@@ -1,24 +1,26 @@
 import { useState, useEffect } from "react";
 
-import { StyledDecoration } from "../styles/LoginForm.styles";
+import { StyledDecoration } from "@styles/LoginForm.styles";
 
-import helper from "../utils/helpers";
+import { getRandomAnimationText } from "@utils/helpers";
 
 const LinesAnimation = () => {
   const [isAnimating, setIsAnimating] = useState(false);
-  const [animationText, setAnimationText] = useState(
-    helper.getRandomAnimationText()
-  );
+  const [animationText, setAnimationText] = useState(getRandomAnimationText());
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIsAnimating(true);
-      setAnimationText(helper.getRandomAnimationText());
+      const newText = getRandomAnimationText();
+      newText === animationText
+        ? setAnimationText(getRandomAnimationText())
+        : setAnimationText(newText);
       setTimeout(() => setIsAnimating(false), 5000);
     }, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [animationText]);
+
   return (
     <StyledDecoration>
       <div className={`bar-container ${isAnimating ? "animated" : ""}`}>

@@ -8,19 +8,17 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  /* Estilos generales para el body */
   body {
-    font-family: 'Nunito', sans-serif; /* Fuente principal */
-    color: #e1e5f2; /* Texto claro */
-    background-color: #022b3a; /* Fondo oscuro general */
-    min-height: 100vh; /* Asegura que cubre toda la pantalla */
-    display: block; /* Cambiar a block para evitar interferencias */
-    overflow-x: hidden; /* Evita scroll horizontal */
+    font-family: 'Nunito', sans-serif;
+    color: #e1e5f2;
+    background-color: #022b3a; 
+    min-height: 100vh;
+    display: block;
+    overflow-x: hidden;
   }
 
-  /* Ajustes para elementos comunes */
   input, button, textarea {
-    font-family: inherit; /* Mantiene la misma fuente */
+    font-family: inherit;
   }
 
   a {

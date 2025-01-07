@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import blogService from "../../services/blogs";
+import blogService from "@services/blogs";
 
 import {
   BlogContainer,
@@ -8,7 +8,7 @@ import {
   ViewIcon,
   HideIcon,
   LikeIcon,
-} from "../../styles/Blog.styles";
+} from "@styles/Blog.styles";
 
 const Blog = ({ blog, onUpdate, onRemove }) => {
   const [showDetails, setShowDetails] = useState(false);

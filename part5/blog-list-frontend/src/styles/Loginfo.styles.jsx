@@ -1,17 +1,18 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%; /* Ocupa todo el ancho */
+  width: 100%;
   padding: 20px;
-  background-color: #033a4e; /* Fondo oscuro */
-  color: #e1e5f2; /* Texto claro */
+  background-color: #033a4e;
+  color: #e1e5f2;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  position: fixed; /* Fijar en la parte superior */
+  position: fixed;
   top: 0;
   z-index: 10;
+  user-select: none;
 
   @media (max-width: 768px) {
     padding: 15px;
@@ -27,38 +28,71 @@ const Title = styled.h2`
 const UserInfo = styled.div`
   display: flex;
   align-items: center;
-  gap: 15px; /* Espacio entre el texto y el botón */
+  gap: 18px;
 `;
 
-const UserName = styled.h3`
+const UserName = styled.div`
   font-size: 18px;
   margin: 0;
-  font-weight: normal;
-  color: #d5f8fd; /* Texto destacado */
+  padding: 0;
+  font-weight: bold;
+  color: #46b9c3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+
+  div {
+    display: flex;
+    gap: 1px;
+  }
+
+  span {
+    color: #d5f8fd;
+    font-weight: normal;
+    font-size: 14px;
+    font-style: italic;
+  }
+`;
+
+const moveArrow = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(0);
+  }
 `;
 
 const LogoutButton = styled.button`
-  padding: 8px 15px;
-  background-color: #d9534f; /* Rojo para el botón */
-  color: white;
+  background: #d9534f;
   border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: inherit;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: opacity 0.5s ease;
 
   &:hover {
-    background-color: #c9302c; /* Hover más oscuro */
+    svg .arrow {
+      animation: ${moveArrow} 0.7s ease-in-out infinite;
+    }
   }
 
-  &:active {
-    background-color: #a51e1b; /* Estado activo */
-  }
-
-  @media (max-width: 480px) {
-    font-size: 12px; /* Texto más pequeño en móviles */
-    padding: 6px 12px;
+  svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+    display: block;
+    margin-left: 6px;
+    margin-top: 4px;
   }
 `;
 

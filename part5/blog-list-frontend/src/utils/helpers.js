@@ -1,6 +1,6 @@
 // helpers
-import animationTexts from "../utils/data/animationTexts.json";
-import inputTypes from "../utils/data/inputTypes.json";
+import animationTexts from "@data/animationTexts.json";
+import inputTypes from "@data/inputTypes.json";
 
 const checkInputType = (type) => {
   return inputTypes.includes(type) ? type : "text";
@@ -15,8 +15,4 @@ const getRandomAnimationText = () => {
   return animationTexts[randomIndex];
 };
 
-export default {
-  capitalizeFirstLetter,
-  checkInputType,
-  getRandomAnimationText,
-};
+export { capitalizeFirstLetter, checkInputType, getRandomAnimationText };
