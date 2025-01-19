@@ -1,7 +1,13 @@
+// EXTERNAL MODULES
 import { useState, useEffect } from "react";
 
-import Blog from "@customs/Blog";
+// CUSTOM COMPONENTS
+import CBlog from "@customs/CBlog";
 
+// STYLES
+import { BlogContainer } from "@styles/CBlog.styles";
+
+// SERVICES
 import blogService from "@services/blogs";
 
 const BlogList = ({ blogs, isVisible }) => {
@@ -41,16 +47,16 @@ const BlogList = ({ blogs, isVisible }) => {
   };
 
   return (
-    <div style={{ display: isVisible ? "none" : "" }}>
+    <BlogContainer style={{ display: isVisible ? "none" : "grid" }}>
       {orderedBlogs.map((blog) => (
-        <Blog
+        <CBlog
           key={blog.id}
           blog={blog}
           onUpdate={handleUpdateBlog}
           onRemove={handleRemoveBlog}
         />
       ))}
-    </div>
+    </BlogContainer>
   );
 };
 

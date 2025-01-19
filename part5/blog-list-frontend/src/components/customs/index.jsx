@@ -1,4 +1,4 @@
-export { default as Blog } from "@customs/Blog";
+export { default as CBlog } from "@customs/CBlog";
 export { default as CInput } from "@customs/CInput";
 export { default as CInputsMapper } from "@customs/CInputsMapper";
 export { default as CButton } from "@customs/CButton";

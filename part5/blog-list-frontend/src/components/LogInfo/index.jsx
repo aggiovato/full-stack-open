@@ -1,6 +1,9 @@
+// CUSTOM COMPONENTS
 import { CTooltip } from "@components/customs";
+// ICONS
 import LogoutIcon from "@icons/Logout.icon";
 
+// STYLES
 import {
   Header,
   Title,
@@ -25,7 +28,7 @@ const LogInfo = ({ user }) => {
             <span>logged in</span>
           </div>
         </UserName>
-        <CTooltip tooltipText="Logout">
+        <CTooltip tt_position="bottom" tooltipText="Logout">
           <LogoutButton onClick={handleLogout}>
             <LogoutIcon />
           </LogoutButton>

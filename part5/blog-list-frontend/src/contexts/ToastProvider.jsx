@@ -1,5 +1,7 @@
+// EXTERNAL MODULES
 import { createContext, useState } from "react";
 
+// STYLES
 import {
   ToastContainer,
   ToastMessage,
@@ -9,6 +11,7 @@ import {
 // Context for global toast messages
 const ToastContext = createContext(null);
 
+// Context provider
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 

@@ -11,12 +11,8 @@ const Header = styled.header`
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
-  z-index: 10;
+  z-index: 1000;
   user-select: none;
-
-  @media (max-width: 768px) {
-    padding: 15px;
-  }
 `;
 
 const Title = styled.h2`
@@ -82,7 +78,7 @@ const LogoutButton = styled.button`
 
   &:hover {
     svg .arrow {
-      animation: ${moveArrow} 0.7s ease-in-out infinite;
+      animation: ${moveArrow} 0.9s ease-in-out infinite;
     }
   }
 

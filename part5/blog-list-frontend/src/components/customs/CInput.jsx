@@ -1,5 +1,7 @@
+// STYLES
 import { StyledInput, StyledLabel } from "@styles/Customs.styles";
 
+// HELPERS
 import { capitalizeFirstLetter, checkInputType } from "@utils/helpers";
 
 const CInput = ({ label, name, data = {}, eventHandler }) => {

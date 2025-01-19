@@ -10,7 +10,7 @@ export const BlogFormContainer = styled.div`
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   max-width: 600px;
-  margin: 20px auto;
+  margin: 50px auto;
   color: #e1e5f2;
 
   @media (max-width: 480px) {

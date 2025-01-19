@@ -1,8 +1,10 @@
-import { CButton, CInputsMapper } from "./customs";
+// CUSTOM COMPONENTS
+import { CButton, CInputsMapper } from "../customs";
 
-import { useBlogForm } from "@hooks/useBlogForm";
-import { useToast } from "@hooks/useToast";
+// CUSTOM HOOKS
+import { useBlogForm, useToast } from "@hooks";
 
+// STYLES
 import {
   BlogFormContainer,
   FormHeading,

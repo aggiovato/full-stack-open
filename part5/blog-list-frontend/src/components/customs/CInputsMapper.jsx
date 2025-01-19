@@ -1,3 +1,4 @@
+// CUSTOM COMPONENTS
 import CInput from "@customs/CInput";
 
 const CInputsMapper = ({ mapper, eventHandlers, type }) => {

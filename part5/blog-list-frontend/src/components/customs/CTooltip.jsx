@@ -1,8 +1,10 @@
+// EXTERNAL MODULES
 import { useState } from "react";
 
+// STYLES
 import { TooltipContainer, Tooltip } from "@styles/Customs.styles";
 
-const CTooltip = ({ children, tooltipText = "!!!" }) => {
+const CTooltip = ({ children, tooltipText = "!!!", tt_position = "top" }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleShowTooltip = () => setIsVisible(true);
@@ -12,7 +14,7 @@ const CTooltip = ({ children, tooltipText = "!!!" }) => {
       onMouseEnter={handleShowTooltip}
       onMouseLeave={handleHideTooltip}
     >
-      {isVisible && <Tooltip>{tooltipText}</Tooltip>}
+      {isVisible && <Tooltip $tt_position={tt_position}>{tooltipText}</Tooltip>}
       <div>{children}</div>
     </TooltipContainer>
   );

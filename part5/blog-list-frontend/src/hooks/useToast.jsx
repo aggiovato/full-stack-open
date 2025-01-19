@@ -1,4 +1,7 @@
+// EXTERNAL MODULES
 import { useContext } from "react";
+
+// CONTEXTS
 import ToastContext from "@contexts/ToastProvider";
 
 export const useToast = () => {

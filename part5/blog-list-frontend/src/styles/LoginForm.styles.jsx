@@ -55,35 +55,7 @@ export const FormHeading = styled.h2`
 export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Más espacio entre inputs */
-`;
-
-export const StyledButton = styled.button`
-  padding: 12px;
-  background-color: #1f7a8c;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-family: inherit;
-  cursor: pointer;
-  width: 100%;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #154f5f;
-  }
-
-  &:active {
-    background-color: #022b3a;
-    border-color: #1f9da9;
-    box-shadow: 0 0 5px rgba(31, 157, 169, 0.5);
-  }
-
-  @media (max-width: 480px) {
-    font-size: 14px;
-    padding: 10px;
-  }
+  gap: 20px;
 `;
 
 const oscillate = keyframes`

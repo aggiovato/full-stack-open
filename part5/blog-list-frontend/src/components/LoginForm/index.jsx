@@ -1,10 +1,10 @@
-// IMPORT COMPONENTS
-import CInputsMapper from "@customs/CInputsMapper";
+// CUSTOM COMPONENTS
+import { CButton, CInputsMapper } from "@customs";
+// ANIMATIONS
 import LinesAnimation from "@animations/LinesAnimation";
 
 // CUSTOM HOOKS
-import { useLoginForm } from "@hooks/useLoginForm";
-import { useToast } from "@hooks/useToast";
+import { useLoginForm, useToast } from "@hooks";
 
 // STYLES
 import {
@@ -12,7 +12,6 @@ import {
   FormWrapper,
   FormHeading,
   StyledForm,
-  StyledButton,
 } from "@styles/LoginForm.styles";
 
 const LoginForm = ({ handleUser }) => {
@@ -30,7 +29,7 @@ const LoginForm = ({ handleUser }) => {
             eventHandlers={handleInputChange}
             type="name"
           />
-          <StyledButton type="submit">Login</StyledButton>
+          <CButton type="submit">Login</CButton>
         </StyledForm>
       </FormWrapper>
       <LinesAnimation />

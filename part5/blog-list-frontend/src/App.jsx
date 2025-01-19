@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import GlobalStyle from "@styles/Global.styles";
 
-import { LoginForm, LogInfo, BlogForm, BlogList } from "@components";
+import { LoginForm, LogInfo, BlogForm, BlogList, ToolBar } from "@components";
 
 import blogService from "@services/blogs";
 
@@ -53,7 +53,7 @@ const App = () => {
                 handleVisibility={() => setShowForm(false)}
               />
             ) : (
-              <button onClick={() => setShowForm(true)}>Add Blog</button>
+              <ToolBar onAddBlog={() => setShowForm(true)} />
             )}
             <BlogList blogs={blogs} isVisible={showForm} />
           </MainContent>

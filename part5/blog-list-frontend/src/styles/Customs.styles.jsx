@@ -44,23 +44,49 @@ export const StyledLabel = styled.label`
 `;
 
 const buttonColors = {
-  primary: "#1f7a8c",
-  secondary: "#07536b",
-  success: "#28a745",
-  danger: "#c74343",
-  muted: "#666",
+  primary: {
+    main: "#1f7a8c",
+    hover: "#154f5f",
+    active: "#022b3a",
+    border: "#1f9da9",
+  },
+  secondary: {
+    main: "#07536b",
+    hover: "#05415a",
+    active: "#033a4e",
+    border: "#0a657d",
+  },
+  success: {
+    main: "#28a745",
+    hover: "#218838",
+    active: "#1e7e34",
+    border: "#34ce57",
+  },
+  danger: {
+    main: "#c74343",
+    hover: "#a83232",
+    active: "#521616",
+    border: "#d95454",
+  },
+  muted: {
+    main: "#666",
+    hover: "#555",
+    active: "#444",
+    border: "#777",
+  },
 };
 
 export const StyledButton = styled.button`
-  padding: 9px 16px;
+  padding: 10px 20px;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   font-size: 15px;
   font-family: inherit;
+  font-weight: bold;
   cursor: pointer;
   background-color: ${({ $btnType }) =>
-    buttonColors[$btnType] || buttonColors.primary};
+    buttonColors[$btnType].main || buttonColors.primary.main};
   transition: all 0.3s ease;
 
   ${({ $shape }) =>
@@ -86,19 +112,27 @@ export const StyledButton = styled.button`
   ${({ $shape }) =>
     $shape === "standard" &&
     css`
-      border-radius: 8px;
+      border-radius: 5px;
     `}
 
   &:hover {
-    opacity: 0.7;
+    background-color: ${({ $btnType }) =>
+      buttonColors[$btnType].hover || buttonColors.primary.hover};
   }
 
   &:active {
     transform: scale(0.95);
+    background-color: ${({ $btnType }) =>
+      buttonColors[$btnType].active || buttonColors.primary.active};
+    border-color: ${({ $btnType }) =>
+      buttonColors[$btnType].border || buttonColors.primary.border};
+    box-shadow: 0 0 5px
+      ${({ $btnType }) =>
+        buttonColors[$btnType].border || buttonColors.primary.border};
   }
 
   &:disabled {
-    background-color: ${buttonColors.muted};
+    background-color: ${buttonColors.muted.main};
     cursor: not-allowed;
   }
 
@@ -108,7 +142,8 @@ export const StyledButton = styled.button`
   }
 
   @media (max-width: 480px) {
-    font-size: 12px;
+    font-size: 14px;
+    padding: 8px 15px;
 
     ${({ $shape }) =>
       $shape === "icon" &&
@@ -127,7 +162,14 @@ export const TooltipContainer = styled.div`
 
 export const Tooltip = styled.div`
   position: absolute;
-  top: 115%;
+  ${({ $tt_position }) =>
+    $tt_position === "top"
+      ? `
+    bottom: 115%;
+  `
+      : `
+    top: 115%;
+  `}
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.6);
@@ -156,11 +198,19 @@ export const Tooltip = styled.div`
   &::after {
     content: "";
     position: absolute;
-    bottom: 100%;
+    ${({ $tt_position }) =>
+      $tt_position === "top"
+        ? `
+      top: 100%;
+      border-color: rgba(0, 0, 0, 0.6) transparent transparent transparent;
+    `
+        : `
+      bottom: 100%;
+      border-color: transparent transparent rgba(0, 0, 0, 0.6) transparent;
+    `}
     left: 50%;
     transform: translateX(-50%);
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent rgba(0, 0, 0, 0.6) transparent;
   }
 `;
