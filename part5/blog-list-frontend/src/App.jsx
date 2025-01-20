@@ -54,8 +54,6 @@ const App = () => {
       blog.title.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setFilteredBlogs(newFilteredBlogs);
-    console.log(newFilteredBlogs);
-    console.log(filteredBlogs);
   };
 
   return (
