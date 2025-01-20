@@ -5,7 +5,7 @@ const CNoBlogs = () => {
   return (
     <BlogContainer style={{ display: "grid" }}>
       <BlogCard>
-        <BlogHeader>
+        <BlogHeader style={{ justifyContent: "center" }}>
           <div className="info">
             <div className="title">No blogs found</div>
           </div>
