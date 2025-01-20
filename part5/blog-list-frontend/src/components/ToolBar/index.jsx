@@ -11,7 +11,7 @@ const ToolBar = ({ onAddBlog, onSearchChange }) => {
       <SearchInput
         type="text"
         placeholder="Search blogs..."
-        onChange={(e) => onSearchChange(e.target.value)}
+        onChange={(e) => onSearchChange(e)}
       />
     </ToolBarContainer>
   );
