@@ -1,5 +1,7 @@
 // CUSTOM COMPONENTS
 import { CTooltip } from "@components/customs";
+// ANIMATIONS
+import { HoverGlow } from "@animations/HoverGlow";
 // ICONS
 import LogoutIcon from "@icons/Logout.icon";
 
@@ -23,7 +25,9 @@ const LogInfo = ({ user }) => {
       <Title>Blogs</Title>
       <UserInfo>
         <UserName>
-          {user.name}
+          <HoverGlow secondColor="#358797" blur={3}>
+            {user.name}
+          </HoverGlow>
           <div>
             <span>logged in</span>
           </div>

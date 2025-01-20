@@ -2,6 +2,7 @@
 import { CButton, CInputsMapper } from "@customs";
 // ANIMATIONS
 import LinesAnimation from "@animations/LinesAnimation";
+import { HoverGlow } from "@animations/HoverGlow";
 
 // CUSTOM HOOKS
 import { useLoginForm, useToast } from "@hooks";
@@ -22,7 +23,9 @@ const LoginForm = ({ handleUser }) => {
   return (
     <LoginFormContainer>
       <FormWrapper>
-        <FormHeading>Welcome to Bloglist</FormHeading>
+        <FormHeading>
+          <HoverGlow scale={1.02}>Welcome to Bloglist</HoverGlow>
+        </FormHeading>
         <StyledForm onSubmit={(e) => handleLogin(e, addToast)}>
           <CInputsMapper
             mapper={loginData}
