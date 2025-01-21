@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 
@@ -68,6 +68,7 @@ const DropdownItem = styled(motion.li)`
 const CLanguageDropdown = ({ onLanguageChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(LOCALES.EN);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const savedLocale =
@@ -75,6 +76,18 @@ const CLanguageDropdown = ({ onLanguageChange }) => {
     setSelectedLanguage(
       Object.values(LOCALES).find((lang) => lang.code === savedLocale)
     );
+  }, []);
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
   }, []);
 
   const handleLanguageChange = (language) => {
@@ -103,7 +116,7 @@ const CLanguageDropdown = ({ onLanguageChange }) => {
   };
 
   return (
-    <DropdownContainer>
+    <DropdownContainer ref={dropdownRef}>
       <DropdownButton
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.05 }}
