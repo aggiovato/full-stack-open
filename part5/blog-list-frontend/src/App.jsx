@@ -13,6 +13,9 @@ import GlobalStyle from "@styles/Global.styles";
 // SERVICES
 import blogService from "@services/blogs";
 
+// I18N
+import { I18nProvider, LOCALES } from "@i18n";
+
 const MainContent = styled.main`
   padding-top: 80px;
   width: 100%;
@@ -25,6 +28,7 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const [localeLanguage, setLocaleLanguage] = useState("");
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -33,6 +37,13 @@ const App = () => {
       setFilteredBlogs(returnedBlogs);
     };
     fetchBlogs();
+
+    const storedLanguage = window.localStorage.getItem("localeLanguage");
+    if (storedLanguage) {
+      setLocaleLanguage(storedLanguage);
+    } else {
+      setLocaleLanguage(LOCALES.EN.code);
+    }
   }, []);
 
   useEffect(() => {
@@ -57,11 +68,11 @@ const App = () => {
   };
 
   return (
-    <>
+    <I18nProvider locale={localeLanguage || "en-UK"}>
       <GlobalStyle />
       {user ? (
         <>
-          <LogInfo user={user} />
+          <LogInfo user={user} onLanguageChange={setLocaleLanguage} />
           <MainContent>
             {showForm ? (
               <BlogForm
@@ -84,7 +95,7 @@ const App = () => {
       ) : (
         <LoginForm handleUser={setUser} />
       )}
-    </>
+    </I18nProvider>
   );
 };
 

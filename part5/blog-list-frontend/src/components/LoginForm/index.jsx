@@ -15,6 +15,9 @@ import {
   StyledForm,
 } from "@styles/LoginForm.styles";
 
+// I18N
+import { translate } from "@i18n";
+
 const LoginForm = ({ handleUser }) => {
   const { loginData, handleLogin, handleInputChange } =
     useLoginForm(handleUser);
@@ -24,7 +27,7 @@ const LoginForm = ({ handleUser }) => {
     <LoginFormContainer>
       <FormWrapper>
         <FormHeading>
-          <HoverGlow scale={1.02}>Welcome to Bloglist</HoverGlow>
+          <HoverGlow scale={1.02}>{translate("login.title")}</HoverGlow>
         </FormHeading>
         <StyledForm onSubmit={(e) => handleLogin(e, addToast)}>
           <CInputsMapper
@@ -32,7 +35,7 @@ const LoginForm = ({ handleUser }) => {
             eventHandlers={handleInputChange}
             type="name"
           />
-          <CButton type="submit">Login</CButton>
+          <CButton type="submit">{translate("login.button")}</CButton>
         </StyledForm>
       </FormWrapper>
       <LinesAnimation />

@@ -12,6 +12,9 @@ import {
   ButtonContainer,
 } from "@styles/BlogForm.styles";
 
+// I18N
+import { translate } from "@i18n";
+
 const BlogForm = ({ handleUpdateBlogs, handleVisibility }) => {
   const { blogData, handleBlogCreation, handleInputChange } =
     useBlogForm(handleUpdateBlogs);
@@ -19,7 +22,7 @@ const BlogForm = ({ handleUpdateBlogs, handleVisibility }) => {
 
   return (
     <BlogFormContainer>
-      <FormHeading>Create a new Blog</FormHeading>
+      <FormHeading>{translate("blog.form.title")}</FormHeading>
       <StyledForm onSubmit={(e) => handleBlogCreation(e, addToast)}>
         <CInputsMapper
           mapper={blogData}
@@ -28,10 +31,10 @@ const BlogForm = ({ handleUpdateBlogs, handleVisibility }) => {
         />
         <ButtonContainer>
           <CButton type="button" btnType="danger" onClick={handleVisibility}>
-            Cancel
+            {translate("blog.form.cancel")}
           </CButton>
           <CButton type="submit" btnType="primary">
-            Create
+            {translate("blog.form.create")}
           </CButton>
         </ButtonContainer>
       </StyledForm>

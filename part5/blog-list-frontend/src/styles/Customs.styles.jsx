@@ -179,7 +179,7 @@ export const Tooltip = styled.div`
   font-size: 12px;
   text-align: center;
   white-space: nowrap;
-  z-index: 10;
+  z-index: 200;
   max-width: 250px;
   word-wrap: break-word;
   white-space: normal;

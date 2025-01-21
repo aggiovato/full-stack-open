@@ -30,6 +30,7 @@ export default defineConfig({
       "@styles": path.resolve(__dirname, "./src/styles"),
       "@utils": path.resolve(__dirname, "./src/utils"),
       "@data": path.resolve(__dirname, "./src/utils/data"),
+      "@i18n": path.resolve(__dirname, "./src/i18n"),
     },
   },
 });

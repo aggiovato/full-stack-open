@@ -4,13 +4,14 @@ const ToastContainer = styled.div`
   position: fixed;
   top: 20px;
   right: 16px;
-  z-index: 50;
+  z-index: 300;
   display: flex;
   flex-direction: column;
+  text-align: center;
   gap: 10px;
 
   @media (max-width: 480px) {
-    width: 200px;
+    width: 230px;
     gap: 13px;
     top: 12px;
     right: 12px;

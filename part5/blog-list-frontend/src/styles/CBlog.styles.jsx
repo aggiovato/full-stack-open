@@ -28,7 +28,7 @@ export const BlogCard = styled.div`
   }
 
   @media (max-width: 755px) {
-    min-width: 100%;
+    min-width: 350px;
   }
 `;
 

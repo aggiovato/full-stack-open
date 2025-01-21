@@ -11,7 +11,7 @@ const Header = styled.header`
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
-  z-index: 1000;
+  z-index: 100;
   user-select: none;
 `;
 

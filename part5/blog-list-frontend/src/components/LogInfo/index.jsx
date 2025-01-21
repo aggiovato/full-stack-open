@@ -1,5 +1,5 @@
 // CUSTOM COMPONENTS
-import { CTooltip } from "@components/customs";
+import { CTooltip, CLanguageDropdown } from "@components/customs";
 // ANIMATIONS
 import { HoverGlow } from "@animations/HoverGlow";
 // ICONS
@@ -14,7 +14,10 @@ import {
   LogoutButton,
 } from "@styles/LogInfo.styles";
 
-const LogInfo = ({ user }) => {
+// I18N
+import { translate } from "@i18n";
+
+const LogInfo = ({ user, onLanguageChange }) => {
   const handleLogout = () => {
     window.localStorage.removeItem("loggedUser");
     window.location.reload();
@@ -22,17 +25,19 @@ const LogInfo = ({ user }) => {
 
   return (
     <Header>
-      <Title>Blogs</Title>
+      <Title>{translate("info.title")}</Title>
+
       <UserInfo>
         <UserName>
           <HoverGlow secondColor="#358797" blur={3}>
             {user.name}
           </HoverGlow>
           <div>
-            <span>logged in</span>
+            <span>{translate("info.user")}</span>
           </div>
         </UserName>
-        <CTooltip tt_position="bottom" tooltipText="Logout">
+        <CLanguageDropdown onLanguageChange={onLanguageChange} />
+        <CTooltip tt_position="bottom" tooltipText={translate("info.logout")}>
           <LogoutButton onClick={handleLogout}>
             <LogoutIcon />
           </LogoutButton>

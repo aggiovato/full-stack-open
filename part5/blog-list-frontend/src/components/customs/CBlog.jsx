@@ -19,8 +19,19 @@ import {
 // SERVICES
 import blogService from "@services/blogs";
 
+// I18N
+import { translate } from "@i18n";
+import { useIntl } from "react-intl";
+
 const CBlog = ({ blog, onUpdate, onRemove }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const { formatMessage } = useIntl();
+  const translated = {
+    view: formatMessage({ id: "blogcard.view" }),
+    hide: formatMessage({ id: "blogcard.hide" }),
+    like: formatMessage({ id: "blogcard.like" }),
+    likes: formatMessage({ id: "blogcard.likes" }),
+  };
 
   const handleDetails = () => setShowDetails(!showDetails);
 
@@ -42,10 +53,14 @@ const CBlog = ({ blog, onUpdate, onRemove }) => {
               charLimitSmall={28}
             />
           </div>
-          <div className="author">by {blog.author}</div>
+          <div className="author">
+            {translate("blogcard.by")} {blog.author}
+          </div>
         </div>
         <div className="show-hide">
-          <CTooltip tooltipText={showDetails ? "Hide" : "View"}>
+          <CTooltip
+            tooltipText={showDetails ? translated.hide : translated.view}
+          >
             <CButton
               shape="icon"
               icon={showDetails ? <Hide /> : <View />}
@@ -69,11 +84,14 @@ const CBlog = ({ blog, onUpdate, onRemove }) => {
             <StyButton onClick={handleLikes}>
               <Like />
             </StyButton>
-            <span>{blog.likes} likes</span>
+            <span>
+              {blog.likes}{" "}
+              {blog.likes === 1 ? translated.like : translated.likes}
+            </span>
           </div>
           {blog.isOwner && (
             <CButton btnType="danger" onClick={() => onRemove(blog.id)}>
-              Remove
+              {translate("blogcard.remove")}
             </CButton>
           )}
         </BlogDetails>

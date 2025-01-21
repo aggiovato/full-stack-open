@@ -14,7 +14,7 @@ export const ToolBarContainer = styled.div`
   margin: 0 auto;
   left: 30px;
   right: 30px;
-  z-index: 500;
+  z-index: 90;
 
   @media (max-width: 550px) {
     width: calc(100% - 30px);
