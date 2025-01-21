@@ -25,6 +25,10 @@ const UserInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 18px;
+
+  @media (max-width: 480px) {
+    gap: 10px;
+  }
 `;
 
 const UserName = styled.div`

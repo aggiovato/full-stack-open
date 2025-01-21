@@ -10,7 +10,7 @@ export const ToolBarContainer = styled.div`
   border-bottom: 1px solid #022b3a;
   border-radius: 0 0 20px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  with: calc(100% - 60px);
+  width: calc(100% - 60px);
   margin: 0 auto;
   left: 30px;
   right: 30px;

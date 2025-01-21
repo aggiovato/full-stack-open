@@ -29,12 +29,14 @@ const App = () => {
   const [showForm, setShowForm] = useState(false);
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const [localeLanguage, setLocaleLanguage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchBlogs = async () => {
       const returnedBlogs = await blogService.getAll();
       setBlogs(returnedBlogs);
       setFilteredBlogs(returnedBlogs);
+      setIsLoading(false);
     };
     fetchBlogs();
 
@@ -76,6 +78,7 @@ const App = () => {
           <MainContent>
             {showForm ? (
               <BlogForm
+                isVisible={showForm && !isLoading}
                 handleUpdateBlogs={updateBlogs}
                 handleVisibility={() => setShowForm(false)}
               />
@@ -86,7 +89,7 @@ const App = () => {
               />
             )}
             {filteredBlogs.length === 0 ? (
-              <CNoBlogs />
+              <CNoBlogs isLoading={isLoading} />
             ) : (
               <BlogList blogs={filteredBlogs} isVisible={showForm} />
             )}

@@ -27,10 +27,26 @@ const DropdownButton = styled(motion.button)`
     background: #1f7a8c;
   }
 
-  img {
-    width: 20px;
-    height: 20px;
-    border-radius: 2px;
+  @media (max-width: 480px) {
+    border: none;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    width: auto;
+
+    &:hover {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    span {
+      display: none;
+    }
+
+    svg {
+      width: 35px;
+      height: 35px;
+    }
   }
 `;
 
@@ -44,9 +60,13 @@ const DropdownMenu = styled(motion.ul)`
   margin-top: 8px;
   list-style: none;
   padding: 10px 0;
-  width: 150px;
+  width: 140px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
+
+  @media (max-width: 480px) {
+    width: 125px;
+  }
 `;
 
 const DropdownItem = styled(motion.li)`
@@ -123,7 +143,7 @@ const CLanguageDropdown = ({ onLanguageChange }) => {
         whileTap={{ scale: 0.95 }}
       >
         {selectedLanguage && <selectedLanguage.Flag />}
-        {selectedLanguage.cap}
+        <span>{selectedLanguage.cap}</span>
       </DropdownButton>
       <AnimatePresence>
         {isOpen && (

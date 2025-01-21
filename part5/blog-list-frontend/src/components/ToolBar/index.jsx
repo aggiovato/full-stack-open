@@ -1,6 +1,9 @@
 // CUSTOM COMPONENTS
 import CButton from "@customs/CButton";
 
+// ANIMATIONS
+//import BounceDown from "@animations/BounceDown";
+
 // STYLES
 import { ToolBarContainer, SearchInput } from "@styles/ToolBar.styles";
 

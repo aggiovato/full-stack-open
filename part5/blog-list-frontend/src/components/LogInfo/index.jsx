@@ -29,7 +29,7 @@ const LogInfo = ({ user, onLanguageChange }) => {
 
       <UserInfo>
         <UserName>
-          <HoverGlow secondColor="#358797" blur={3}>
+          <HoverGlow blur={1} rotate={-1}>
             {user.name}
           </HoverGlow>
           <div>
