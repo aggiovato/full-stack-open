@@ -7,8 +7,9 @@ const ToastContainer = styled.div`
   z-index: 300;
   display: flex;
   flex-direction: column;
-  text-align: center;
-  gap: 10px;
+  justify-content: center;
+  min-width: 300px;
+  gap: 15px;
 
   @media (max-width: 480px) {
     width: 230px;
