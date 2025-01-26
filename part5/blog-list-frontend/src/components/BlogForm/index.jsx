@@ -1,12 +1,7 @@
-// EXTERNAL MODULES
-import { useState, useEffect } from "react";
-
 // CUSTOM COMPONENTS
 import { CButton, CInputsMapper } from "../customs";
-
 // CUSTOM HOOKS
 import { useBlogForm, useToast } from "@hooks";
-
 // STYLES
 import {
   BlogFormContainer,
@@ -14,25 +9,17 @@ import {
   StyledForm,
   ButtonContainer,
 } from "@styles/BlogForm.styles";
-
 // I18N
 import { translate } from "@i18n";
 
+/*********************************************************************************** */
+
 const BlogForm = ({ isVisible, handleUpdateBlogs, handleVisibility }) => {
-  const [shouldDisplay, setShouldDisplay] = useState(false);
   const { blogData, handleBlogCreation, handleInputChange } =
     useBlogForm(handleUpdateBlogs);
   const { addToast } = useToast();
 
-  useEffect(() => {
-    if (isVisible) {
-      setShouldDisplay(true);
-    } else {
-      setShouldDisplay(false);
-    }
-  }, [isVisible]);
-
-  if (!shouldDisplay) {
+  if (!isVisible) {
     return null;
   }
 

@@ -1,26 +1,24 @@
 // CUSTOM COMPONENTS
 import CButton from "@customs/CButton";
-
-// ANIMATIONS
-//import BounceDown from "@animations/BounceDown";
-
 // STYLES
 import { ToolBarContainer, SearchInput } from "@styles/ToolBar.styles";
-
 // I18N
 import { translate } from "@i18n";
 import { useIntl } from "react-intl";
 
-const ToolBar = ({ onAddBlog, onSearchChange }) => {
+/*********************************************************************************** */
+
+const ToolBar = ({ onAddBlog, onFilterBlogs }) => {
   const { formatMessage } = useIntl();
   const translated = formatMessage({ id: "toolbar.search" });
+
   return (
     <ToolBarContainer>
       <CButton onClick={onAddBlog}>{translate("toolbar.add")}</CButton>
       <SearchInput
         type="text"
         placeholder={translated}
-        onChange={(e) => onSearchChange(e)}
+        onChange={(e) => onFilterBlogs(e.target.value)}
       />
     </ToolBarContainer>
   );

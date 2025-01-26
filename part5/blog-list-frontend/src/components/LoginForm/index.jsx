@@ -3,10 +3,8 @@ import { CButton, CInputsMapper } from "@customs";
 // ANIMATIONS
 import LinesAnimation from "@animations/LinesAnimation";
 import { HoverGlow } from "@animations/HoverGlow";
-
 // CUSTOM HOOKS
 import { useLoginForm, useToast } from "@hooks";
-
 // STYLES
 import {
   LoginFormContainer,
@@ -14,13 +12,11 @@ import {
   FormHeading,
   StyledForm,
 } from "@styles/LoginForm.styles";
-
 // I18N
 import { translate } from "@i18n";
 
-const LoginForm = ({ handleUser }) => {
-  const { loginData, handleLogin, handleInputChange } =
-    useLoginForm(handleUser);
+const LoginForm = ({ login }) => {
+  const { loginData, handleLogin, handleInputChange } = useLoginForm(login);
   const { addToast } = useToast();
 
   return (

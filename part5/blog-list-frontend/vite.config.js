@@ -23,6 +23,7 @@ export default defineConfig({
       "@animations": path.resolve(__dirname, "./src/components/animations"),
       "@customs": path.resolve(__dirname, "./src/components/customs"),
       "@icons": path.resolve(__dirname, "./src/components/icons"),
+      "@views": path.resolve(__dirname, "./src/views"),
       "@contexts": path.resolve(__dirname, "./src/contexts"),
       "@hooks": path.resolve(__dirname, "./src/hooks"),
       "@services": path.resolve(__dirname, "./src/services"),
