@@ -15,7 +15,6 @@ const BlogsView = ({
   updateBlogs,
   removeBlog,
   filterBlogs,
-  handleLike,
   logout,
   changeLanguage,
 }) => {
@@ -34,14 +33,15 @@ const BlogsView = ({
 
   const blogFormProps = {
     isVisible: showForm && !isLoading,
-    handleUpdateBlogs: updateBlogs,
+    onUpdateBlogs: updateBlogs,
     handleVisibility: () => setShowForm(false),
   };
 
   const blogListProps = {
     blogs: filteredBlogs,
+    user,
     onRemoveBlog: removeBlog,
-    onHandleLike: handleLike,
+    onUpdateBlogs: updateBlogs,
     isVisible: showForm && !isLoading,
   };
 

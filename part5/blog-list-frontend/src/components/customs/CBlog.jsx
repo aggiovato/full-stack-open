@@ -1,13 +1,11 @@
 // EXTERNAL MODULES
 import { useState } from "react";
-
 // CUSTOM COMPONENTS
 import { CButton, CTooltip } from "@customs";
 // ICONS
 import { View, Hide, Like } from "@icons";
 // CONTEXTS
 import TextProvider from "@contexts/TextProvider";
-
 // STYLES
 import {
   BlogCard,
@@ -15,16 +13,17 @@ import {
   BlogDetails,
   StyButton,
 } from "@styles/CBlog.styles";
-
 // SERVICES
 import blogService from "@services/blogs";
-
 // I18N
 import { translate } from "@i18n";
 import { useIntl } from "react-intl";
 
-const CBlog = ({ blog, onUpdate, onRemove }) => {
+/*********************************************************************************** */
+
+const CBlog = ({ blog, user, onRemove, onUpdateBlogs }) => {
   const [showDetails, setShowDetails] = useState(false);
+
   const { formatMessage } = useIntl();
   const translated = {
     view: formatMessage({ id: "blogcard.view" }),
@@ -35,11 +34,17 @@ const CBlog = ({ blog, onUpdate, onRemove }) => {
 
   const handleDetails = () => setShowDetails(!showDetails);
 
-  const handleLikes = async () => {
-    const updatedBlog = await blogService.like(blog.id, {
-      likes: blog.likes + 1,
-    });
-    onUpdate(updatedBlog);
+  const isOwner = user?.username === blog?.user?.username;
+
+  const handleLike = async () => {
+    try {
+      const updatedBlog = await blogService.like(blog.id, {
+        likes: blog.likes + 1,
+      });
+      onUpdateBlogs(updatedBlog);
+    } catch (error) {
+      console.error("Error liking the blog:", error);
+    }
   };
 
   return (
@@ -81,7 +86,7 @@ const CBlog = ({ blog, onUpdate, onRemove }) => {
             </a>
           </div>
           <div className="likes">
-            <StyButton onClick={handleLikes}>
+            <StyButton onClick={handleLike}>
               <Like />
             </StyButton>
             <span>
@@ -89,7 +94,7 @@ const CBlog = ({ blog, onUpdate, onRemove }) => {
               {blog.likes === 1 ? translated.like : translated.likes}
             </span>
           </div>
-          {blog.isOwner && (
+          {isOwner && (
             <CButton btnType="danger" onClick={() => onRemove(blog.id)}>
               {translate("blogcard.remove")}
             </CButton>

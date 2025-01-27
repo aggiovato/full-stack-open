@@ -14,9 +14,9 @@ import { translate } from "@i18n";
 
 /*********************************************************************************** */
 
-const BlogForm = ({ isVisible, handleUpdateBlogs, handleVisibility }) => {
+const BlogForm = ({ isVisible, onUpdateBlogs, handleVisibility }) => {
   const { blogData, handleBlogCreation, handleInputChange } =
-    useBlogForm(handleUpdateBlogs);
+    useBlogForm(onUpdateBlogs);
   const { addToast } = useToast();
 
   if (!isVisible) {

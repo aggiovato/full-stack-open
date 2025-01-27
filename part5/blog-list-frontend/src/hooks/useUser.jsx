@@ -8,6 +8,7 @@ import { LOCALES } from "@i18n";
 /*********************************************************************************** */
 
 const useUser = () => {
+  // states for user and language
   const [user, setUser] = useState(null);
   const [localeLanguage, setLocaleLanguage] = useState(LOCALES.EN.code);
 
@@ -26,6 +27,7 @@ const useUser = () => {
     setLocaleLanguage(storedLanguage);
   }, []);
 
+  // function to set the user
   const login = (user) => {
     if (!user || !user.token || !user.username) {
       throw new Error("Invalid user data");
@@ -33,12 +35,14 @@ const useUser = () => {
     setUser(user);
   };
 
+  // function to logout
   const logout = () => {
     setUser(null);
     window.localStorage.removeItem("loggedUser");
     window.location.reload();
   };
 
+  // function to change the language
   const changeLanguage = (language) => {
     setLocaleLanguage(language);
     window.localStorage.setItem("localeLanguage", language);

@@ -1,63 +1,65 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import blogService from "@services/blogs";
+
+import { processBlogs } from "@utils/helpers";
+
+/*********************************************************************************** */
 
 const useBlogs = (user) => {
   const [blogs, setBlogs] = useState([]);
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // function to set the 'remove' botton on the blog card
-  const calculateIsOwner = useCallback(
-    (blog, user) => (user ? blog.user.username === user.username : false),
-    []
-  );
-
-  const sortBlogs = useCallback((blogs) => {
-    return blogs.sort((a, b) => b.likes - a.likes);
-  }, []);
-
-  const processBlogs = useCallback(
-    (blogs, user) => {
-      return sortBlogs(
-        blogs.map((blog) => ({
-          ...blog,
-          isOwner: calculateIsOwner(blog, user),
-        }))
-      );
-    },
-    [sortBlogs, calculateIsOwner]
-  );
-
-  // load the blogs from the server
   useEffect(() => {
     const fetchBlogs = async () => {
-      const returnedBlogs = await blogService.getAll();
-
-      setBlogs(processBlogs(returnedBlogs, user));
-      setFilteredBlogs(processBlogs(returnedBlogs, user));
-      setIsLoading(false);
+      setIsLoading(true);
+      try {
+        const returnedBlogs = await blogService.getAll();
+        const processed = processBlogs(returnedBlogs);
+        setBlogs(processed);
+        setFilteredBlogs(processed);
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchBlogs();
-  }, [user, processBlogs]);
+  }, [user]);
 
-  const updateBlogs = (newBlog) => {
+  const updateBlogs = (updatedBlog) => {
     setBlogs((prevBlogs) => {
-      const updatedBlogs = processBlogs([...prevBlogs, newBlog]);
+      const updatedBlogs = processBlogs(
+        prevBlogs.map((blog) =>
+          blog.id === updatedBlog.id ? { ...updatedBlog } : blog
+        ),
+        user
+      );
       setFilteredBlogs(updatedBlogs);
       return updatedBlogs;
     });
   };
 
   const removeBlog = async (blogId) => {
-    await blogService.remove(blogId);
-    setBlogs((prevBlogs) => {
-      const updatedBlogs = processBlogs(
-        prevBlogs.filter((blog) => blog.id !== blogId)
+    try {
+      const confirm = window.confirm(
+        "Are you sure you want to delete this blog?"
       );
-      setFilteredBlogs(updatedBlogs);
-      return updatedBlogs;
-    });
+      if (!confirm) {
+        return;
+      }
+      await blogService.remove(blogId);
+      setBlogs((prevBlogs) => {
+        const updatedBlogs = processBlogs(
+          prevBlogs.filter((blog) => blog.id !== blogId)
+        );
+        setFilteredBlogs(updatedBlogs);
+        return updatedBlogs;
+      });
+    } catch (error) {
+      console.error("Error removing blog:", error);
+    }
   };
 
   const filterBlogs = (query) => {
@@ -67,31 +69,12 @@ const useBlogs = (user) => {
     );
   };
 
-  const handleLike = async (blogId) => {
-    const updatedBlog = await blogService.like(blogId);
-    setBlogs((prevBlogs) => {
-      const updatedBlogs = processBlogs(
-        prevBlogs.map((blog) =>
-          blog.id === blogId
-            ? {
-                ...updatedBlog,
-                isOwner: calculateIsOwner(updatedBlog, user),
-              }
-            : blog
-        )
-      );
-      setFilteredBlogs(updatedBlogs);
-      return updatedBlogs;
-    });
-  };
-
   return {
     blogs,
     filteredBlogs,
     updateBlogs,
     removeBlog,
     filterBlogs,
-    handleLike,
     isLoading,
   };
 };

@@ -15,6 +15,8 @@ import {
 // I18N
 import { translate } from "@i18n";
 
+/*********************************************************************************** */
+
 const LoginForm = ({ login }) => {
   const { loginData, handleLogin, handleInputChange } = useLoginForm(login);
   const { addToast } = useToast();

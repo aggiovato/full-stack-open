@@ -1,17 +1,16 @@
 // EXTERNAL MODULES
 import { useState } from "react";
-
 // HOOKS
 import useErrorTranslator from "@hooks/useErrorTranslator";
 import { useIntl } from "react-intl";
-
 // SERVICES
 import blogService from "@services/blogs";
-
 // STORES
 import blogStore from "@stores/blog";
 
-export const useBlogForm = (handleUpdateBlogs) => {
+/*********************************************************************************** */
+
+export const useBlogForm = (onUpdateBlogs) => {
   const [blogData, setBlogData] = useState(blogStore.emptyBlog);
   const { formatMessage } = useIntl();
   const { translateError } = useErrorTranslator();
@@ -26,7 +25,7 @@ export const useBlogForm = (handleUpdateBlogs) => {
 
     try {
       const newBlog = await blogService.create(blogData);
-      handleUpdateBlogs(newBlog);
+      onUpdateBlogs(newBlog);
 
       addToast(translated.success, "success");
     } catch (error) {
