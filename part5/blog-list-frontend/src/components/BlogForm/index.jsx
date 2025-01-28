@@ -1,7 +1,7 @@
 // CUSTOM COMPONENTS
 import { CButton, CInputsMapper } from "@customs";
 // CUSTOM HOOKS
-import { useBlogForm, useToast, useErrorTranslator } from "@hooks";
+import { useBlogForm, useToast } from "@hooks";
 // STYLES
 import {
   BlogFormContainer,
@@ -24,11 +24,27 @@ const BlogForm = ({ isVisible, onAddBlog, handleVisibility }) => {
 
   // translations
   const { formatMessage } = useIntl();
-  const { translateError } = useErrorTranslator();
 
   const translated = {
     success: formatMessage({ id: "blogform.message.success" }),
     error: formatMessage({ id: "blogform.message.error" }),
+    title: formatMessage({ id: "blogform.message.invalid-title" }),
+    author: formatMessage({ id: "blogform.message.invalid-author" }),
+    url: formatMessage({ id: "blogform.message.invalid-url" }),
+  };
+
+  // function to translate error messages
+  const translateErrorMessages = (err_message, translation_obj) => {
+    const err_split = err_message
+      .split(",")
+      .map((err) => err.toLowerCase().trim());
+
+    return err_split.map((err) => {
+      const foundKey = Object.keys(translation_obj).find((key) =>
+        err.includes(key)
+      );
+      return foundKey ? translation_obj[foundKey] : err;
+    });
   };
 
   // function to handle blog creation
@@ -41,7 +57,16 @@ const BlogForm = ({ isVisible, onAddBlog, handleVisibility }) => {
       handleVisibility();
       clearForm();
     } catch (error) {
-      addToast(translateError(error.code) || translated.error, "error");
+      const err_messages = translateErrorMessages(
+        error.response?.data?.error || "",
+        translated
+      );
+
+      if (err_messages.length > 1) {
+        addToast(err_messages.join(", "), "error");
+      } else {
+        addToast(err_messages[0] || translated.error, "error");
+      }
     }
   };
 
