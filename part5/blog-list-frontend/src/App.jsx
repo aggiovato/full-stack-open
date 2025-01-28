@@ -13,25 +13,17 @@ import { I18nProvider } from "@i18n";
 
 const App = () => {
   const { user, login, logout, localeLanguage, changeLanguage } = useUser();
-  const {
-    blogs,
-    updateBlogs,
-    removeBlog,
-    filteredBlogs,
-    filterBlogs,
-    handleLike,
-    isLoading,
-  } = useBlog(user);
+  const { blogs, addBlog, updateBlogs, removeBlog, filterBlogs, isLoading } =
+    useBlog(user);
 
   const blogsViewProps = {
     user,
     blogs,
-    filteredBlogs,
     isLoading,
+    addBlog,
     updateBlogs,
     removeBlog,
     filterBlogs,
-    handleLike,
     logout,
     changeLanguage,
   };

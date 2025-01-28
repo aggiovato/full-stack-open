@@ -15,13 +15,4 @@ const getRandomAnimationText = () => {
   return animationTexts[randomIndex];
 };
 
-const processBlogs = (blogs) => {
-  return blogs.sort((a, b) => b.likes - a.likes);
-};
-
-export {
-  capitalizeFirstLetter,
-  checkInputType,
-  getRandomAnimationText,
-  processBlogs,
-};
+export { capitalizeFirstLetter, checkInputType, getRandomAnimationText };

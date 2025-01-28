@@ -21,9 +21,11 @@ import { useIntl } from "react-intl";
 
 /*********************************************************************************** */
 
-const CBlog = ({ blog, user, onRemove, onUpdateBlogs }) => {
-  const [showDetails, setShowDetails] = useState(false);
+const CBlog = ({ children, blog, onUpdateBlogs }) => {
+  const [showDetails, setShowDetails] = useState(false); // state for show details
+  const [updatedLikes, setUpdatedLikes] = useState(blog.likes); // state for likes
 
+  // translations
   const { formatMessage } = useIntl();
   const translated = {
     view: formatMessage({ id: "blogcard.view" }),
@@ -32,15 +34,16 @@ const CBlog = ({ blog, user, onRemove, onUpdateBlogs }) => {
     likes: formatMessage({ id: "blogcard.likes" }),
   };
 
+  // function to handle details
   const handleDetails = () => setShowDetails(!showDetails);
 
-  const isOwner = user?.username === blog?.user?.username;
-
+  // function to handle like
   const handleLike = async () => {
     try {
       const updatedBlog = await blogService.like(blog.id, {
-        likes: blog.likes + 1,
+        likes: updatedLikes + 1,
       });
+      setUpdatedLikes(updatedBlog.likes);
       onUpdateBlogs(updatedBlog);
     } catch (error) {
       console.error("Error liking the blog:", error);
@@ -90,15 +93,11 @@ const CBlog = ({ blog, user, onRemove, onUpdateBlogs }) => {
               <Like />
             </StyButton>
             <span>
-              {blog.likes}{" "}
-              {blog.likes === 1 ? translated.like : translated.likes}
+              {updatedLikes}{" "}
+              {updatedLikes === 1 ? translated.like : translated.likes}
             </span>
           </div>
-          {isOwner && (
-            <CButton btnType="danger" onClick={() => onRemove(blog.id)}>
-              {translate("blogcard.remove")}
-            </CButton>
-          )}
+          {children}
         </BlogDetails>
       )}
     </BlogCard>

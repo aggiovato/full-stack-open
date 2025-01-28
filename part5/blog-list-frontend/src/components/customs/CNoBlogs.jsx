@@ -1,15 +1,16 @@
 // EXTERNAL MODULES
 import { useState, useEffect } from "react";
-
 // STYLES
 import { BlogContainer, BlogCard, BlogHeader } from "@styles/CBlog.styles";
-
 // I18N
 import { translate } from "@i18n";
 
-const CNoBlogs = ({ isLoading }) => {
-  const [shouldDisplay, setShouldDisplay] = useState(false);
+/*********************************************************************************** */
 
+const CNoBlogs = ({ isLoading }) => {
+  const [shouldDisplay, setShouldDisplay] = useState(false); // state for display
+
+  // useEffect to set the state
   useEffect(() => {
     if (!isLoading) {
       setShouldDisplay(true);

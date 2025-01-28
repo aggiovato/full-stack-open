@@ -12,6 +12,7 @@ const useUser = () => {
   const [user, setUser] = useState(null);
   const [localeLanguage, setLocaleLanguage] = useState(LOCALES.EN.code);
 
+  // useEffect to set the user, get the token and set the locale language
   useEffect(() => {
     // USER LOGIN
     const loggedUser = window.localStorage.getItem("loggedUser");
@@ -39,7 +40,6 @@ const useUser = () => {
   const logout = () => {
     setUser(null);
     window.localStorage.removeItem("loggedUser");
-    window.location.reload();
   };
 
   // function to change the language

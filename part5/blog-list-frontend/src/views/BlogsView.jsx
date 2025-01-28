@@ -10,14 +10,16 @@ import { useState } from "react";
 
 const BlogsView = ({
   user,
-  filteredBlogs,
+  blogs,
   isLoading,
+  addBlog,
   updateBlogs,
   removeBlog,
   filterBlogs,
   logout,
   changeLanguage,
 }) => {
+  // states for displaying the form or not
   const [showForm, setShowForm] = useState(false);
 
   const logInfoProps = {
@@ -33,12 +35,12 @@ const BlogsView = ({
 
   const blogFormProps = {
     isVisible: showForm && !isLoading,
-    onUpdateBlogs: updateBlogs,
+    onAddBlog: addBlog,
     handleVisibility: () => setShowForm(false),
   };
 
   const blogListProps = {
-    blogs: filteredBlogs,
+    blogs,
     user,
     onRemoveBlog: removeBlog,
     onUpdateBlogs: updateBlogs,
@@ -54,7 +56,7 @@ const BlogsView = ({
         ) : (
           <ToolBar {...toolBarProps} />
         )}
-        {filteredBlogs.length === 0 ? (
+        {blogs.length === 0 ? (
           <CNoBlogs isLoading={isLoading} />
         ) : (
           <BlogList {...blogListProps} />

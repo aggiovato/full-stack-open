@@ -1,23 +1,34 @@
-import { useState, useEffect } from "react";
+// EXTERNAL MODULES
+import { useState, useEffect, useCallback } from "react";
+// SERVICES
 import blogService from "@services/blogs";
-
-import { processBlogs } from "@utils/helpers";
 
 /*********************************************************************************** */
 
-const useBlogs = (user) => {
-  const [blogs, setBlogs] = useState([]);
-  const [filteredBlogs, setFilteredBlogs] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+const useBlog = (user) => {
+  const [blogs, setBlogs] = useState([]); // state for blogs
+  const [filteredBlogs, setFilteredBlogs] = useState([]); // state for filtered blogs
+  const [isLoading, setIsLoading] = useState(true); // state for loading (to render some component or not)
 
+  // function to sort the blogs by likes
+  const processBlogs = useCallback(
+    (blogs) => blogs.sort((a, b) => b.likes - a.likes),
+    []
+  );
+
+  // useEffect to fetch blogs from the server and sort them by likes
   useEffect(() => {
+    if (!user) {
+      return; // if user is not logged in, do nothing
+    }
     const fetchBlogs = async () => {
       setIsLoading(true);
       try {
         const returnedBlogs = await blogService.getAll();
-        const processed = processBlogs(returnedBlogs);
-        setBlogs(processed);
-        setFilteredBlogs(processed);
+        const sortedBlogs = processBlogs(returnedBlogs);
+        setBlogs(sortedBlogs);
+        setFilteredBlogs(sortedBlogs);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching blogs:", error);
       } finally {
@@ -25,53 +36,57 @@ const useBlogs = (user) => {
       }
     };
 
+    // call the fetchBlogs function
     fetchBlogs();
-  }, [user]);
+  }, [processBlogs, user]);
 
+  // function to update a blog after some changes and sort them by likes
   const updateBlogs = (updatedBlog) => {
     setBlogs((prevBlogs) => {
       const updatedBlogs = processBlogs(
         prevBlogs.map((blog) =>
           blog.id === updatedBlog.id ? { ...updatedBlog } : blog
-        ),
-        user
+        )
       );
       setFilteredBlogs(updatedBlogs);
       return updatedBlogs;
     });
   };
 
+  // function to add a new blog and sort them by likes
+  const addBlog = (newBlog) => {
+    const allBlogs = processBlogs([...blogs, newBlog]);
+    setBlogs(allBlogs);
+    setFilteredBlogs(allBlogs);
+  };
+
+  // function to remove a blog and sort them by likes
   const removeBlog = async (blogId) => {
-    try {
-      const confirm = window.confirm(
-        "Are you sure you want to delete this blog?"
-      );
-      if (!confirm) {
-        return;
-      }
+    const confirm = window.confirm(
+      "Are you sure you want to delete this blog?"
+    );
+    if (confirm) {
       await blogService.remove(blogId);
-      setBlogs((prevBlogs) => {
-        const updatedBlogs = processBlogs(
-          prevBlogs.filter((blog) => blog.id !== blogId)
-        );
-        setFilteredBlogs(updatedBlogs);
-        return updatedBlogs;
-      });
-    } catch (error) {
-      console.error("Error removing blog:", error);
+      const updatedBlogs = processBlogs(
+        blogs.filter((blog) => blog.id !== blogId)
+      );
+      setBlogs(updatedBlogs);
+      setFilteredBlogs(updatedBlogs);
     }
   };
 
+  // function to filter blogs by title
   const filterBlogs = (query) => {
-    const lowerCaseQuery = query.toLowerCase();
     setFilteredBlogs(
-      blogs.filter((blog) => blog.title.toLowerCase().includes(lowerCaseQuery))
+      blogs.filter((blog) =>
+        blog.title.toLowerCase().includes(query.toLowerCase())
+      )
     );
   };
 
   return {
-    blogs,
-    filteredBlogs,
+    blogs: filteredBlogs,
+    addBlog,
     updateBlogs,
     removeBlog,
     filterBlogs,
@@ -79,4 +94,4 @@ const useBlogs = (user) => {
   };
 };
 
-export default useBlogs;
+export default useBlog;

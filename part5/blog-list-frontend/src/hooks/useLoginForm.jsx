@@ -11,7 +11,7 @@ import loginStore from "@stores/login";
 
 /****************************************************************************** */
 
-export const useLoginForm = (login) => {
+const useLoginForm = (login) => {
   // state for login form data
   const [loginData, setLoginData] = useState(loginStore.emptyLogin);
 
@@ -66,6 +66,7 @@ export const useLoginForm = (login) => {
   // function to clear all fields
   const clearForm = () => setLoginData(loginStore.emptyLogin);
 
-  // return the login data and functions
   return { loginData, handleLogin, handleInputChange };
 };
+
+export default useLoginForm;

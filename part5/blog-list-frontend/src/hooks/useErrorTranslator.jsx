@@ -1,5 +1,9 @@
+// HOOKS
 import { useIntl } from "react-intl";
 
+/*********************************************************************************** */
+
+// object with translations and some standard errors
 const errorMessages = {
   NETWORK_ERROR: "error.network",
   SERVER_ERROR: "error.server",
@@ -18,6 +22,7 @@ const errorMessages = {
 const useErrorTranslator = () => {
   const { formatMessage } = useIntl();
 
+  // function to translate the error message
   const translateError = (errorCode) => {
     const translationKey = errorMessages[errorCode] || "error.unknown";
     return formatMessage({ id: translationKey });

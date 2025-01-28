@@ -1,11 +1,11 @@
 // EXTERNAL MODULES
 import { useState, useEffect } from "react";
-
 // STYLES
 import { StyledDecoration } from "@styles/LoginForm.styles";
-
 // HELPERS
 import { getRandomAnimationText } from "@utils/helpers";
+
+/*********************************************************************************** */
 
 const LinesAnimation = () => {
   const [isAnimating, setIsAnimating] = useState(false);

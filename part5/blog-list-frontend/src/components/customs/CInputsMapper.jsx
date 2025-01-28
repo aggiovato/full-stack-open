@@ -1,5 +1,7 @@
 // CUSTOM COMPONENTS
-import CInput from "@customs/CInput";
+import { CInput } from "@customs";
+
+/*********************************************************************************** */
 
 const CInputsMapper = ({ mapper, eventHandlers, type }) => {
   const handlers =

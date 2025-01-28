@@ -1,5 +1,5 @@
 // CUSTOM COMPONENTS
-import CButton from "@customs/CButton";
+import { CButton } from "@customs";
 // STYLES
 import { ToolBarContainer, SearchInput } from "@styles/ToolBar.styles";
 // I18N
@@ -9,6 +9,7 @@ import { useIntl } from "react-intl";
 /*********************************************************************************** */
 
 const ToolBar = ({ onAddBlog, onFilterBlogs }) => {
+  // translations
   const { formatMessage } = useIntl();
   const translated = formatMessage({ id: "toolbar.search" });
 

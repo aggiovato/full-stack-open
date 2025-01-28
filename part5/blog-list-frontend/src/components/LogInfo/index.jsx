@@ -1,5 +1,5 @@
 // CUSTOM COMPONENTS
-import { CTooltip, CLanguageDropdown } from "@components/customs";
+import { CTooltip, CLanguageDropdown } from "@customs";
 // ANIMATIONS
 import { HoverGlow } from "@animations/HoverGlow";
 // ICONS

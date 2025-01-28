@@ -1,12 +1,13 @@
 // EXTERNAL MODULES
 import { createContext, useState } from "react";
-
 // STYLES
 import {
   ToastContainer,
   ToastMessage,
   CloseButton,
 } from "@styles/ToastProvider.styles";
+
+/*********************************************************************************** */
 
 // Context for global toast messages
 const ToastContext = createContext(null);
@@ -15,6 +16,7 @@ const ToastContext = createContext(null);
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
+  // function to add a toast message
   const addToast = (message, type = "success") => {
     // Avoid duplicates
     const isDuplicate = toasts.some(
@@ -27,6 +29,7 @@ export const ToastProvider = ({ children }) => {
     setTimeout(() => removeToast(id), type === "success" ? 2000 : 5000); // Remove toast after 3 or 5 seconds
   };
 
+  // function to remove a toast message
   const removeToast = (id) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
   };
