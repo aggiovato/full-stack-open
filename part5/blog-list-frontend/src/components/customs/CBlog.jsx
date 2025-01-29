@@ -18,6 +18,8 @@ import blogService from "@services/blogs";
 // I18N
 import { translate } from "@i18n";
 import { useIntl } from "react-intl";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -105,3 +107,11 @@ const CBlog = ({ children, blog, onUpdateBlogs }) => {
 };
 
 export default CBlog;
+
+// PropTypes
+
+CBlog.propTypes = {
+  children: PropTypes.node.isRequired,
+  blog: PropTypes.object.isRequired,
+  onUpdateBlogs: PropTypes.func.isRequired,
+};

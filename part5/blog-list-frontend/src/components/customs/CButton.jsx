@@ -1,5 +1,7 @@
 // STYLES
 import styled, { css } from "styled-components";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -31,6 +33,17 @@ const CButton = ({
 export default CButton;
 
 /*********************************************************************************** */
+
+// PropTypes
+
+CButton.propTypes = {
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
+  btnType: PropTypes.string,
+  shape: PropTypes.string,
+  disabled: PropTypes.bool,
+  icon: PropTypes.node,
+};
 
 const buttonColors = {
   primary: {

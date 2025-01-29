@@ -14,6 +14,8 @@ import {
 } from "@styles/LogInfo.styles";
 // I18N
 import { translate } from "@i18n";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -42,3 +44,11 @@ const LogInfo = ({ user, onLanguageChange, onLogout }) => {
 };
 
 export default LogInfo;
+
+// PropTypes
+
+LogInfo.propTypes = {
+  user: PropTypes.object.isRequired,
+  onLanguageChange: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
+};

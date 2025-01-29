@@ -2,6 +2,8 @@
 import { useState } from "react";
 // STYLES
 import styled from "styled-components";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -25,6 +27,14 @@ const CTooltip = ({ children, tooltipText = "!!!", tt_position = "top" }) => {
 export default CTooltip;
 
 /*********************************************************************************** */
+
+// PropTypes
+
+CTooltip.propTypes = {
+  children: PropTypes.node.isRequired,
+  tooltipText: PropTypes.string,
+  tt_position: PropTypes.string,
+};
 
 export const TooltipContainer = styled.div`
   position: relative;

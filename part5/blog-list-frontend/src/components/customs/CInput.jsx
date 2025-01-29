@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { checkInputType } from "@utils/helpers";
 // I18N
 import { useIntl } from "react-intl";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -29,6 +31,15 @@ const CInput = ({ label, name, data = {}, eventHandler }) => {
 export default CInput;
 
 /*********************************************************************************** */
+
+// PropTypes
+
+CInput.propTypes = {
+  label: PropTypes.string,
+  name: PropTypes.string,
+  data: PropTypes.object,
+  eventHandler: PropTypes.func,
+};
 
 export const StyledInput = styled.input`
   padding: 10px;

@@ -5,6 +5,8 @@ import { ToolBarContainer, SearchInput } from "@styles/ToolBar.styles";
 // I18N
 import { translate } from "@i18n";
 import { useIntl } from "react-intl";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -26,3 +28,10 @@ const ToolBar = ({ onAddBlog, onFilterBlogs }) => {
 };
 
 export default ToolBar;
+
+// PropTypes
+
+ToolBar.propTypes = {
+  onAddBlog: PropTypes.func.isRequired,
+  onFilterBlogs: PropTypes.func.isRequired,
+};

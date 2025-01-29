@@ -14,6 +14,8 @@ import blogService from "@services/blogs";
 // I18N
 import { translate } from "@i18n";
 import { useIntl } from "react-intl";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -97,3 +99,11 @@ const BlogForm = ({ isVisible, onAddBlog, handleVisibility }) => {
 };
 
 export default BlogForm;
+
+// PropTypes
+
+BlogForm.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
+  onAddBlog: PropTypes.func.isRequired,
+  handleVisibility: PropTypes.func.isRequired,
+};

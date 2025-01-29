@@ -1,10 +1,12 @@
 // EXTERNAL MODULES
+import { useState } from "react";
 import styled from "styled-components";
 // COMPONENTS
 import { LogInfo, BlogForm, BlogList, ToolBar } from "@components";
 // CUSTOM COMPONENTS
 import CNoBlogs from "@customs/CNoBlogs";
-import { useState } from "react";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -74,3 +76,17 @@ const MainContent = styled.main`
   max-width: 1200px;
   margin: 0 auto;
 `;
+
+// PropTypes
+
+BlogsView.propTypes = {
+  user: PropTypes.object.isRequired,
+  blogs: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  addBlog: PropTypes.func.isRequired,
+  updateBlogs: PropTypes.func.isRequired,
+  removeBlog: PropTypes.func.isRequired,
+  filterBlogs: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  changeLanguage: PropTypes.func.isRequired,
+};

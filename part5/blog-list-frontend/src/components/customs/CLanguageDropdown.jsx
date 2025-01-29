@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 // I18N
 import { LOCALES } from "@i18n";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -102,6 +104,12 @@ const CLanguageDropdown = ({ onLanguageChange }) => {
 export default CLanguageDropdown;
 
 /*********************************************************************************** */
+
+// PropTypes
+
+CLanguageDropdown.propTypes = {
+  onLanguageChange: PropTypes.func.isRequired,
+};
 
 const DropdownContainer = styled.div`
   position: relative;

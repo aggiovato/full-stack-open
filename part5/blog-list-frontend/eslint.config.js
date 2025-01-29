@@ -5,7 +5,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
-  { ignores: ["dist"] },
+  { ignores: ["dist", "node_modules"] },
   {
     files: ["**/*.{js,jsx}"],
     languageOptions: {
@@ -30,6 +30,8 @@ export default [
       ...reactHooks.configs.recommended.rules,
       "react/jsx-no-target-blank": "off",
       "react/prop-types": "off",
+      eqeqeq: "error", // === eslint
+      quotes: ["error", "double"], // " " quotes eslint
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },

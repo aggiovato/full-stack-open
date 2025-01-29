@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { BlogContainer, BlogCard, BlogHeader } from "@styles/CBlog.styles";
 // I18N
 import { translate } from "@i18n";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -36,3 +38,9 @@ const CNoBlogs = ({ isLoading }) => {
 };
 
 export default CNoBlogs;
+
+// PropTypes
+
+CNoBlogs.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};

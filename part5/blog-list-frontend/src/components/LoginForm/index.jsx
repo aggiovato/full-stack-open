@@ -14,6 +14,8 @@ import {
 } from "@styles/LoginForm.styles";
 // I18N
 import { translate } from "@i18n";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -45,3 +47,9 @@ const LoginForm = ({ login }) => {
 };
 
 export default LoginForm;
+
+// PropTypes
+
+LoginForm.propTypes = {
+  login: PropTypes.func.isRequired,
+};

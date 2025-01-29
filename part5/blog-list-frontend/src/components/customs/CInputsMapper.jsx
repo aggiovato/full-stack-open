@@ -1,5 +1,7 @@
 // CUSTOM COMPONENTS
 import { CInput } from "@customs";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -27,3 +29,11 @@ const CInputsMapper = ({ mapper, eventHandlers, type }) => {
 };
 
 export default CInputsMapper;
+
+// PropTypes
+
+CInputsMapper.propTypes = {
+  mapper: PropTypes.object.isRequired,
+  eventHandlers: PropTypes.func.isRequired || PropTypes.array.isRequired,
+  type: PropTypes.string.isRequired,
+};

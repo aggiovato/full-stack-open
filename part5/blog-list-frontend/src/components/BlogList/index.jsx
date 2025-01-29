@@ -4,6 +4,8 @@ import { CBlog, CButton } from "@customs";
 import { BlogContainer } from "@styles/CBlog.styles";
 // I18N
 import { translate } from "@i18n";
+// PROP TYPES
+import PropTypes from "prop-types";
 
 /*********************************************************************************** */
 
@@ -34,3 +36,13 @@ const BlogList = ({ blogs, user, onRemoveBlog, onUpdateBlogs, isVisible }) => {
 };
 
 export default BlogList;
+
+// PropTypes
+
+BlogList.propTypes = {
+  blogs: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
+  onRemoveBlog: PropTypes.func.isRequired,
+  onUpdateBlogs: PropTypes.func.isRequired,
+  isVisible: PropTypes.bool.isRequired,
+};
