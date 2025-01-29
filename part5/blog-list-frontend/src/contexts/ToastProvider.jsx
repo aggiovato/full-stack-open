@@ -40,7 +40,12 @@ export const ToastProvider = ({ children }) => {
       <ToastContainer>
         {toasts.map((toast) => (
           <ToastMessage key={toast.id} type={toast.type}>
-            <CloseButton onClick={() => removeToast(toast.id)}>×</CloseButton>
+            <CloseButton
+              key={`btn-${toast.id}`}
+              onClick={() => removeToast(toast.id)}
+            >
+              ×
+            </CloseButton>
             <span>{toast.message}</span>
           </ToastMessage>
         ))}

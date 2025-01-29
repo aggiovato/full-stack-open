@@ -111,7 +111,7 @@ export default CBlog;
 // PropTypes
 
 CBlog.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   blog: PropTypes.object.isRequired,
   onUpdateBlogs: PropTypes.func.isRequired,
 };

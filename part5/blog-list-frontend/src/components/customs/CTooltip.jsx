@@ -32,7 +32,7 @@ export default CTooltip;
 
 CTooltip.propTypes = {
   children: PropTypes.node.isRequired,
-  tooltipText: PropTypes.string,
+  tooltipText: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   tt_position: PropTypes.string,
 };
 

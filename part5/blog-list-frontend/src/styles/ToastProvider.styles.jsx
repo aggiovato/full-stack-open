@@ -2,34 +2,41 @@ import styled, { keyframes } from "styled-components";
 
 const ToastContainer = styled.div`
   position: fixed;
-  top: 20px;
+  top: 13px;
   right: 16px;
   z-index: 300;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 440px;
   min-width: 300px;
   gap: 15px;
 
   @media (max-width: 480px) {
-    width: 230px;
+    width: 250px;
+    min-width: 200px;
     gap: 13px;
-    top: 12px;
-    right: 12px;
+    top: 15px;
+    right: 15px;
   }
 `;
 
 const ToastMessage = styled.div`
   background-color: ${({ type }) =>
-    type === "success" ? "#2D8A4A" : "#D9534F"}; /* Verde oscuro para éxito */
+    type === "success" ? "#2D8A4A" : "#D9534F"};
   color: #fff;
-  padding: 10px 15px;
+  padding: 10px 20px 10px 40px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  font-size: 14px;
-  line-height: 1.4;
   display: flex;
   align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1.4;
+  position: relative;
+  min-height: 55px;
+  word-wrap: break-word;
+  text-align: center;
   transition: background-color 0.3s;
 
   &:hover {
@@ -38,7 +45,10 @@ const ToastMessage = styled.div`
   }
 
   @media (max-width: 480px) {
+    padding: 10px 8px 10px 40px;
     font-size: 12px;
+    margin-left: 18px;
+    margin-right: 0px;
   }
 `;
 
@@ -65,8 +75,9 @@ const closeButtonAnimation = keyframes`
 `;
 
 const CloseButton = styled.button`
-  margin-right: 10px;
-  margin-bottom: 2px;
+  position: absolute;
+  top: 12px;
+  left: 15px;
   background: transparent;
   color: #fff;
   font-size: 20px;

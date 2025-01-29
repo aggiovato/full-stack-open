@@ -37,8 +37,8 @@ export default CButton;
 // PropTypes
 
 CButton.propTypes = {
-  children: PropTypes.node.isRequired,
-  onClick: PropTypes.func.isRequired,
+  children: PropTypes.node,
+  onClick: PropTypes.func,
   btnType: PropTypes.string,
   shape: PropTypes.string,
   disabled: PropTypes.bool,
