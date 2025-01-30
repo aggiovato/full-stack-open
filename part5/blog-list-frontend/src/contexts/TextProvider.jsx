@@ -14,10 +14,10 @@ const TextProvider = ({ text, charLimitLarge = 50, charLimitSmall = 30 }) => {
 
   return shouldTruncate ? (
     <CTooltip tooltipText={shouldTruncate ? text : null}>
-      <span>{displayText}</span>
+      <span className="text-provider">{displayText}</span>
     </CTooltip>
   ) : (
-    <span>{displayText}</span>
+    <span className="text-provider">{displayText}</span>
   );
 };
 

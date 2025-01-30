@@ -58,6 +58,7 @@ const CBlog = ({ children, blog, onUpdateBlogs }) => {
         <div className="info">
           <div className="title">
             <TextProvider
+              data-testid="blog-title"
               text={blog.title}
               charLimitLarge={50}
               charLimitSmall={28}
@@ -94,7 +95,7 @@ const CBlog = ({ children, blog, onUpdateBlogs }) => {
             <StyButton onClick={handleLike}>
               <Like />
             </StyButton>
-            <span>
+            <span className="likes-count">
               {updatedLikes}{" "}
               {updatedLikes === 1 ? translated.like : translated.likes}
             </span>
