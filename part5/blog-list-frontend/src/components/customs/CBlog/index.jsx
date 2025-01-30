@@ -93,7 +93,7 @@ const CBlog = ({ children, blog, onUpdateBlogs }) => {
             </a>
           </div>
           <div className="likes">
-            <StyButton onClick={handleLike}>
+            <StyButton data-testid="likes-btn" onClick={handleLike}>
               <Like />
             </StyButton>
             <span data-testid="likes-count">

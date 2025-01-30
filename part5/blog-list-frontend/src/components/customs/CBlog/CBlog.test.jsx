@@ -3,6 +3,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { I18nProvider } from "@i18n";
 import { CBlog, CButton } from "@customs";
+import blogService from "@services/blogs";
+import { beforeEach } from "vitest";
 
 describe("< CBlog />", () => {
   // testing constants
@@ -17,6 +19,19 @@ describe("< CBlog />", () => {
   const isOwner = true;
   const mockUpdateBlogs = vi.fn();
   const mockRemoveBlog = vi.fn();
+
+  beforeEach(() => {
+    vi.restoreAllMocks();
+
+    // simulate the like call to the service
+    vi.spyOn(blogService, "like").mockImplementation((id, updatedData) => {
+      return Promise.resolve({ ...test_blog, likes: updatedData.likes });
+    });
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
   // render the component before each test
   beforeEach(() => {
@@ -72,5 +87,26 @@ describe("< CBlog />", () => {
     expect(url).toBeInTheDocument();
     expect(likes).toBeInTheDocument();
     expect(likes.textContent).toContain(test_blog.likes);
+  });
+
+  test("should increase the number of likes two times when clicked twice", async () => {
+    const user = userEvent.setup();
+    const viewBtn = screen.getByTestId("view-btn");
+
+    // first show details
+    await user.click(viewBtn);
+
+    // check if number of likes and icon btn exists
+    const likes = screen.getByTestId("likes-count");
+    const likesBtn = screen.getByTestId("likes-btn");
+    expect(likes).toBeInTheDocument();
+    expect(likesBtn).toBeInTheDocument();
+
+    // click the likes btn twice
+    await user.click(likesBtn);
+    await user.click(likesBtn);
+
+    expect(blogService.like).toHaveBeenCalledTimes(2);
+    expect(likes).toHaveTextContent(String(test_blog.likes + 2));
   });
 });
