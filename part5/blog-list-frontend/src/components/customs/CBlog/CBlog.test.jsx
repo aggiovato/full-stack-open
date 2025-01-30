@@ -1,9 +1,8 @@
 // __tests__/CBlog.test.jsx
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { I18nProvider } from "@i18n";
-import CBlog from "@customs/CBlog";
-import CButton from "@customs/CButton";
-import { expect } from "vitest";
+import { CBlog, CButton } from "@customs";
 
 describe("< CBlog />", () => {
   // testing constants
@@ -56,5 +55,22 @@ describe("< CBlog />", () => {
 
     expect(url).not.toBeInTheDocument();
     expect(likes).not.toBeInTheDocument();
+  });
+
+  test("should display url and likes when icon btn is clicked", async () => {
+    const user = userEvent.setup();
+    const viewBtn = screen.getByTestId("view-btn");
+
+    expect(viewBtn).toBeInTheDocument();
+    expect(viewBtn).toHaveStyle("font-size: 0"); // because it's an icon
+
+    await user.click(viewBtn);
+
+    const url = screen.getByText(test_blog.url);
+    const likes = screen.getByTestId("likes-count");
+
+    expect(url).toBeInTheDocument();
+    expect(likes).toBeInTheDocument();
+    expect(likes.textContent).toContain(test_blog.likes);
   });
 });

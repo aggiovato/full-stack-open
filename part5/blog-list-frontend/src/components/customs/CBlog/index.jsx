@@ -73,6 +73,7 @@ const CBlog = ({ children, blog, onUpdateBlogs }) => {
             tooltipText={showDetails ? translated.hide : translated.view}
           >
             <CButton
+              data-testid="view-btn"
               shape="icon"
               icon={showDetails ? <Hide /> : <View />}
               onClick={handleDetails}
@@ -95,7 +96,7 @@ const CBlog = ({ children, blog, onUpdateBlogs }) => {
             <StyButton onClick={handleLike}>
               <Like />
             </StyButton>
-            <span className="likes-count">
+            <span data-testid="likes-count">
               {updatedLikes}{" "}
               {updatedLikes === 1 ? translated.like : translated.likes}
             </span>
