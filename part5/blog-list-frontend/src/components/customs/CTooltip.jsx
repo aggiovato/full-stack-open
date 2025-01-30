@@ -18,7 +18,11 @@ const CTooltip = ({ children, tooltipText = "!!!", tt_position = "top" }) => {
       onMouseEnter={handleShowTooltip}
       onMouseLeave={handleHideTooltip}
     >
-      {isVisible && <Tooltip $tt_position={tt_position}>{tooltipText}</Tooltip>}
+      {isVisible && (
+        <Tooltip data-testid="view-tooltip" $tt_position={tt_position}>
+          {tooltipText}
+        </Tooltip>
+      )}
       <div>{children}</div>
     </TooltipContainer>
   );
