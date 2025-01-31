@@ -79,13 +79,16 @@ const BlogForm = ({ isVisible, onAddBlog, handleVisibility }) => {
   return (
     <BlogFormContainer>
       <FormHeading>{translate("blog.form.title")}</FormHeading>
-      <StyledForm onSubmit={(e) => handleBlogCreation(e, addToast)}>
+      <StyledForm
+        data-testid="blog-form"
+        onSubmit={(e) => handleBlogCreation(e, addToast)}
+      >
         <CInputsMapper
           mapper={blogData}
           type="label"
           eventHandlers={handleInputChange}
         />
-        <ButtonContainer>
+        <ButtonContainer data-testid="button-container">
           <CButton type="button" btnType="danger" onClick={handleVisibility}>
             {translate("blog.form.cancel")}
           </CButton>

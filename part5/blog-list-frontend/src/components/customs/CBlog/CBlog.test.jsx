@@ -1,10 +1,12 @@
-// __tests__/CBlog.test.jsx
+// __customs/CBlog__/CBlog.test.jsx
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { I18nProvider } from "@i18n";
 import { CBlog, CButton } from "@customs";
 import blogService from "@services/blogs";
 import { beforeEach, expect } from "vitest";
+
+/*********************************************************************** */
 
 describe("< CBlog />", () => {
   // testing constants
@@ -130,6 +132,8 @@ describe("< CBlog />", () => {
     expect(tooltip).toHaveTextContent("hide");
   });
 });
+
+/*********************************************************************** */
 
 describe("Remove btn", () => {
   // testing constants

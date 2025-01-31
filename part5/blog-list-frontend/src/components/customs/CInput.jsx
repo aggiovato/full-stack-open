@@ -19,6 +19,7 @@ const CInput = ({ label, name, data = {}, eventHandler }) => {
       {label && <StyledLabel>{translated}</StyledLabel>}
       <StyledInput
         type={checkInputType(label || name)}
+        data-testid={label || name}
         name={label || name}
         placeholder={name ? translated : ""}
         value={data[label] || data[name] || ""}

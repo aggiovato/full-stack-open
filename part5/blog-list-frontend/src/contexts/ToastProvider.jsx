@@ -39,7 +39,11 @@ export const ToastProvider = ({ children }) => {
       {children}
       <ToastContainer>
         {toasts.map((toast) => (
-          <ToastMessage key={toast.id} type={toast.type}>
+          <ToastMessage
+            data-testid="toast-message"
+            key={toast.id}
+            type={toast.type}
+          >
             <CloseButton
               key={`btn-${toast.id}`}
               onClick={() => removeToast(toast.id)}
