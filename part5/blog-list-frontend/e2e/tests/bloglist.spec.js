@@ -160,6 +160,10 @@ describe("BLOG APP >>>", () => {
     });
 
     describe("BLOG FORM >>> success", () => {
+      const defaultLikes = (likes) => {
+        return `${likes} ${likes === 1 ? "like" : "likes"}`;
+      };
+
       beforeEach(async ({ page }) => {
         // create a new blog (valid)
         await page.waitForTimeout(1000);
@@ -242,7 +246,7 @@ describe("BLOG APP >>>", () => {
         await expect(link).toBeVisible();
         await expect(link).toHaveAttribute("href", validBlog.url);
         await expect(likesCount).toBeVisible();
-        await expect(likesCount).toHaveText("0 likes");
+        await expect(likesCount).toHaveText(defaultLikes(0));
         await expect(likesBtn).toBeVisible();
         await expect(removeBtn).toBeVisible();
         await expect(removeBtn).toHaveCSS(
@@ -255,6 +259,37 @@ describe("BLOG APP >>>", () => {
         const tooltip = page.getByTestId("view-tooltip");
         await expect(tooltip).toBeVisible();
         await expect(tooltip).toHaveText("hide");
+      });
+
+      test("blog's likes can be increased once", async ({ page }) => {
+        // click on the view-hide btn
+        await page.getByTestId("view-btn").click();
+
+        // check if the likes count is visible
+        const likesCount = page.getByTestId("likes-count");
+        await expect(likesCount).toHaveText(defaultLikes(0)); // by default
+
+        // click on the likes btn
+        await page.getByTestId("likes-btn").click();
+
+        // check if the likes count is increased by one
+        await expect(likesCount).toHaveText(defaultLikes(1));
+      });
+
+      test("blog's likes can be increased twice", async ({ page }) => {
+        // click on the view-hide btn
+        await page.getByTestId("view-btn").click();
+
+        // check if the likes count is visible
+        const likesCount = page.getByTestId("likes-count");
+        const likesBtn = page.getByTestId("likes-btn");
+        await expect(likesCount).toHaveText(defaultLikes(0)); // by default
+
+        // click on the likes btn
+        await likesBtn.click();
+        await expect(likesCount).toHaveText(defaultLikes(1));
+        await likesBtn.click();
+        await expect(likesCount).toHaveText(defaultLikes(2));
       });
     });
 
