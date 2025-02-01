@@ -4,6 +4,7 @@ import {
   loginUser,
   createBlog,
   testUser,
+  anotherUser,
   invalidUser,
   emptyUser,
   validBlog,
@@ -322,6 +323,37 @@ describe("BLOG APP >>>", () => {
         // check if the blog has been deleted
         await expect(blog).not.toBeVisible();
         await expect(page.getByText("No blogs found")).toBeVisible();
+      });
+
+      test("blog can't be deleted by a non-owner, only owner can see the remove btn", async ({
+        page,
+        request,
+      }) => {
+        // this user is onwer and can see the remove btn
+        await page.getByTestId("view-btn").click(); // show details
+
+        const removeBtn = page.getByRole("button", { name: "Remove" });
+        await expect(removeBtn).toBeVisible();
+
+        // create a new user
+        await request.post("/api/users/", {
+          data: anotherUser,
+        });
+
+        // logout the testUser
+        await page
+          .getByRole("banner")
+          .getByRole("button")
+          .filter({ hasText: /^$/ })
+          .click();
+
+        // login as the new user
+        await loginUser(page, anotherUser);
+
+        // this user is not onwer and can't see the remove btn
+        await page.getByTestId("view-btn").click(); // show details
+        const removeBtn2 = page.getByRole("button", { name: "Remove" });
+        await expect(removeBtn2).not.toBeVisible();
       });
     });
 

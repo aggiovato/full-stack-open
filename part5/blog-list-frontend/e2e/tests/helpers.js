@@ -4,6 +4,12 @@ const testUser = {
   password: "Test@123",
 };
 
+const anotherUser = {
+  username: "anotheruser",
+  name: "Another User",
+  password: "Another@123",
+};
+
 const invalidUser = {
   username: "invalid",
   password: "invalid",
@@ -62,11 +68,23 @@ const createBlog = async (page, blog) => {
   await page.getByRole("button", { name: "Create" }).click(); // click on the create button
 };
 
+/*async function highlightElement(page, selector) {
+  await page.evaluate((selector) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      element.style.outline = "5px solid yellow";
+      element.style.transition = "outline 0.3s ease-in-out";
+      setTimeout(() => (element.style.outline = ""), 500);
+    }
+  }, selector);
+}*/
+
 export {
   createUser,
   loginUser,
   createBlog,
   testUser,
+  anotherUser,
   invalidUser,
   emptyUser,
   validBlog,
