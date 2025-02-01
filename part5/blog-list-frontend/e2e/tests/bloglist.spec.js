@@ -291,6 +291,38 @@ describe("BLOG APP >>>", () => {
         await likesBtn.click();
         await expect(likesCount).toHaveText(defaultLikes(2));
       });
+
+      test("blog can be deleted by the owner", async ({ page }) => {
+        // dialog handler
+        page.on("dialog", async (dialog) => {
+          expect(dialog.type()).toBe("confirm");
+          expect(dialog.message()).toBe(
+            "Are you sure you want to delete this blog?"
+          );
+          await dialog.accept();
+        });
+
+        // blogs exists
+        const blog = page
+          .locator("div")
+          .filter({ hasText: `${validBlog.title}by ${validBlog.author}` })
+          .nth(2);
+        await expect(blog).toBeVisible();
+
+        // click the view-hide btn
+        await page.getByTestId("view-btn").click();
+
+        // check if the remove btn is visible
+        const removeBtn = page.getByRole("button", { name: "Remove" });
+        await expect(removeBtn).toBeVisible();
+
+        // click on the remove btn
+        await removeBtn.click();
+
+        // check if the blog has been deleted
+        await expect(blog).not.toBeVisible();
+        await expect(page.getByText("No blogs found")).toBeVisible();
+      });
     });
 
     describe("BLOG FORM >>> failure", () => {
