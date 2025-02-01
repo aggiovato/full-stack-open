@@ -56,12 +56,14 @@ const BlogsView = ({
         {showForm ? (
           <BlogForm {...blogFormProps} />
         ) : (
-          <ToolBar {...toolBarProps} />
-        )}
-        {blogs.length === 0 ? (
-          <CNoBlogs isLoading={isLoading} />
-        ) : (
-          <BlogList {...blogListProps} />
+          <>
+            <ToolBar {...toolBarProps} />
+            {blogs.length === 0 ? (
+              <CNoBlogs isLoading={isLoading} />
+            ) : (
+              <BlogList {...blogListProps} />
+            )}
+          </>
         )}
       </MainContent>
     </>
