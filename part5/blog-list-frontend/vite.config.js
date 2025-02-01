@@ -39,5 +39,6 @@ export default defineConfig({
     threads: false,
     environment: "jsdom",
     setupFiles: "./testSetup.js",
+    exclude: ["./e2e/**", "./node_modules/**"],
   },
 });

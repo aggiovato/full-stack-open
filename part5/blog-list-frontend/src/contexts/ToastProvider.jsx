@@ -26,7 +26,7 @@ export const ToastProvider = ({ children }) => {
 
     const id = Date.now();
     setToasts((prev) => [...prev, { id, message, type }]);
-    setTimeout(() => removeToast(id), type === "success" ? 2000 : 5000); // Remove toast after 3 or 5 seconds
+    setTimeout(() => removeToast(id), type === "success" ? 3000 : 5000); // Remove toast after 3 or 5 seconds
   };
 
   // function to remove a toast message
