@@ -1,6 +1,7 @@
 // EXTERNAL MODULES
 require("express-async-errors");
 const express = require("express");
+const config = require("./utils/config");
 
 // IMPORT MODULES
 const blogRouter = require("./controllers/blogs");
@@ -21,6 +22,10 @@ app.set("json spaces", 2);
 app.use("/api/blogs", blogRouter);
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
+if (config.TESTING) {
+  const testingRouter = require("./controllers/testing");
+  app.use("/api/testing", testingRouter);
+}
 
 // ERROR HANDLING
 app.use(middle.errorHandler);

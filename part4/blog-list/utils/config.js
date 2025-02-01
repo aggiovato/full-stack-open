@@ -9,8 +9,12 @@ const MONGODB_URI =
 
 const SECRET = process.env.SECRET || "secret";
 
+// if we're testing we need to add the testing route
+const TESTING = process.env.NODE_ENV === "test" ? "test" : null;
+
 module.exports = {
   PORT,
   MONGODB_URI,
   SECRET,
+  TESTING,
 };
