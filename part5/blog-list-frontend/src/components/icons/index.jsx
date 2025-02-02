@@ -9,3 +9,5 @@ export { default as GermanyFlag } from "@icons/GermanyFlag.icon";
 export { default as ItalyFlag } from "@icons/ItalyFlag.icon";
 export { default as UKFlag } from "@icons/UKFlag.icon";
 export { default as AndorraFlag } from "@icons/AndorraFlag.icon";
+
+export { default as Logo } from "@icons/Logo.icon";

@@ -53,7 +53,7 @@ const CBlog = ({ children, blog, onUpdateBlogs }) => {
   };
 
   return (
-    <BlogCard>
+    <BlogCard data-testid="blog-item">
       <BlogHeader>
         <div className="info">
           <div className="title">

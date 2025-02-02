@@ -5,7 +5,7 @@ export const ToolBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 25px;
+  padding: 20px 20px;
   background-color: #033a4e;
   border-bottom: 1px solid #022b3a;
   border-radius: 0 0 20px 20px;
@@ -20,9 +20,10 @@ export const ToolBarContainer = styled.div`
     width: calc(100% - 30px);
     left: 15px;
     right: 15px;
+    padding: 18px 18px;
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 12px;
   }
 `;
 

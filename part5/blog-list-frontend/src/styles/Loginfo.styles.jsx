@@ -5,7 +5,7 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 20px;
+  padding: 15px;
   background-color: #033a4e;
   color: #e1e5f2;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -13,12 +13,31 @@ const Header = styled.header`
   top: 0;
   z-index: 100;
   user-select: none;
+
+  @media (max-width: 550px) {
+    padding: 20px 15px;
+  }
 `;
 
-const Title = styled.h2`
-  font-size: 24px;
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 25px;
   font-weight: bold;
   margin: 0;
+
+  svg {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+
+    @media (max-width: 480px) {
+      width: 45px;
+      height: 45px;
+      margin-right: 10px;
+      margin-left: 0px;
+    }
+  }
 `;
 
 const UserInfo = styled.div`

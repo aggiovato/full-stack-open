@@ -3,7 +3,7 @@ import { CTooltip, CLanguageDropdown } from "@customs";
 // ANIMATIONS
 import { HoverGlow } from "@animations/HoverGlow";
 // ICONS
-import LogoutIcon from "@icons/Logout.icon";
+import { Logout, Logo } from "@icons";
 // STYLES
 import {
   Header,
@@ -22,7 +22,10 @@ import PropTypes from "prop-types";
 const LogInfo = ({ user, onLanguageChange, onLogout }) => {
   return (
     <Header>
-      <Title>{translate("info.title")}</Title>
+      <Title>
+        <Logo />
+        {translate("info.title")}
+      </Title>
       <UserInfo>
         <UserName>
           <HoverGlow blur={1} rotate={-1}>
@@ -35,7 +38,7 @@ const LogInfo = ({ user, onLanguageChange, onLogout }) => {
         <CLanguageDropdown onLanguageChange={onLanguageChange} />
         <CTooltip tt_position="bottom" tooltipText={translate("info.logout")}>
           <LogoutButton onClick={onLogout}>
-            <LogoutIcon />
+            <Logout />
           </LogoutButton>
         </CTooltip>
       </UserInfo>
