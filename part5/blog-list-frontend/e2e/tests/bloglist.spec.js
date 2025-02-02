@@ -3,12 +3,15 @@ import {
   createUser,
   loginUser,
   createBlog,
+  createMultipleBlogs,
+  defaultLikes,
   testUser,
   anotherUser,
   invalidUser,
   emptyUser,
   validBlog,
   emptyBlog,
+  multipleBlogs,
 } from "./helpers";
 
 describe("BLOG APP >>>", () => {
@@ -161,10 +164,6 @@ describe("BLOG APP >>>", () => {
     });
 
     describe("BLOG FORM >>> success", () => {
-      const defaultLikes = (likes) => {
-        return `${likes} ${likes === 1 ? "like" : "likes"}`;
-      };
-
       beforeEach(async ({ page }) => {
         // create a new blog (valid)
         await page.waitForTimeout(1000);
@@ -392,6 +391,83 @@ describe("BLOG APP >>>", () => {
 
         // await expect(toast).toBeHidden({ timeout: 6000 });
       });
+    });
+  });
+
+  describe("BLOG LIST >>> success", () => {
+    beforeEach(async ({ page, request }) => {
+      // create multiple blogs (valid)
+      await page.waitForTimeout(500);
+      await loginUser(page, testUser);
+      await page.waitForTimeout(1000);
+      await createMultipleBlogs(page, request, multipleBlogs);
+    });
+
+    test("with multiple blogs in the DB, display all blogs ordered by likes", async ({
+      page,
+    }) => {
+      // check if the blogs are visible (10)
+      await page.reload();
+      await page.waitForSelector("div[data-testid='blog-item']", {
+        timeout: 5000,
+      });
+
+      // get all 10 blogs
+      const blogs = await page.locator("[data-testid='blog-item']").all();
+      expect(blogs.length).toBe(10);
+
+      // titles in UI by order
+      const titlesInUI = [];
+      for (let i = 0; i < 10; i++) {
+        const title = await page
+          .locator("[data-testid='blog-item']")
+          .nth(i)
+          .textContent();
+        const splitted = title?.split("by ")[0];
+        if (splitted) {
+          titlesInUI.push(splitted);
+        }
+      }
+
+      // order multipleBlogs by likes
+      const orderedTestBlogs = [...multipleBlogs].sort(
+        (a, b) => b.likes - a.likes
+      );
+
+      const orderedTitles = orderedTestBlogs.map((blog) => blog.title);
+
+      // both arrays should be equal
+      expect(orderedTitles).toEqual(titlesInUI);
+
+      // click like twice on the sencond blog
+      // to increase the likes and reorder the blogs
+      const iconBtns = page.locator("[data-testid='view-btn']");
+      await iconBtns.nth(1).click(); // second show details
+
+      const likesBtns = page.getByTestId("likes-btn");
+      const likesCounts = page.getByTestId("likes-count");
+
+      await expect(likesBtns).toBeVisible({ timeout: 5000 });
+      await expect(likesCounts).toHaveText(
+        defaultLikes(orderedTestBlogs[1].likes)
+      );
+
+      await likesBtns.click(); // first like
+      await expect(likesCounts).toHaveText(
+        defaultLikes(orderedTestBlogs[1].likes + 1)
+      );
+
+      await likesBtns.click(); // second like
+      await expect(likesCounts).toHaveText(
+        defaultLikes(orderedTestBlogs[1].likes + 2)
+      );
+
+      // now this second blog should be the first one
+      const firstBlog = await page
+        .locator("[data-testid='blog-item']")
+        .nth(0)
+        .textContent();
+      expect(firstBlog.split("by ")[0]).toBe(orderedTestBlogs[1].title);
     });
   });
 });
