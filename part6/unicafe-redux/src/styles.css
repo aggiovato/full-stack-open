@@ -1,0 +1,40 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.btn-panel {
+  display: inline-flex;
+  margin: 20px 0 0 20px;
+  gap: 15px;
+}
+
+.btn-panel button {
+  padding: 8px 15px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #999;
+  box-shadow: 3px 2px 0 #88888822;
+
+  transition: transform 0.2s ease-in;
+}
+
+.btn-panel button:hover {
+  background-color: #444;
+  color: #f3f3f3f3;
+}
+
+.btn-panel button:active {
+  background-color: #222;
+  transform: scale(0.9);
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 20px 0 0 20px;
+}
