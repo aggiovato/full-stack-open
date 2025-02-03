@@ -2,7 +2,7 @@ import styled from "styled-components";
 /******************************************************************************/
 // STYLES
 export const MainContainer = styled.main.attrs(() => ({
-  className: `max-w-7xl mx-auto flex flex-col justify-center items-center lg:items-start lg:grid lg:grid-cols-3 gap-6 p-1`,
+  className: `max-w-7xl mx-auto flex flex-col justify-center items-center lg:items-start lg:grid lg:grid-cols-3 gap-6 p-2`,
 }))``;
 
 export const FormSection = styled.section.attrs(() => ({
