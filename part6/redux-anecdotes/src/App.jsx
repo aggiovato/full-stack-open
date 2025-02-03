@@ -1,19 +1,23 @@
+import styled from "styled-components";
 // COMPONENTS
-import AnecdoteList from "./components/AnecdoteList";
-import AnecdoteForm from "./components/AnecdoteForm";
-// CSS
-import "./App.css";
+import Header from "./components/Header";
+import MainContent from "./components/MainContent";
 
 /******************************************************************************/
 
 const App = () => {
   return (
-    <div className="root">
-      <h2>Anecdotes</h2>
-      <AnecdoteList />
-      <AnecdoteForm />
-    </div>
+    <AppContainer>
+      <Header />
+      <MainContent />
+    </AppContainer>
   );
 };
 
 export default App;
+
+/******************************************************************************/
+// STYLES
+const AppContainer = styled.div.attrs(() => ({
+  className: `mx-auto`,
+}))``;
