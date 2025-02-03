@@ -16,13 +16,28 @@ describe("anecdoteReducer", () => {
     ];
     deepFreeze(state); // check immutability
 
-    const expected = [
+    const expectedState = [
       { content: "anecdote 1", id: 1, votes: 1 },
       { content: "anecdote 2", id: 2, votes: 0 },
       { content: "anecdote 3", id: 3, votes: 0 },
     ];
 
     const newState = anecdoteReducer(state, action);
-    expect(newState).toEqual(expected);
+    expect(newState).toEqual(expectedState);
+  });
+
+  test("should handle CREATE action", () => {
+    const action = { type: "CREATE", payload: { content: "anecdote 4" } };
+    const state = [...initialState];
+    deepFreeze(state); // check immutability
+
+    const newState = anecdoteReducer(state, action);
+    expect(
+      newState.find((anecdote) => anecdote.content === "anecdote 4")
+    ).toBeDefined();
+    expect(newState[newState.length - 1].content).toEqual(
+      action.payload.content
+    );
+    expect(newState).toHaveLength(initialState.length + 1);
   });
 });
