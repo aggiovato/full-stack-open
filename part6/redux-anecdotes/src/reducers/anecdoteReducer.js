@@ -38,12 +38,15 @@ const handleCreate = (state, action) => {
   return [...state, asObject(action.payload.content)];
 };
 
+// increments vootes and reorders by votes
 const handleVote = (state, action) => {
-  return state.map((anecdote) =>
+  const unorderedAnecdotes = state.map((anecdote) =>
     anecdote.id === action.payload.id
       ? { ...anecdote, votes: anecdote.votes + 1 }
       : anecdote
   );
+
+  return unorderedAnecdotes.sort((a, b) => b.votes - a.votes);
 };
 
 // ACTION CREATORS (external functions)

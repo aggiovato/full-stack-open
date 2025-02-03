@@ -40,4 +40,14 @@ describe("anecdoteReducer", () => {
     );
     expect(newState).toHaveLength(initialState.length + 1);
   });
+
+  test("should reorder by votes when VOTE action", () => {
+    const secondAnecdote = initialState[1]; // second anecdote
+    const action = { type: "VOTE", payload: { id: secondAnecdote.id } };
+    const state = [...initialState];
+    deepFreeze(state); // check immutability
+
+    const newState = anecdoteReducer(state, action);
+    expect(newState[0]).toEqual({ ...secondAnecdote, votes: 1 });
+  });
 });
