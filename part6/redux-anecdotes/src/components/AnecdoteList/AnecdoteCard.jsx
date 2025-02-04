@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { vote } from "../../reducers/anecdoteReducer";
 
 import CButton from "../customs/CButton";
-import vscode_logo from "../../assets/VSCODE.svg";
 import code_logo from "../../assets/CODE.svg";
 
 import {

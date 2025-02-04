@@ -6,5 +6,5 @@ export const Header2 = styled.h2.attrs(() => ({
 }))``;
 
 export const FormContainer = styled.form.attrs(() => ({
-  className: `min-w-3xs bg-white p-6 rounded-lg shadow-md shadow-slate-300 border border-slate-200 space-y-4`,
+  className: `min-w-xs lg:min-w-3xs bg-white p-6 rounded-lg shadow-md shadow-slate-300 border border-slate-200 space-y-4`,
 }))``;
