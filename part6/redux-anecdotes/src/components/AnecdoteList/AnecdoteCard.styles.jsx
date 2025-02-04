@@ -6,7 +6,7 @@ export const CardContainer = styled.div.attrs(() => ({
 }))``;
 
 export const MainContent = styled.div.attrs(() => ({
-  className: `flex-1 px-4 py-6 md:p-6 bg-white text-slate-800 border border-slate-300 rounded-xl shadow-lg shadow-slate-200 hover:shadow-xl transition-shadow text-ellipsis`,
+  className: `relative group flex-1 px-4 py-6 md:p-6 bg-white text-slate-800 border border-slate-300 rounded-xl shadow-lg shadow-slate-200 hover:shadow-xl transition-shadow text-ellipsis overflow-hidden`,
 }))``;
 
 export const VotingSection = styled.div.attrs(() => ({

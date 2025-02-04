@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { vote } from "../../reducers/anecdoteReducer";
 
 import CButton from "../customs/CButton";
+import vscode_logo from "../../assets/VSCODE.svg";
+import code_logo from "../../assets/CODE.svg";
 
 import {
   CardContainer,
@@ -19,7 +21,15 @@ const AnecdoteCard = ({ anecdote }) => {
     <CardContainer>
       {/* Main Content Card */}
       <MainContent>
-        <p className="text-md">{anecdote.content}</p>
+        <button
+          className="absolute border-none m-0 p-0 top-15 left-4 w-30 h-30 opacity-15 -translate-x-10 -translate-y-1/2 -rotate-30 group-hover:opacity-80 group-hover:rotate-0 group-hover:w-7 group-hover:h-7 group-hover:top-5 group-hover:left-12 active:opacity-100 active:w-6 active:h-6 transition-all duration-300"
+          onClick={() => navigator.clipboard.writeText(anecdote.content)}
+        >
+          <img src={code_logo} alt="VSCODE Logo" />
+        </button>
+        <p className="text-sm lg:text-lg ml-6 select-none">
+          {anecdote.content}
+        </p>
       </MainContent>
 
       {/* Voting Section - Positioned at relative top */}
