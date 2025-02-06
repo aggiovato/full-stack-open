@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 // REDUX ACTIONS CREATORS
-import { createAnecdote } from "../../reducers/anecdoteReducer";
+import { createAnecdote } from "../../store/slices/anecdoteSlice";
 
 import CInput from "../customs/CInput";
 import CButton from "../customs/CButton";
@@ -17,7 +17,7 @@ const AnecdoteForm = () => {
     const content = event.target.content.value;
     if (!content) return;
     event.target.content.value = "";
-    dispatch(createAnecdote(content));
+    dispatch(createAnecdote({ content }));
   };
 
   return (

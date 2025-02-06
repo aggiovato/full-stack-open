@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createAnecdote } from "./anecdoteSlice";
 
 const filterSlice = createSlice({
   name: "filter",
   initialState: "",
   reducers: {
-    setFilter: (state, action) => action.payload,
+    setFilter: (state, action) => (state = action.payload),
   },
   extraReducers: (builder) => {
-    builder.addCase("CREATE", () => "");
+    builder.addCase(createAnecdote, () => "");
   },
 });
 
