@@ -49,14 +49,14 @@ const handleVote = (state, action) => {
 };
 
 // ACTION CREATORS (external functions)
-export const create = (content) => {
+export const createAnecdote = (content) => {
   return {
     type: "CREATE",
     payload: { content },
   };
 };
 
-export const vote = (id) => {
+export const voteAnecdote = (id) => {
   return {
     type: "VOTE",
     payload: { id },

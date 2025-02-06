@@ -1,7 +1,7 @@
 import CInput from "../customs/CInput";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setFilter } from "../../reducers/filterReducer";
+import { setFilter } from "../../store/slices/filterSlice";
 
 const Filter = () => {
   const dispatch = useDispatch();

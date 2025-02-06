@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 // REDUX ACTIONS CREATORS
-import { vote } from "../../reducers/anecdoteReducer";
+import { voteAnecdote } from "../../reducers/anecdoteReducer";
 
 import CButton from "../customs/CButton";
 import code_logo from "../../assets/CODE.svg";
@@ -41,7 +41,7 @@ const AnecdoteCard = ({ anecdote }) => {
         <CButton
           deepness={1}
           isSmall={true}
-          onClick={() => dispatch(vote(anecdote.id))}
+          onClick={() => dispatch(voteAnecdote(anecdote.id))}
         >
           vote
         </CButton>
