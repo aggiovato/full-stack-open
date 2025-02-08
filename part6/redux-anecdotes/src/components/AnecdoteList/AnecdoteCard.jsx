@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 // REDUX ACTIONS CREATORS
 import { voteAnecdote } from "../../store/slices/anecdoteSlice";
+import { setNotificationTimeout } from "../../store/slices/notificationSlice";
 
 import CButton from "../customs/CButton";
 import code_logo from "../../assets/CODE.svg";
@@ -15,6 +16,11 @@ import {
 
 const AnecdoteCard = ({ anecdote }) => {
   const dispatch = useDispatch();
+
+  const handleVote = () => {
+    dispatch(voteAnecdote({ id: anecdote.id }));
+    dispatch(setNotificationTimeout(`You voted >> ${anecdote.content}`));
+  };
 
   return (
     <CardContainer>
@@ -38,11 +44,7 @@ const AnecdoteCard = ({ anecdote }) => {
           <span className="text-gray-900 font-semibold">{anecdote.votes}</span>{" "}
           {anecdote.votes !== 1 ? "votes" : "vote"}
         </p>
-        <CButton
-          deepness={1}
-          isSmall={true}
-          onClick={() => dispatch(voteAnecdote({ id: anecdote.id }))}
-        >
+        <CButton deepness={1} isSmall={true} onClick={handleVote}>
           vote
         </CButton>
       </VotingSection>

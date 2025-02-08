@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { setNotification } from "./notificationSlice";
 
 const anecdotesAtStart = [
-  "If it hurts, do it more often",
+  "If it hurts, do it more often.",
   "Adding manpower to a late software project makes it later!",
   "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
   "Premature optimization is the root of all evil.",
@@ -26,6 +27,7 @@ const anecdoteSlice = createSlice({
   reducers: {
     createAnecdote: (state, action) => {
       state.push(asObject(action.payload.content));
+      setNotification("Anecdote created!");
     },
     voteAnecdote: (state, action) => {
       const anecdote = state.find(
@@ -34,6 +36,7 @@ const anecdoteSlice = createSlice({
       if (anecdote) anecdote.votes += 1;
 
       state.sort((a, b) => b.votes - a.votes);
+      setNotification(`You voted "${anecdote.content}"!`);
     },
   },
 });

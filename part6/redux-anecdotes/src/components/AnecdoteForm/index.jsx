@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 // REDUX ACTIONS CREATORS
 import { createAnecdote } from "../../store/slices/anecdoteSlice";
+import { setNotificationTimeout } from "../../store/slices/notificationSlice";
 
 import CInput from "../customs/CInput";
 import CButton from "../customs/CButton";
@@ -15,9 +16,13 @@ const AnecdoteForm = () => {
   const addAnecdote = (event) => {
     event.preventDefault();
     const content = event.target.content.value;
+
     if (!content) return;
+
     event.target.content.value = "";
+
     dispatch(createAnecdote({ content }));
+    dispatch(setNotificationTimeout("New anecdote created!"));
   };
 
   return (
