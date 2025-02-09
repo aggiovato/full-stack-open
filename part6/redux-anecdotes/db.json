@@ -8,7 +8,7 @@
     {
       "id": "616294d1",
       "content": "Understand the Redux store",
-      "votes": 46
+      "votes": 49
     },
     {
       "id": "78fd4268",
@@ -30,7 +30,7 @@
     {
       "id": "6b40b5ca",
       "content": "Redux follows a unidirectional data flow",
-      "votes": 54
+      "votes": 56
     },
     {
       "id": "8a4a57a9",
@@ -61,7 +61,7 @@
     {
       "id": "e4f64059",
       "content": "Use the useSelector hook to access state",
-      "votes": 59,
+      "votes": 60,
       "example": "const count = useSelector(state => state.counter);"
     },
     {
@@ -150,12 +150,12 @@
     {
       "id": "a4aaef27",
       "content": "Redux works best for complex state logic",
-      "votes": 56
+      "votes": 57
     },
     {
       "id": "753adb06",
       "content": "Avoid using Redux for simple local state",
-      "votes": 73
+      "votes": 76
     },
     {
       "id": "a9fd775f",
@@ -216,7 +216,7 @@
     {
       "id": "0644",
       "content": "Hello World from this Redux app",
-      "votes": 53
+      "votes": 54
     }
   ]
 }

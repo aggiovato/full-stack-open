@@ -13,7 +13,7 @@ import { Header2, FormContainer } from "./AnecdoteForm.styles";
 const AnecdoteForm = () => {
   const dispatch = useDispatch();
 
-  const addAnecdote = async (event) => {
+  const addAnecdote = (event) => {
     event.preventDefault();
     const content = event.target.content.value;
 

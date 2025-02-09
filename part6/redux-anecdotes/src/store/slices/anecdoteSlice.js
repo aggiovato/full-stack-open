@@ -29,8 +29,10 @@ const anecdoteSlice = createSlice({
       state.push(action.payload);
     },
     voteAnecdote: (state, action) => {
-      const anecdote = state.find((anecdote) => anecdote.id === action.payload);
-      if (anecdote) anecdote.votes += 1;
+      const anecdote = state.find(
+        (anecdote) => anecdote.id === action.payload.id
+      );
+      if (anecdote) anecdote.votes = action.payload.votes;
 
       state.sort((a, b) => b.votes - a.votes);
     },
@@ -61,6 +63,17 @@ export const createAnecdoteThunk = (content) => {
       dispatch(createAnecdote(anecdote));
     } catch (error) {
       console.error("Error creating anecdote:", error);
+    }
+  };
+};
+
+export const voteAnecdoteThunk = (anecdote) => {
+  return async (dispatch) => {
+    try {
+      const votedAnecdote = await anecdotesService.vote(anecdote);
+      dispatch(voteAnecdote(votedAnecdote));
+    } catch (error) {
+      console.error("Error voting anecdote:", error);
     }
   };
 };
