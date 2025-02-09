@@ -31,7 +31,6 @@
     width="200"
   />
 </div>
----
 
 ## 📂 **Projects in This Section**
 
