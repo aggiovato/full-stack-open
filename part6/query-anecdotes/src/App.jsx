@@ -1,7 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getAnecdotes, voteAnecdote } from "./services/anecdotes";
+import { useQuery } from "@tanstack/react-query";
+import { getAnecdotes } from "./services/anecdotes";
+import { NotificationProvider } from "./contexts/NotificationContext";
 // COMPONENTS
 import AnecdoteForm from "./components/AnecdoteForm";
+import AnecdoteList from "./components/AnecdoteList";
 import Notification from "./components/Notification";
 import Loading from "./components/Loading";
 import Error from "./components/Error";
@@ -20,26 +22,6 @@ const App = () => {
     refetchOnWindowFocus: false,
   });
 
-  const queryClient = useQueryClient();
-
-  const voteAnecdoteMutation = useMutation({
-    mutationFn: voteAnecdote,
-    onSuccess: (updatedAnecdote) => {
-      queryClient.setQueryData(["anecdotes"], (oldAnecdotes) => {
-        if (!oldAnecdotes) return [];
-
-        const newAnecdotes = oldAnecdotes.map((anecdote) =>
-          anecdote.id === updatedAnecdote.id ? updatedAnecdote : anecdote
-        );
-        return newAnecdotes.sort((a, b) => b.votes - a.votes);
-      });
-    },
-  });
-
-  const handleVote = (anecdote) => {
-    voteAnecdoteMutation.mutate(anecdote);
-  };
-
   // Display while loading
   if (isLoading) return <Loading />;
 
@@ -53,33 +35,16 @@ const App = () => {
     );
 
   return (
-    <div>
+    <NotificationProvider>
       <h3 className="text-2xl font-bold">Anecdote app</h3>
 
       <div className="flex flex-col items-center justify-center my-4">
         <Notification />
         <AnecdoteForm />
-        <div className="mt-6" />
-        {anecdotes &&
-          anecdotes.map((anecdote) => (
-            <div
-              className="w-full min-w-xs border border-gray-300 rounded-md shadow-md p-4 my-4"
-              key={anecdote.id}
-            >
-              <div>{anecdote.content}</div>
-              <div className="mt-4 flex items-center justify-end">
-                has {anecdote.votes}{" "}
-                <button
-                  className="bg-gray-500 py-1 px-3 ml-2 rounded-md text-white text-sm shadow-md hover:bg-gray-700"
-                  onClick={() => handleVote(anecdote)}
-                >
-                  vote
-                </button>
-              </div>
-            </div>
-          ))}
+        <hr className="w-full h-[3px] bg-gray-500 rounded-xl border-none my-6" />
+        <AnecdoteList anecdotes={anecdotes} />
       </div>
-    </div>
+    </NotificationProvider>
   );
 };
 
