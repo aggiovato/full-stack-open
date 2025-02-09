@@ -1,33 +1,221 @@
 {
   "anecdotes": [
     {
-      "content": "If it hurts, do it more often",
-      "id": "47145",
+      "id": "2dab437c",
+      "content": "Install Redux using npm or yarn",
+      "votes": 32
+    },
+    {
+      "id": "616294d1",
+      "content": "Understand the Redux store",
+      "votes": 45
+    },
+    {
+      "id": "78fd4268",
+      "content": "Actions define what happens in Redux",
+      "votes": 0,
+      "example": "const increment = () => ({ type: 'INCREMENT' });"
+    },
+    {
+      "id": "df9e4e86",
+      "content": "Reducers specify how the state changes",
+      "votes": 22,
+      "example": "const counterReducer = (state = 0, action) => {\n  switch (action.type) {\n    case 'INCREMENT':\n      return state + 1;\n    default:\n      return state;\n  }\n};"
+    },
+    {
+      "id": "17007f73",
+      "content": "Use combineReducers for multiple reducers",
+      "votes": 2
+    },
+    {
+      "id": "6b40b5ca",
+      "content": "Redux follows a unidirectional data flow",
+      "votes": 48
+    },
+    {
+      "id": "8a4a57a9",
+      "content": "Middleware extends Redux functionality",
       "votes": 0
     },
     {
-      "content": "Adding manpower to a late software project makes it later!",
-      "id": "21149",
+      "id": "91b662af",
+      "content": "Use Redux Thunk for async actions",
+      "votes": 0,
+      "example": "const fetchData = () => async (dispatch) => {\n  const data = await fetch('/api/data').then(res => res.json());\n  dispatch({ type: 'SET_DATA', payload: data });\n};"
+    },
+    {
+      "id": "b2b5021d",
+      "content": "Use Redux Toolkit for simpler state management",
+      "votes": 15
+    },
+    {
+      "id": "7dee56a2",
+      "content": "Dispatch actions to update the state",
       "votes": 0
     },
     {
-      "content": "The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.",
-      "id": "69581",
+      "id": "1325c8d8",
+      "content": "Selectors help extract data from the store",
       "votes": 0
     },
     {
-      "content": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
-      "id": "36975",
+      "id": "e4f64059",
+      "content": "Use the useSelector hook to access state",
+      "votes": 58,
+      "example": "const count = useSelector(state => state.counter);"
+    },
+    {
+      "id": "2feb15c7",
+      "content": "Use the useDispatch hook to send actions",
+      "votes": 50,
+      "example": "const dispatch = useDispatch();\ndispatch(increment());"
+    },
+    {
+      "id": "9e9626dc",
+      "content": "Immutability is key in reducers",
+      "votes": 2
+    },
+    {
+      "id": "4226405d",
+      "content": "Avoid mutating state directly in reducers",
+      "votes": 24
+    },
+    {
+      "id": "8d46e084",
+      "content": "Redux DevTools help debug state changes",
       "votes": 0
     },
     {
-      "content": "Premature optimization is the root of all evil.",
-      "id": "25170",
+      "id": "e8662ce6",
+      "content": "Use createSlice from Redux Toolkit",
+      "votes": 24,
+      "example": "const counterSlice = createSlice({\n  name: 'counter',\n  initialState: 0,\n  reducers: {\n    increment: state => state + 1,\n  }\n});"
+    },
+    {
+      "id": "e1d62e6b",
+      "content": "Normalize state shape for better performance",
       "votes": 0
     },
     {
-      "content": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
-      "id": "98312",
+      "id": "5f39cfb2",
+      "content": "Store global state only, not UI state",
+      "votes": 14
+    },
+    {
+      "id": "3daba661",
+      "content": "Use RTK Query for data fetching",
+      "votes": 27
+    },
+    {
+      "id": "15fb74ad",
+      "content": "Action types should be constants",
+      "votes": 21
+    },
+    {
+      "id": "4fa410b1",
+      "content": "Avoid unnecessary re-renders with memoization",
+      "votes": 0
+    },
+    {
+      "id": "003fa59f",
+      "content": "Use immer.js to simplify reducers",
+      "votes": 12
+    },
+    {
+      "id": "56a6a3f7",
+      "content": "Prefer functional updates in reducers",
+      "votes": 0
+    },
+    {
+      "id": "f05bb5b3",
+      "content": "Use middleware like logger for debugging",
+      "votes": 0
+    },
+    {
+      "id": "0f78289a",
+      "content": "Use async/await inside Thunks",
+      "votes": 28
+    },
+    {
+      "id": "cfbec11f",
+      "content": "Keep Redux logic separate from UI components",
+      "votes": 0
+    },
+    {
+      "id": "0fcffa89",
+      "content": "Persist Redux state with localStorage",
+      "votes": 1,
+      "example": "localStorage.setItem('reduxState', JSON.stringify(store.getState()));"
+    },
+    {
+      "id": "a4aaef27",
+      "content": "Redux works best for complex state logic",
+      "votes": 52
+    },
+    {
+      "id": "753adb06",
+      "content": "Avoid using Redux for simple local state",
+      "votes": 68
+    },
+    {
+      "id": "a9fd775f",
+      "content": "Use Redux Toolkit’s createAsyncThunk",
+      "votes": 26,
+      "example": "const fetchUsers = createAsyncThunk('users/fetch', async () => {\n  const response = await fetch('/api/users');\n  return response.json();\n});"
+    },
+    {
+      "id": "d97df570",
+      "content": "Keep reducers pure and predictable",
+      "votes": 0
+    },
+    {
+      "id": "2c9ce223",
+      "content": "Use redux-saga for complex side effects",
+      "votes": 0
+    },
+    {
+      "id": "9d6b7d8b",
+      "content": "Use Redux only when necessary",
+      "votes": 7
+    },
+    {
+      "id": "c622e1e4",
+      "content": "Understand Redux vs Context API",
+      "votes": 40
+    },
+    {
+      "id": "2c863f74",
+      "content": "Follow the Single Source of Truth principle",
+      "votes": 0
+    },
+    {
+      "id": "530dd80f",
+      "content": "Actions should describe events, not setters",
+      "votes": 13
+    },
+    {
+      "id": "9f87be22",
+      "content": "Use TypeScript with Redux for type safety",
+      "votes": 1
+    },
+    {
+      "id": "838522e6",
+      "content": "Modularize Redux logic into feature slices",
+      "votes": 3
+    },
+    {
+      "id": "e324afa9",
+      "content": "Use entity adapters for handling collections",
+      "votes": 0
+    },
+    {
+      "id": "f74ec599",
+      "content": "Testing Redux logic with Jest",
+      "votes": 1
+    },
+    {
+      "id": "0644",
+      "content": "Hello World from this Redux app",
       "votes": 0
     }
   ]

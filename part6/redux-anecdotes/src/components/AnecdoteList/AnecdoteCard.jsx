@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 // REDUX ACTIONS CREATORS
 import { voteAnecdote } from "../../store/slices/anecdoteSlice";
 import { setNotificationTimeout } from "../../store/slices/notificationSlice";
+import anecdotesService from "../../services/anecdotes";
 
 import CButton from "../customs/CButton";
 import code_logo from "../../assets/CODE.svg";
@@ -17,8 +18,9 @@ import {
 const AnecdoteCard = ({ anecdote }) => {
   const dispatch = useDispatch();
 
-  const handleVote = () => {
-    dispatch(voteAnecdote({ id: anecdote.id }));
+  const handleVote = async () => {
+    const votedAnecdote = await anecdotesService.vote(anecdote);
+    dispatch(voteAnecdote(votedAnecdote.id));
     dispatch(setNotificationTimeout(`You voted >> ${anecdote.content}`));
   };
 
