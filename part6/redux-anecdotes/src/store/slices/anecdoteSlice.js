@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import anecdotesService from "../../services/anecdotes";
 
 const anecdotesAtStart = [
   "If it hurts, do it more often.",
@@ -37,7 +38,21 @@ const anecdoteSlice = createSlice({
   },
 });
 
+// ACTION CREATORS (external functions)
 export const { createAnecdote, voteAnecdote, setAnecdotes } =
   anecdoteSlice.actions;
 
+// THUNK CREATORS
+export const initializeAnecdotes = () => {
+  return async (dispatch) => {
+    try {
+      const anecdotes = await anecdotesService.getAll();
+      dispatch(setAnecdotes(anecdotes));
+    } catch (error) {
+      console.error("Error fetching anecdotes:", error);
+    }
+  };
+};
+
+// REDUCER
 export default anecdoteSlice.reducer;

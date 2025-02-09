@@ -8,7 +8,7 @@
     {
       "id": "616294d1",
       "content": "Understand the Redux store",
-      "votes": 45
+      "votes": 46
     },
     {
       "id": "78fd4268",
@@ -30,7 +30,7 @@
     {
       "id": "6b40b5ca",
       "content": "Redux follows a unidirectional data flow",
-      "votes": 48
+      "votes": 54
     },
     {
       "id": "8a4a57a9",
@@ -61,13 +61,13 @@
     {
       "id": "e4f64059",
       "content": "Use the useSelector hook to access state",
-      "votes": 58,
+      "votes": 59,
       "example": "const count = useSelector(state => state.counter);"
     },
     {
       "id": "2feb15c7",
       "content": "Use the useDispatch hook to send actions",
-      "votes": 50,
+      "votes": 52,
       "example": "const dispatch = useDispatch();\ndispatch(increment());"
     },
     {
@@ -94,7 +94,7 @@
     {
       "id": "e1d62e6b",
       "content": "Normalize state shape for better performance",
-      "votes": 0
+      "votes": 24
     },
     {
       "id": "5f39cfb2",
@@ -150,12 +150,12 @@
     {
       "id": "a4aaef27",
       "content": "Redux works best for complex state logic",
-      "votes": 52
+      "votes": 56
     },
     {
       "id": "753adb06",
       "content": "Avoid using Redux for simple local state",
-      "votes": 68
+      "votes": 73
     },
     {
       "id": "a9fd775f",
@@ -181,7 +181,7 @@
     {
       "id": "c622e1e4",
       "content": "Understand Redux vs Context API",
-      "votes": 40
+      "votes": 41
     },
     {
       "id": "2c863f74",
@@ -191,7 +191,7 @@
     {
       "id": "530dd80f",
       "content": "Actions should describe events, not setters",
-      "votes": 13
+      "votes": 23
     },
     {
       "id": "9f87be22",

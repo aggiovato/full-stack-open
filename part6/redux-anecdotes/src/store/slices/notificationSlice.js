@@ -9,6 +9,10 @@ const notificationSlice = createSlice({
   },
 });
 
+// ACTION CREATORS (external functions)
+export const { setNotification, clearNotification } = notificationSlice.actions;
+
+// THUNK CREATORS
 let timeout = null;
 
 export const setNotificationTimeout = (message, duration = 5000) => {
@@ -26,5 +30,5 @@ export const setNotificationTimeout = (message, duration = 5000) => {
   };
 };
 
-export const { setNotification, clearNotification } = notificationSlice.actions;
+// REDUCER
 export default notificationSlice.reducer;

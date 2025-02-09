@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import anecdotesService from "./services/anecdotes";
-import { setAnecdotes } from "./store/slices/anecdoteSlice";
+import { initializeAnecdotes } from "./store/slices/anecdoteSlice";
 // COMPONENTS
 import Header from "./components/Header";
 import MainContent from "./components/MainContent";
@@ -14,16 +13,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchAnecdotes = async () => {
-      try {
-        const anecdotes = await anecdotesService.getAll();
-        dispatch(setAnecdotes(anecdotes));
-      } catch (error) {
-        console.error("Error fetching anecdotes:", error);
-      }
-    };
-
-    fetchAnecdotes();
+    dispatch(initializeAnecdotes());
   }, []);
 
   return (
