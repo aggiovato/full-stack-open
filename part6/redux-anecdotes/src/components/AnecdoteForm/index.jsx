@@ -21,7 +21,7 @@ const AnecdoteForm = () => {
 
     event.target.content.value = "";
     dispatch(createAnecdoteThunk(content));
-    dispatch(setNotificationTimeout("New anecdote created!"));
+    dispatch(setNotificationTimeout(`New anecdote created! >> ${content}`));
   };
 
   return (
