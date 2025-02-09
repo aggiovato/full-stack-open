@@ -2,7 +2,6 @@
 
 ## 📸 Mini Apps - Mobile Previews
 
-```html
 <div
   style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;"
 >
@@ -32,10 +31,6 @@
     width="200"
   />
 </div>
-```
-
-> 📌 **Note:** Make sure to place the images inside the `images/` folder within the project.
-
 ---
 
 ## 📂 **Projects in This Section**
