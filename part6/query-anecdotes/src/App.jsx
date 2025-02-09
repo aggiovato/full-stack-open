@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { getAnecdotes } from "./services/anecdotes";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getAnecdotes, voteAnecdote } from "./services/anecdotes";
 // COMPONENTS
 import AnecdoteForm from "./components/AnecdoteForm";
 import Notification from "./components/Notification";
@@ -15,9 +15,30 @@ const App = () => {
   } = useQuery({
     queryKey: ["anecdotes"],
     queryFn: getAnecdotes,
+    select: (data) => data.sort((a, b) => b.votes - a.votes),
     retry: false,
     refetchOnWindowFocus: false,
   });
+
+  const queryClient = useQueryClient();
+
+  const voteAnecdoteMutation = useMutation({
+    mutationFn: voteAnecdote,
+    onSuccess: (updatedAnecdote) => {
+      queryClient.setQueryData(["anecdotes"], (oldAnecdotes) => {
+        if (!oldAnecdotes) return [];
+
+        const newAnecdotes = oldAnecdotes.map((anecdote) =>
+          anecdote.id === updatedAnecdote.id ? updatedAnecdote : anecdote
+        );
+        return newAnecdotes.sort((a, b) => b.votes - a.votes);
+      });
+    },
+  });
+
+  const handleVote = (anecdote) => {
+    voteAnecdoteMutation.mutate(anecdote);
+  };
 
   // Display while loading
   if (isLoading) return <Loading />;
@@ -50,7 +71,7 @@ const App = () => {
                 has {anecdote.votes}{" "}
                 <button
                   className="bg-gray-500 py-1 px-3 ml-2 rounded-md text-white text-sm shadow-md hover:bg-gray-700"
-                  onClick={() => console.log("vote")}
+                  onClick={() => handleVote(anecdote)}
                 >
                   vote
                 </button>
