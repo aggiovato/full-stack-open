@@ -16,6 +16,7 @@ const App = () => {
     queryKey: ["anecdotes"],
     queryFn: getAnecdotes,
     retry: false,
+    refetchOnWindowFocus: false,
   });
 
   // Display while loading

@@ -29,6 +29,16 @@
       "content": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
       "id": "98312",
       "votes": 0
+    },
+    {
+      "content": "Hello World from React Query!!",
+      "votes": 0,
+      "id": "OsCqpdh"
+    },
+    {
+      "content": "This is another valid anecdote to check if the new method works",
+      "votes": 0,
+      "id": "2Y9byB3"
     }
   ]
 }
