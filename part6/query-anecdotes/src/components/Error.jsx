@@ -5,7 +5,7 @@ const Error = ({
   return (
     <div className="flex flex-col items-center justify-center text-red-700 px-4">
       <div className="text-6xl">⚠️</div>
-      <h2 className="text-xl font-bold mt-4">{title}</h2>
+      <h2 className="text-xl text-center font-bold mt-4">{title}</h2>
       <p className="mt-2 text-lg text-center max-w-md">{message}</p>
 
       <button

@@ -35,7 +35,9 @@ const AnecdoteCard = ({ anecdote }) => {
       className="relative flex justify-between gap-3 w-full min-w-xs border border-gray-300 rounded-md shadow-md p-4 my-4"
       key={anecdote.id}
     >
-      <div>{anecdote.content}</div>
+      <div className="text-clip break-words hyphens-auto overflow-hidden">
+        {anecdote.content}
+      </div>
 
       <div className="flex flex-col items-center md:flex-row md:justify-end gap-1.5 md:gap-2 self-end">
         <span className="min-w-[70px] text-gray-700 text-sm text-center md:text-end md:order-1">

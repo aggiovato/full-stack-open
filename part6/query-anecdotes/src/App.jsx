@@ -19,6 +19,7 @@ const App = () => {
     queryFn: getAnecdotes,
     select: (data) => data.sort((a, b) => b.votes - a.votes),
     retry: false,
+    refetchOnReconnect: true,
     refetchOnWindowFocus: false,
   });
 

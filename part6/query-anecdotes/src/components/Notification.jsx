@@ -6,7 +6,7 @@ const Notification = () => {
   if (!notification) return null;
 
   return (
-    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-gray-500 text-white py-2 px-4 rounded-md shadow-md z-50">
+    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 min-w-xs bg-gray-500 text-white text-center py-2 px-4 rounded-md shadow-md z-50">
       {notification}
     </div>
   );

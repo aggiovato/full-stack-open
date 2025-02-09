@@ -11,15 +11,26 @@ const AnecdoteForm = () => {
       const anecdotes = queryClient.getQueryData(["anecdotes"]);
       queryClient.setQueryData(["anecdotes"], [...anecdotes, newAnecdote]);
 
-      dispatchNotification({ type: "SHOW", payload: "Created!" });
-      let timeout;
-      timeout = setTimeout(() => {
-        if (timeout) clearTimeout(timeout);
-        dispatchNotification({ type: "HIDE" });
-        timeout = null;
-      }, 5000);
+      showNotification("Created!");
+    },
+    onError: (error) => {
+      const errorMessage =
+        error.response?.data?.error ||
+        error.message ||
+        "Failed to create anecdote";
+      showNotification(errorMessage);
     },
   });
+
+  const showNotification = (message) => {
+    dispatchNotification({ type: "SHOW", payload: message });
+    let timeout;
+    timeout = setTimeout(() => {
+      if (timeout) clearTimeout(timeout);
+      dispatchNotification({ type: "HIDE" });
+      timeout = null;
+    }, 5000);
+  };
 
   const onCreate = (event) => {
     event.preventDefault();
