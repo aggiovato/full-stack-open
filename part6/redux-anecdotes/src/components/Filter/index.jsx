@@ -10,7 +10,6 @@ const Filter = () => {
   return (
     <div className="shadow-md shadow-slate-300 rounded-md">
       <CInput
-        className="bg-white"
         name="filter"
         placeholder="Filter anecdotes..."
         value={filter}
