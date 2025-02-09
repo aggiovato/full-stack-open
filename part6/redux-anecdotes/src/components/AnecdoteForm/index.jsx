@@ -1,8 +1,7 @@
 import { useDispatch } from "react-redux";
 // REDUX ACTIONS CREATORS
-import { createAnecdote } from "../../store/slices/anecdoteSlice";
+import { createAnecdoteThunk } from "../../store/slices/anecdoteSlice";
 import { setNotificationTimeout } from "../../store/slices/notificationSlice";
-import anecdotesService from "../../services/anecdotes";
 
 import CInput from "../customs/CInput";
 import CButton from "../customs/CButton";
@@ -21,8 +20,7 @@ const AnecdoteForm = () => {
     if (!content) return;
 
     event.target.content.value = "";
-    const anecodote = await anecdotesService.createNew(content);
-    dispatch(createAnecdote(anecodote));
+    dispatch(createAnecdoteThunk(content));
     dispatch(setNotificationTimeout("New anecdote created!"));
   };
 

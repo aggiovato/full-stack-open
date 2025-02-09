@@ -54,5 +54,16 @@ export const initializeAnecdotes = () => {
   };
 };
 
+export const createAnecdoteThunk = (content) => {
+  return async (dispatch) => {
+    try {
+      const anecdote = await anecdotesService.createNew(content);
+      dispatch(createAnecdote(anecdote));
+    } catch (error) {
+      console.error("Error creating anecdote:", error);
+    }
+  };
+};
+
 // REDUCER
 export default anecdoteSlice.reducer;
