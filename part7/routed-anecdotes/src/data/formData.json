@@ -1,0 +1,17 @@
+[
+  {
+    "name": "content",
+    "label": "Content",
+    "type": "text"
+  },
+  {
+    "name": "author",
+    "label": "Author",
+    "type": "text"
+  },
+  {
+    "name": "info",
+    "label": "URL for more info",
+    "type": "text"
+  }
+]
