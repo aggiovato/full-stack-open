@@ -1,24 +1,47 @@
-import { useState } from "react";
+/***** HOOKS *****/
+import useField from "../hooks/useField";
 
 const CreateNew = ({ addNew }) => {
-  const [content, setContent] = useState("");
-  const [author, setAuthor] = useState("");
-  const [info, setInfo] = useState("");
+  const content = useField("text");
+  const author = useField("text");
+  const info = useField("text");
 
   const formData = [
-    { name: "content", label: "Content", value: content, fnSate: setContent },
-    { name: "author", label: "Author", value: author, fnSate: setAuthor },
-    { name: "info", label: "URL for more info", value: info, fnSate: setInfo },
+    {
+      name: "content",
+      label: "Content",
+      value: content.value,
+      fnSate: content.onChange,
+    },
+    {
+      name: "author",
+      label: "Author",
+      value: author.value,
+      fnSate: author.onChange,
+    },
+    {
+      name: "info",
+      label: "URL for more info",
+      value: info.value,
+      fnSate: info.onChange,
+    },
   ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!(content.length > 0 && author.length > 0 && info.length > 0)) return;
+    if (
+      !(
+        content.value.length > 0 &&
+        author.value.length > 0 &&
+        info.value.length > 0
+      )
+    )
+      return;
 
     addNew({
-      content,
-      author,
-      info,
+      content: content.value,
+      author: author.value,
+      info: info.value,
       votes: 0,
     });
   };
@@ -37,7 +60,7 @@ const CreateNew = ({ addNew }) => {
             <input
               name={item.name}
               value={item.value}
-              onChange={(e) => item.fnSate(e.target.value)}
+              onChange={item.fnSate}
               className="min-w-sm px-2 py-2 mb-2 border-2 border-slate-400 rounded-md shadow-sm focus:outline-none focus:border-amber-200 focus:shadow-outline-blue focus:ring-2 focus:ring-amber-100"
             />
           </div>
