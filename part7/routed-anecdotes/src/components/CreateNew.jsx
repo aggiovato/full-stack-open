@@ -13,6 +13,7 @@ const CreateNew = ({ addNew }) => {
 
   const data = formData.map((item) => ({
     ...item,
+    type: fieldsObj[item.name].type,
     value: fieldsObj[item.name].value,
     fnSate: fieldsObj[item.name].onChange,
   }));
@@ -47,6 +48,7 @@ const CreateNew = ({ addNew }) => {
             <input
               name={item.name}
               value={item.value}
+              type={item.type}
               onChange={item.fnSate}
               className="min-w-sm px-2 py-2 mb-2 border-2 border-slate-400 rounded-md shadow-sm focus:outline-none focus:border-amber-200 focus:shadow-outline-blue focus:ring-2 focus:ring-amber-100"
             />
